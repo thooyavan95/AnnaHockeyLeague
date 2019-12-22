@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Anna Hockey League</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

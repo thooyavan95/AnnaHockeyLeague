@@ -4,9 +4,7 @@ import org.bson.types.ObjectId;
 
 public class PointsTable {
 
-    private ObjectId teamId;
-    private String teamName;
-    private String teamLogo;
+
     private int position;
     private int points;
     private int goalScored;
@@ -16,30 +14,14 @@ public class PointsTable {
     private int won;
     private int draw;
     private int lost;
+    private Team team;
 
-
-    public ObjectId getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(ObjectId teamId) {
-        this.teamId = teamId;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public String getTeamLogo() {
-        return teamLogo;
-    }
-
-    public void setTeamLogo(String teamLogo) {
-        this.teamLogo = teamLogo;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public int getPosition() {

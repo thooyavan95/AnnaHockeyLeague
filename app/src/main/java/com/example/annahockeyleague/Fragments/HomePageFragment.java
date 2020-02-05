@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.example.annahockeyleague.Interfaces.ViewInterface;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.Presenter;
 import com.example.annahockeyleague.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -148,7 +150,8 @@ public class HomePageFragment extends Fragment implements ViewInterface {
                         ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2Name());
                         ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Goal());
                         ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Goal());
-
+                        Picasso.get().load(R.drawable.sample_kumble).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                        Picasso.get().load(R.drawable.kumble_big).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
                     } else {
 
                         Log.d(TAG,"updating ui with previous match details women");
@@ -159,6 +162,8 @@ public class HomePageFragment extends Fragment implements ViewInterface {
                         ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2Name());
                         ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Goal());
                         ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Goal());
+                        Picasso.get().load(R.drawable.women_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                        Picasso.get().load(R.drawable.women_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
 
                     }
 

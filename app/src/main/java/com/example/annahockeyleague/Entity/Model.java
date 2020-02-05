@@ -68,9 +68,9 @@ public class Model  {
 
                 AnnaHockeyLeague.setTournamentId(tournament.getId());
 
-                getFixturesData(config);
-                getPointsTableData(config);
-                getTopScorersData(config);
+//                getFixturesData(config);
+////                getPointsTableData(config);
+////                getTopScorersData(config);
 
             }
         });
@@ -115,7 +115,7 @@ public class Model  {
                 Type founderListType = new TypeToken<ArrayList<Fixtures>>(){}.getType();
                 ArrayList<Fixtures> foundList = gson.fromJson(responseFromServer, founderListType);
 
-                Log.d("obj",foundList.get(0).toString());
+//                Log.d("obj",foundList.get(0).toString());
 
                 modelInterface.fixtureDataCollected(foundList);
             }
@@ -203,7 +203,7 @@ public class Model  {
                 Type founderListType = new TypeToken<ArrayList<TopScorers>>(){}.getType();
                 ArrayList<TopScorers> foundList = gson.fromJson(responseFromServer, founderListType);
 
-                Log.d("obj",foundList.get(0).toString());
+//                Log.d("obj",foundList.get(0).toString());
 
                 modelInterface.topScorersDataCollected(foundList);
 

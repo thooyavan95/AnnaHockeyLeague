@@ -1,17 +1,23 @@
 package com.example.annahockeyleague;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
+import com.example.annahockeyleague.Fragments.HomePage;
+import com.example.annahockeyleague.Fragments.HomePageFragment;
+import com.example.annahockeyleague.Fragments.TeamFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    public FragmentAdapter adapter;
     private static final String TAG = "Main Activity";
 
     @Override
@@ -21,22 +27,39 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG,"On create");
         initViews();
-
     }
 
     public void initViews()
     {
         Log.d(TAG,"method initviews");
-        TabLayout tabs;
-        ViewPager viewPager;
 
-        tabs = findViewById(R.id.home_tabLayout);
-        viewPager = findViewById(R.id.home_viewpager);
-        viewPager.setOffscreenPageLimit(10);
+        BottomNavigationView bottomNav = findViewById(R.id.home_bottom_nav);
+        bottomNav.setOnNavigationItemSelectedListener(this);
 
-        adapter = new FragmentAdapter(getSupportFragmentManager());
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.main_activity_container, new HomePage())
+                .commit();
 
-        viewPager.setAdapter(adapter);
-        tabs.setupWithViewPager(viewPager);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch (menuItem.getItemId()){
+
+            case R.id.bottom_nav_home:
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new HomePageFragment()).commit();
+                return true;
+            case R.id.bottom_nav_team:
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamFragment()).commit();
+                return true;
+
+            default:
+                return true;
+
+        }
     }
 }

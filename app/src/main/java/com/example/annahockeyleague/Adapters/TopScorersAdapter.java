@@ -16,6 +16,7 @@ import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.R;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.ArrayList;
 
 public class TopScorersAdapter extends ArrayAdapter<TopScorers> {
@@ -46,7 +47,7 @@ public class TopScorersAdapter extends ArrayAdapter<TopScorers> {
 //        ((TextView) convertView.findViewById(R.id.top_scorer_team)).setText(scorersData.getTeamName());
         ((TextView) convertView.findViewById(R.id.top_scorer_goals)).setText(String.valueOf(scorersData.getGoals()));
 
-//        Picasso.get().load("url").into((ImageView) convertView.findViewById(R.id.top_scorer_avatar));
+        Picasso.get().load(R.drawable.sample_kumble).into((ImageView) convertView.findViewById(R.id.top_scorer_avatar));
 
         return convertView;
 

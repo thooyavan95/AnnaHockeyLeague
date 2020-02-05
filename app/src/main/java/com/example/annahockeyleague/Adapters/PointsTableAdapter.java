@@ -41,7 +41,7 @@ public class PointsTableAdapter extends ArrayAdapter<PointsTable> {
         PointsTable pointsData = getItem(position);
 
         ((TextView) convertView.findViewById(R.id.PT_row_position)).setText(String.valueOf(pointsData.getPosition()));
-        ((TextView) convertView.findViewById(R.id.PT_row_team_name)).setText(pointsData.getTeamName());
+//        ((TextView) convertView.findViewById(R.id.PT_row_team_name)).setText(pointsData.getTeam().getTeamTag().getShortTeamName());
         ((TextView) convertView.findViewById(R.id.PT_row_win)).setText(String.valueOf(pointsData.getWon()));
         ((TextView) convertView.findViewById(R.id.PT_row_loss)).setText(String.valueOf(pointsData.getLost()));
         ((TextView) convertView.findViewById(R.id.PT_row_draw)).setText(String.valueOf(pointsData.getDraw()));

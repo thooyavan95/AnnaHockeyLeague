@@ -1,10 +1,11 @@
-package com.example.annahockeyleague.Entity;
+package com.example.annahockeyleague.Fragments.HomeFragment;
 
 import android.util.Log;
 
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
-import com.example.annahockeyleague.Interfaces.ModelInterface;
-import com.example.annahockeyleague.Interfaces.ViewInterface;
+import com.example.annahockeyleague.Entity.Fixtures;
+import com.example.annahockeyleague.Entity.PointsTable;
+import com.example.annahockeyleague.Entity.TopScorers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,23 +13,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Presenter implements ModelInterface {
+public class HomePresenter implements HomeModelInterface {
 
-    private Model model;
-    private ViewInterface viewInterface;
-    private static final String TAG = "Presenter";
+    private HomeModel homeModel;
+    private HomeViewInterface homeViewInterface;
+    private static final String TAG = "HomePresenter";
 
-    public Presenter(ViewInterface viewInterface)
+    public HomePresenter(HomeViewInterface homeViewInterface)
     {
         Log.d(TAG,"presenter constructor");
-        this.viewInterface = viewInterface;
-        model = new Model(Presenter.this);
+        this.homeViewInterface = homeViewInterface;
+        homeModel = new HomeModel(HomePresenter.this);
     }
 
     public void fetchData(FragmentConfig config)
     {
         Log.d(TAG,"method fetch data");
-        model.beginDataCollection(config);
+        homeModel.beginDataCollection(config);
     }
 
 
@@ -46,7 +47,7 @@ public class Presenter implements ModelInterface {
     public void pointsTableDataCollected(ArrayList<PointsTable> data) {
 
         Log.d(TAG, "method points table data collected");
-        viewInterface.setPointsTable(data);
+        homeViewInterface.setPointsTable(data);
 
     }
 
@@ -54,14 +55,14 @@ public class Presenter implements ModelInterface {
     public void topScorersDataCollected(ArrayList<TopScorers> data) {
 
         Log.d(TAG, "method tpo scorer data collected");
-        viewInterface.setTopScorers(data);
+        homeViewInterface.setTopScorers(data);
 
     }
 
     @Override
     public void dataCollectionFailure(Exception e) {
         Log.d(TAG, "method data collection failed");
-        viewInterface.setFailureToast(e);
+        homeViewInterface.setFailureToast(e);
     }
 
 
@@ -87,7 +88,7 @@ public class Presenter implements ModelInterface {
             }
         }
 
-        viewInterface.setNextMatchFixture(nextMatchData, milliSecToDate(nextMatchData), milliSecToTime(nextMatchData));
+        homeViewInterface.setNextMatchFixture(nextMatchData, milliSecToDate(nextMatchData), milliSecToTime(nextMatchData));
 
     }
 
@@ -114,7 +115,7 @@ public class Presenter implements ModelInterface {
             }
         }
 
-        viewInterface.setPrevoiusMatchFixture(previousMatchData, milliSecToDate(previousMatchData), milliSecToTime(previousMatchData));
+        homeViewInterface.setPrevoiusMatchFixture(previousMatchData, milliSecToDate(previousMatchData), milliSecToTime(previousMatchData));
 
     }
 

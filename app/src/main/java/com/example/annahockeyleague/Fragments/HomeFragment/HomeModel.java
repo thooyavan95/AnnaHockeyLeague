@@ -1,10 +1,15 @@
-package com.example.annahockeyleague.Entity;
+package com.example.annahockeyleague.Fragments.HomeFragment;
 
 import android.util.Log;
 
 import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
-import com.example.annahockeyleague.Interfaces.ModelInterface;
+import com.example.annahockeyleague.Entity.AnnaHockeyLeague;
+import com.example.annahockeyleague.Entity.Fixtures;
+import com.example.annahockeyleague.Entity.PointsTable;
+import com.example.annahockeyleague.Entity.TopScorers;
+import com.example.annahockeyleague.Entity.Tournament;
+import com.example.annahockeyleague.Fragments.HomeFragment.HomeModelInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,10 +27,10 @@ import okhttp3.Response;
 
 import static com.example.annahockeyleague.Entity.AnnaHockeyLeague.tournamentId;
 
-public class Model  {
+public class HomeModel {
 
-    private ModelInterface modelInterface;
-    private static final String TAG = "Model";
+    private HomeModelInterface homeModelInterface;
+    private static final String TAG = "HomeModel";
     public static final String DNS = "https://young-coast-02878.herokuapp.com/api/";
     private Gson gson;
 
@@ -33,10 +38,10 @@ public class Model  {
     private OkHttpClient beginDataCollection;
 
 
-    public Model(ModelInterface modelInterface)
+    public HomeModel(HomeModelInterface homeModelInterface)
     {
-        Log.d(TAG,"Model constructor");
-        this.modelInterface = modelInterface;
+        Log.d(TAG,"HomeModel constructor");
+        this.homeModelInterface = homeModelInterface;
         beginDataCollection = new OkHttpClient();
         gson = new Gson();
     }
@@ -54,7 +59,7 @@ public class Model  {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG,"tournament api call failed");
-                modelInterface.dataCollectionFailure(e);
+                homeModelInterface.dataCollectionFailure(e);
             }
 
             @Override
@@ -102,7 +107,7 @@ public class Model  {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG,"fixture api called failed");
-                modelInterface.dataCollectionFailure(e);
+                homeModelInterface.dataCollectionFailure(e);
             }
 
             @Override
@@ -117,7 +122,7 @@ public class Model  {
 
 //                Log.d("obj",foundList.get(0).toString());
 
-                modelInterface.fixtureDataCollected(foundList);
+                homeModelInterface.fixtureDataCollected(foundList);
             }
         });
     }
@@ -143,7 +148,7 @@ public class Model  {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.d(TAG,"points table api called failed");
-                    modelInterface.dataCollectionFailure(e);
+                    homeModelInterface.dataCollectionFailure(e);
                 }
 
                 @Override
@@ -159,7 +164,7 @@ public class Model  {
 
                     Log.d("obj",foundList.get(0).toString());
 
-                    modelInterface.pointsTableDataCollected(foundList);
+                    homeModelInterface.pointsTableDataCollected(foundList);
 
                 }
             });
@@ -205,7 +210,7 @@ public class Model  {
 
 //                Log.d("obj",foundList.get(0).toString());
 
-                modelInterface.topScorersDataCollected(foundList);
+                homeModelInterface.topScorersDataCollected(foundList);
 
             }
         });

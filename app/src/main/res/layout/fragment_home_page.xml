@@ -1,515 +1,516 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_view"
-    android:layout_height="wrap_content">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:id="@+id/constraint_head"
-        android:background="@color/colorWhisper"
+        android:id="@+id/scroll_view"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/next_match_fixtures_cardview"
-            style="@style/DefaultCardMargin"
+        <androidx.constraintlayout.widget.ConstraintLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/constraint_head">
+            android:id="@+id/constraint_head"
+            android:background="@color/colorWhisper"
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/next_match_team1_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    app:layout_constraintEnd_toStartOf="@+id/next_match_team1_score"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date"
-                    app:srcCompat="@drawable/griffinz" />
-
-                <ImageView
-                    android:id="@+id/next_match_team2_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/next_match_team2_score"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time"
-                    app:srcCompat="@drawable/bluz" />
-
-                <TextView
-                    android:id="@+id/next_match_fixture_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorSnow"
-                    android:paddingStart="16dp"
-                    android:paddingTop="8dp"
-                    android:textAlignment="textStart"
-                    app:layout_constraintEnd_toStartOf="@+id/next_match_fixture_time"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/next_match_fixture_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorSnow"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="16dp"
-                    android:textAlignment="textEnd"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/next_match_fixture_date"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/next_match_team2_score"
-                    android:layout_width="14dp"
-                    android:layout_height="33dp"
-                    android:layout_marginTop="32dp"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toStartOf="@+id/next_match_team2_image"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/next_match_fixture_colon"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time" />
-
-                <TextView
-                    android:id="@+id/next_match_fixture_colon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text=":"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toStartOf="@+id/next_match_team2_score"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/next_match_team1_score"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date" />
-
-                <TextView
-                    android:id="@+id/next_match_team1_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toStartOf="@+id/next_match_fixture_colon"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/next_match_team1_image"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date" />
-
-                <TextView
-                    android:id="@+id/next_match_team1_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/next_match_team1_image"
-                    app:layout_constraintStart_toStartOf="@+id/next_match_team1_image"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_team1_image" />
-
-                <TextView
-                    android:id="@+id/next_match_team2_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/next_match_team2_image"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/next_match_team2_image"
-                    app:layout_constraintTop_toBottomOf="@+id/next_match_team2_image" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/previous_match_fixture_cardview"
-            style="@style/DefaultCardMargin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/next_match_fixtures_cardview">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/previous_match_team1_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    app:layout_constraintEnd_toStartOf="@+id/previous_match_team1_score"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date"
-                    app:srcCompat="@drawable/griffinz" />
-
-                <ImageView
-                    android:id="@+id/previous_match_team2_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/previous_match_team2_score"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time"
-                    app:srcCompat="@drawable/bluz" />
-
-                <ImageView
-                    android:id="@+id/previous_match__budding_player_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match_team1_name"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match_team1_name"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name"
-                     />
-
-                <ImageView
-                    android:id="@+id/previous_match__man_of_the_match_image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match_team2_name"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match_team2_name"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_name"
-                     />
-
-                <TextView
-                    android:id="@+id/previous_match_fixture_date"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="#FAFAFA"
-                    android:paddingStart="16dp"
-                    android:paddingTop="8dp"
-                    android:textAlignment="textStart"
-                    app:layout_constraintEnd_toStartOf="@+id/previous_match_fixture_time"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/previous_match_fixture_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="#FAFAFA"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="16dp"
-                    android:textAlignment="textEnd"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/previous_match_fixture_date"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/previous_match_team2_score"
-                    android:layout_width="14dp"
-                    android:layout_height="38dp"
-                    android:layout_marginTop="32dp"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_image"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/previous_match_fixture_colon"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time" />
-
-                <TextView
-                    android:id="@+id/previous_match_fixture_colon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:text=":"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_score"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/previous_match_team1_score"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date" />
-
-                <TextView
-                    android:id="@+id/previous_match_team1_score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toStartOf="@+id/previous_match_fixture_colon"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/previous_match_team1_image"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date" />
-
-                <TextView
-                    android:id="@+id/previous_match_team1_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match_team1_image"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match_team1_image"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_image" />
-
-                <TextView
-                    android:id="@+id/previous_match_team2_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match_team2_image"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match_team2_image"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_image" />
-
-                <TextView
-                    android:id="@+id/previous_match_budding_player_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match__budding_player_image"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match__budding_player_image"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match__budding_player_image" />
-
-                <TextView
-                    android:id="@+id/previous_match_man_of_the_match_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match__man_of_the_match_image"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match__man_of_the_match_image"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match__man_of_the_match_image" />
-
-                <TextView
-                    android:id="@+id/budding_player"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="Budding Player"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match_budding_player_name"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match_budding_player_name"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_budding_player_name" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="7dp"
-                    android:background="#F5F5F5"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@+id/budding_player"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name" />
-
-                <TextView
-                    android:id="@+id/man_of_the_match"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="Man Of the Match"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/previous_match_man_of_the_match_name"
-                    app:layout_constraintStart_toStartOf="@+id/previous_match_man_of_the_match_name"
-                    app:layout_constraintTop_toBottomOf="@+id/previous_match_man_of_the_match_name" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/points_table_cardview"
-            style="@style/DefaultCardMargin"
-            app:layout_constraintTop_toBottomOf="@id/previous_match_fixture_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="462dp">
-
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/next_match_fixtures_cardview"
+                style="@style/DefaultCardMargin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/constraint_head">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:id="@+id/points_table_header_constraint"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-                    <TextView
-
-                        android:id="@+id/points_table_header_team_logo"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:text="LO"
-                        android:textSize="16sp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_team_name"
+                    <ImageView
+                        android:id="@+id/next_match_team1_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:layout_constraintEnd_toStartOf="@+id/next_match_team1_score"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_position"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date"
+                        app:srcCompat="@drawable/griffinz" />
 
-                    <TextView
-                        android:id="@+id/points_table_header_win"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:text="W"
-                        android:textAlignment="textEnd"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_loss"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_matches_played"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                    <TextView
-                        android:id="@+id/points_table_header_loss"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:text="L"
-                        android:textAlignment="textEnd"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_draw"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_win"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                    <TextView
-                        android:id="@+id/points_table_header_draw"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:text="D"
-                        android:textAlignment="textEnd"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_goalDiff"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_loss"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                    <TextView
-                        android:id="@+id/points_table_header_goalDiff"
-                        android:layout_width="36dp"
-                        android:layout_height="wrap_content"
-                        android:text="GD"
-                        android:textAlignment="textEnd"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_points"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_draw"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                    <TextView
-                        android:id="@+id/points_table_header_points"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:text="PT"
-                        android:textAlignment="textEnd"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <ImageView
+                        android:id="@+id/next_match_team2_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_goalDiff"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+                        app:layout_constraintStart_toEndOf="@+id/next_match_team2_score"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time"
+                        app:srcCompat="@drawable/bluz" />
 
                     <TextView
-                        android:id="@+id/points_table_header_position"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/next_match_fixture_date"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="P"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_team_logo"
-                        app:layout_constraintHorizontal_chainStyle="spread"
+                        android:background="@color/colorSnow"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:textAlignment="textStart"
+                        app:layout_constraintEnd_toStartOf="@+id/next_match_fixture_time"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/points_table_header_team_name"
-                        android:layout_width="36dp"
+                        android:id="@+id/next_match_fixture_time"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="TT"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_matches_played"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_team_logo"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                    <TextView
-                        android:id="@+id/points_table_header_matches_played"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:text="P"
+                        android:background="@color/colorSnow"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="16dp"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/points_table_header_win"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/points_table_header_team_name"
-                        app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+                        app:layout_constraintStart_toEndOf="@+id/next_match_fixture_date"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/points_table_header_guideline"
+                    <TextView
+                        android:id="@+id/next_match_team2_score"
+                        android:layout_width="14dp"
+                        android:layout_height="33dp"
+                        android:layout_marginTop="32dp"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toStartOf="@+id/next_match_team2_image"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/next_match_fixture_colon"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time" />
+
+                    <TextView
+                        android:id="@+id/next_match_fixture_colon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.0" />
+                        android:layout_marginTop="32dp"
+                        android:text=":"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toStartOf="@+id/next_match_team2_score"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/next_match_team1_score"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date" />
+
+                    <TextView
+                        android:id="@+id/next_match_team1_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toStartOf="@+id/next_match_fixture_colon"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/next_match_team1_image"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date" />
+
+                    <TextView
+                        android:id="@+id/next_match_team1_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/next_match_team1_image"
+                        app:layout_constraintStart_toStartOf="@+id/next_match_team1_image"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_team1_image" />
+
+                    <TextView
+                        android:id="@+id/next_match_team2_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/next_match_team2_image"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/next_match_team2_image"
+                        app:layout_constraintTop_toBottomOf="@+id/next_match_team2_image" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/previous_match_fixture_cardview"
+                style="@style/DefaultCardMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/next_match_fixtures_cardview">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/previous_match_team1_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:layout_constraintEnd_toStartOf="@+id/previous_match_team1_score"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date"
+                        app:srcCompat="@drawable/griffinz" />
+
+                    <ImageView
+                        android:id="@+id/previous_match_team2_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/previous_match_team2_score"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time"
+                        app:srcCompat="@drawable/bluz" />
+
+                    <ImageView
+                        android:id="@+id/previous_match__budding_player_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match_team1_name"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match_team1_name"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name"
+                        />
+
+                    <ImageView
+                        android:id="@+id/previous_match__man_of_the_match_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match_team2_name"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match_team2_name"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_name"
+                        />
+
+                    <TextView
+                        android:id="@+id/previous_match_fixture_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#FAFAFA"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:textAlignment="textStart"
+                        app:layout_constraintEnd_toStartOf="@+id/previous_match_fixture_time"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/previous_match_fixture_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#FAFAFA"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="16dp"
+                        android:textAlignment="textEnd"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/previous_match_fixture_date"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/previous_match_team2_score"
+                        android:layout_width="14dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="32dp"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_image"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/previous_match_fixture_colon"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time" />
+
+                    <TextView
+                        android:id="@+id/previous_match_fixture_colon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text=":"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_score"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/previous_match_team1_score"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date" />
+
+                    <TextView
+                        android:id="@+id/previous_match_team1_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toStartOf="@+id/previous_match_fixture_colon"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/previous_match_team1_image"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date" />
+
+                    <TextView
+                        android:id="@+id/previous_match_team1_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match_team1_image"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match_team1_image"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_image" />
+
+                    <TextView
+                        android:id="@+id/previous_match_team2_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match_team2_image"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match_team2_image"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_image" />
+
+                    <TextView
+                        android:id="@+id/previous_match_budding_player_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match__budding_player_image"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match__budding_player_image"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match__budding_player_image" />
+
+                    <TextView
+                        android:id="@+id/previous_match_man_of_the_match_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match__man_of_the_match_image"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match__man_of_the_match_image"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match__man_of_the_match_image" />
+
+                    <TextView
+                        android:id="@+id/budding_player"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Budding Player"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match_budding_player_name"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match_budding_player_name"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_budding_player_name" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="#F5F5F5"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/budding_player"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name" />
+
+                    <TextView
+                        android:id="@+id/man_of_the_match"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Man Of the Match"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/previous_match_man_of_the_match_name"
+                        app:layout_constraintStart_toStartOf="@+id/previous_match_man_of_the_match_name"
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_man_of_the_match_name" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/points_table_cardview"
+                style="@style/DefaultCardMargin"
+                app:layout_constraintTop_toBottomOf="@id/previous_match_fixture_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="462dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/points_table_header_constraint"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:id="@+id/points_table_header_team_logo"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="LO"
+                            android:textSize="16sp"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_team_name"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_position"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_win"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:text="W"
+                            android:textAlignment="textEnd"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_loss"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_matches_played"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_loss"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:text="L"
+                            android:textAlignment="textEnd"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_draw"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_win"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_draw"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:text="D"
+                            android:textAlignment="textEnd"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_goalDiff"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_loss"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_goalDiff"
+                            android:layout_width="36dp"
+                            android:layout_height="wrap_content"
+                            android:text="GD"
+                            android:textAlignment="textEnd"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_points"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_draw"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_points"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:text="PT"
+                            android:textAlignment="textEnd"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_goalDiff"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_position"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="P"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_team_logo"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_team_name"
+                            android:layout_width="36dp"
+                            android:layout_height="wrap_content"
+                            android:text="TT"
+                            android:textAlignment="center"
+                            android:textSize="16sp"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_matches_played"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_team_logo"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <TextView
+                            android:id="@+id/points_table_header_matches_played"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:text="P"
+                            android:textAlignment="textEnd"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_win"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/points_table_header_team_name"
+                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/points_table_header_guideline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.0" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"/>
+
+                    <ListView
+                        android:id="@+id/points_table_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ListView>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/top_scorers_cardview"
+                style="@style/DefaultCardMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/points_table_cardview">
 
                 <ListView
-                    android:id="@+id/points_table_listview"
+                    android:id="@+id/top_scorers_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </ListView>
+                    android:layout_height="match_parent" />
 
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/top_scorers_cardview"
-            style="@style/DefaultCardMargin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/points_table_cardview">
-
-            <ListView
-                android:id="@+id/top_scorers_listview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+    </ScrollView>

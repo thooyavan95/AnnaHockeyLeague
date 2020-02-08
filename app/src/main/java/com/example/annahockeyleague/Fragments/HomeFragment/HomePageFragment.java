@@ -1,10 +1,11 @@
-package com.example.annahockeyleague.Fragments;
+package com.example.annahockeyleague.Fragments.HomeFragment;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,20 +17,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.annahockeyleague.Adapters.FragmentAdapter;
 import com.example.annahockeyleague.Adapters.PointsTableAdapter;
 import com.example.annahockeyleague.Adapters.TopScorersAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
-import com.example.annahockeyleague.Interfaces.ViewInterface;
 import com.example.annahockeyleague.Entity.Fixtures;
-import com.example.annahockeyleague.Entity.Presenter;
 import com.example.annahockeyleague.R;
+import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
-public class HomePageFragment extends Fragment implements ViewInterface {
+public class HomePageFragment extends Fragment implements HomeViewInterface {
 
     private FragmentConfig config;
     private static final String TAG = "HomePageFragment";
@@ -56,13 +58,13 @@ public class HomePageFragment extends Fragment implements ViewInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Log.d(TAG,"onViewCreated");
 
-        Presenter presenter = new Presenter(HomePageFragment.this);
+        HomePresenter presenter = new HomePresenter(HomePageFragment.this);
 
         getHomePageDataFromServer(presenter);
     }
 
 
-    private void getHomePageDataFromServer(Presenter presenter) {
+    private void getHomePageDataFromServer(HomePresenter presenter) {
         Log.d(TAG,"method get home page data from server");
         presenter.fetchData(config);
     }

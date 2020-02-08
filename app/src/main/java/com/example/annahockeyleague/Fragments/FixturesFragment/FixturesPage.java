@@ -1,4 +1,4 @@
-package com.example.annahockeyleague.Fragments;
+package com.example.annahockeyleague.Fragments.FixturesFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,21 +11,20 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
+import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class HomePage extends Fragment {
+public class FixturesPage extends Fragment {
 
-    public HomePage()
-    {
+    public FixturesPage() {
 
     }
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_page,container,false);
+        return inflater.inflate(R.layout.home_page, container, false);
     }
 
     @Override
@@ -34,14 +33,16 @@ public class HomePage extends Fragment {
         TabLayout tabs;
         ViewPager viewPager;
 
-        tabs = getView().findViewById(R.id.home_tabLayout);
-        viewPager = getView().findViewById(R.id.home_viewpager);
+        tabs = getView().findViewById(R.id.tabLayout);
+        viewPager = getView().findViewById(R.id.viewpager);
 
-        FragmentAdapter adapter = new FragmentAdapter(getFragmentManager());
+        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.FIXTURES);
 
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
 
     }
+
+
 
 }

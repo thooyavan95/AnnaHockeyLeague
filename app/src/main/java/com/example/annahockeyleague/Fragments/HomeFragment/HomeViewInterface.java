@@ -1,4 +1,4 @@
-package com.example.annahockeyleague.Interfaces;
+package com.example.annahockeyleague.Fragments.HomeFragment;
 
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
@@ -6,7 +6,7 @@ import com.example.annahockeyleague.Entity.TopScorers;
 
 import java.util.ArrayList;
 
-public interface ViewInterface {
+public interface HomeViewInterface {
 
     void setNextMatchFixture(Fixtures data, String date, String time);
 

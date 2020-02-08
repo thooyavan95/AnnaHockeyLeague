@@ -2,19 +2,18 @@ package com.example.annahockeyleague;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.annahockeyleague.Adapters.FragmentAdapter;
-import com.example.annahockeyleague.Fragments.HomePage;
-import com.example.annahockeyleague.Fragments.HomePageFragment;
-import com.example.annahockeyleague.Fragments.TeamFragment;
+import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesFragment;
+import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesPage;
+import com.example.annahockeyleague.Fragments.HomeFragment.HomePage;
+import com.example.annahockeyleague.Fragments.HomeFragment.HomePageFragment;
+import com.example.annahockeyleague.Fragments.TeamFragment.TeamFragment;
+import com.example.annahockeyleague.Fragments.TeamFragment.TeamPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -50,11 +49,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.bottom_nav_home:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new HomePageFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new HomePage()).commit();
                 return true;
             case R.id.bottom_nav_team:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamPage()).commit();
+                return true;
+
+            case R.id.bottom_nav_fixtures:
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new FixturesPage()).commit();
                 return true;
 
             default:

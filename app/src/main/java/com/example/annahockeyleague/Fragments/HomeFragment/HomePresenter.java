@@ -37,9 +37,11 @@ public class HomePresenter implements HomeModelInterface {
     public void fixtureDataCollected(ArrayList<Fixtures> data) {
 
         Log.d(TAG, "method fixture data collected");
+
         findNextMatch(data);
 
         findPreviousMatch(data);
+
 
     }
 

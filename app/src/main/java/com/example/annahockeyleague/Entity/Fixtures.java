@@ -23,6 +23,21 @@ public class Fixtures {
     private String team1Goal;
     private String team2Goal;
 
+
+    public Fixtures(String momName, String buddingPlayerName, String round, String timer, int result, String status, long matchDateTime, String team1Name, String team2Name, String team1Goal, String team2Goal) {
+        this.momName = momName;
+        this.buddingPlayerName = buddingPlayerName;
+        this.round = round;
+        this.timer = timer;
+        this.result = result;
+        this.status = status;
+        this.matchDateTime = matchDateTime;
+        this.team1Name = team1Name;
+        this.team2Name = team2Name;
+        this.team1Goal = team1Goal;
+        this.team2Goal = team2Goal;
+    }
+
     public ObjectId getId() {
         return id;
     }

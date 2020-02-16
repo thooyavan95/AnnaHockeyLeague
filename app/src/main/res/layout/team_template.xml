@@ -4,11 +4,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/team_logo"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="170dp"
         android:src="@drawable/griffinz"
         android:layout_margin="16dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/team_name"
+        android:textSize="18sp"
+        android:gravity="center"/>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
+import com.example.annahockeyleague.TestFixtureModel.FixtureViewInterface;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class HomePresenter implements HomeModelInterface {
     private HomeModel homeModel;
     private HomeViewInterface homeViewInterface;
     private static final String TAG = "HomePresenter";
+
 
     public HomePresenter(HomeViewInterface homeViewInterface)
     {
@@ -42,6 +44,7 @@ public class HomePresenter implements HomeModelInterface {
 
         findPreviousMatch(data);
 
+        homeViewInterface.setFixtures(data);
 
     }
 
@@ -74,13 +77,13 @@ public class HomePresenter implements HomeModelInterface {
 
         Long currentMilliseconds = System.currentTimeMillis();
 
-        Long nextMatchTime = 18937818000L;  // Millisecond dated jan 5,2030
+        Long nextMatchTime = 1893781800000L;  // Millisecond dated jan 5,2030
         Fixtures nextMatchData = fixturesData.get(0);
 
         for(int i=0; i<fixturesData.size(); i++)
         {
             Long currentValue = fixturesData.get(i).getMatchDateTime();
-            if(currentValue.compareTo(currentMilliseconds) > 0)
+            if(currentMilliseconds.compareTo(currentValue) < 0)
             {
                 if(nextMatchTime > currentValue)
                 {
@@ -141,7 +144,7 @@ public class HomePresenter implements HomeModelInterface {
         cal.setTimeInMillis(data.getMatchDateTime());
         cal.setTimeZone(cal.getTimeZone());
 
-        return cal.get(Calendar.HOUR_OF_DAY) + " : " +  cal.get(Calendar.MINUTE) + " " + cal.get(Calendar.AM_PM);
+        return new SimpleDateFormat("hh : mm aa").format(cal.getTime());
     }
 
 }

@@ -54,7 +54,8 @@ public class HomeModel {
 
 //        OkHttpClient beginDataCollection = new OkHttpClient();
 
-        Request requestTournamentId = new Request.Builder().url(AhlConstants.DNS + AhlConstants.TOURNAMENTS_API).build();
+//        Request requestTournamentId = new Request.Builder().url(AhlConstants.DNS + AhlConstants.TOURNAMENTS_API).build();
+        Request requestTournamentId = new Request.Builder().url(AhlConstants.DNS + "tournament?season=2020&type=AHL").build();
         beginDataCollection.newCall(requestTournamentId).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -73,7 +74,7 @@ public class HomeModel {
 
                 AnnaHockeyLeague.setTournamentId(tournament.getId());
 
-//                getFixturesData(config);
+                    getFixturesData(config);
 ////                getPointsTableData(config);
 ////                getTopScorersData(config);
 
@@ -120,9 +121,10 @@ public class HomeModel {
                 Type founderListType = new TypeToken<ArrayList<Fixtures>>(){}.getType();
                 ArrayList<Fixtures> foundList = gson.fromJson(responseFromServer, founderListType);
 
-//                Log.d("obj",foundList.get(0).toString());
+                Log.d("obj",foundList.get(0).toString());
 
                 homeModelInterface.fixtureDataCollected(foundList);
+
             }
         });
     }

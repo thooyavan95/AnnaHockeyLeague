@@ -15,4 +15,5 @@ public interface HomeModelInterface {
     void topScorersDataCollected(ArrayList<TopScorers> data);
 
     void dataCollectionFailure(Exception e);
+
 }

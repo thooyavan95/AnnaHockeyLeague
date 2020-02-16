@@ -18,4 +18,6 @@ public interface HomeViewInterface {
 
     void setFailureToast(Exception e);
 
+    void setFixtures(ArrayList<Fixtures> fixdata);
+
 }

@@ -5,7 +5,7 @@ package com.example.annahockeyleague.TestFixtureModel;
 
 public class FixtureModel {
 
-    private FixturePresenterInterface presenterInterface;
+    private FixtureViewInterface presenterInterface;
     private String data;
 
 
@@ -13,7 +13,7 @@ public class FixtureModel {
     {
         if(data != null)
         {
-            presenterInterface.getFixtures(); // send data
+//            presenterInterface.getFixtures(); // send data
         }
         else
         {
@@ -23,7 +23,7 @@ public class FixtureModel {
 
     private void onComplete()
     {
-        presenterInterface.getFixtures();  // after work done
+//        presenterInterface.getFixtures();  // after work done
     }
 
 }

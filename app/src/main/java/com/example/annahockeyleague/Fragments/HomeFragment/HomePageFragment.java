@@ -1,5 +1,6 @@
 package com.example.annahockeyleague.Fragments.HomeFragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.annahockeyleague.Adapters.PointsTableAdapter;
 import com.example.annahockeyleague.Adapters.TopScorersAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.PointsTable;
+import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.R;
@@ -30,6 +32,19 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
+
+import static com.example.annahockeyleague.AhlConfig.TeamTag.M_BLUE;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.M_GREEN;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.M_RED;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.M_VIOLET;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.M_WHITE;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.M_YELLOW;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.W_BLUE;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.W_GREEN;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.W_RED;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.W_VIOLET;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.W_WHITE;
+import static com.example.annahockeyleague.AhlConfig.TeamTag.W_YELLOW;
 
 public class HomePageFragment extends Fragment implements HomeViewInterface {
 
@@ -56,7 +71,14 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         Log.d(TAG,"onViewCreated");
+
+        if(savedInstanceState != null)
+        {
+
+        }
+
 
         HomePresenter presenter = new HomePresenter(HomePageFragment.this);
 
@@ -97,20 +119,20 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
                         ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(date);
                         ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(time);
-                        ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(data.getTeam1Name());
-                        ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2Name());
-                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Goal());
-                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Goal());
+                        ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(data.getTeam1().getName());
+                        ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
+//                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Scorers().get());
+//                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Scorers().get());
                     } else {
 
                         Log.d(TAG,"updating ui with next match details women");
 
                         ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(date);
                         ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(time);
-                        ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(data.getTeam1Name());
-                        ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2Name());
-                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Goal());
-                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Goal());
+                        ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(data.getTeam1().getName());
+                        ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
+//                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Scorers().get());
+//                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Scorers().get());
 
                     }
 
@@ -148,25 +170,28 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
                         ((TextView) getView().findViewById(R.id.previous_match_fixture_date)).setText(date);
                         ((TextView) getView().findViewById(R.id.previous_match_fixture_time)).setText(time);
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(data.getTeam1Name());
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2Name());
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Goal());
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Goal());
-                        Picasso.get().load(R.drawable.sample_kumble).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
-                        Picasso.get().load(R.drawable.kumble_big).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                        ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(data.getTeam1().getName());
+                        ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2().getName());
+//                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Scorers().get());
+//                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Scorers().get());
+                        Picasso.get().load(R.drawable.men_image).fit().placeholder(R.drawable.men_image).into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                        Picasso.get().load(R.drawable.men_image).fit().placeholder(R.drawable.men_image).into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+
+
                     } else {
 
                         Log.d(TAG,"updating ui with previous match details women");
 
                         ((TextView) getView().findViewById(R.id.previous_match_fixture_date)).setText(date);
                         ((TextView) getView().findViewById(R.id.previous_match_fixture_time)).setText(time);
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(data.getTeam1Name());
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2Name());
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Goal());
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Goal());
-                        Picasso.get().load(R.drawable.women_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
-                        Picasso.get().load(R.drawable.women_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
-
+                        ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(data.getTeam1().getName());
+                        ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2().getName());
+//                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Scorers().get());
+//                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Scorers().get());
+                        Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                        Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
+                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
                     }
 
                 }
@@ -264,6 +289,67 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         listView.setLayoutParams(params);
         listView.requestLayout();
 
+    }
+
+    @Override
+    public void setFixtures(ArrayList<Fixtures> fixdata) {
+
+    }
+
+    private int setTeamLogo(Team teamTag)
+    {
+
+        int image = 0;
+
+        switch (teamTag.getTeamTag())
+        {
+
+            case W_RED:
+
+            case M_RED:
+                image =  R.drawable.red;
+                break;
+
+            case M_BLUE:
+
+            case W_BLUE:
+
+                image = R.drawable.bluz;
+                break;
+
+            case M_GREEN:
+
+            case W_GREEN:
+
+                image =  R.drawable.griffinz;
+                break;
+
+            case M_WHITE:
+
+            case W_WHITE:
+
+                image =  R.drawable.white;
+                break;
+
+            case M_VIOLET:
+
+            case W_VIOLET:
+
+                image =  R.drawable.driblerz;
+                break;
+
+            case M_YELLOW:
+
+            case W_YELLOW:
+
+                image =  R.drawable.yyy;
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + teamTag);
+        }
+
+        return image;
     }
 
 }

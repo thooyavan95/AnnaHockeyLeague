@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 .add(R.id.main_activity_container, new HomePage())
                 .commit();
 
+
+
     }
 
 

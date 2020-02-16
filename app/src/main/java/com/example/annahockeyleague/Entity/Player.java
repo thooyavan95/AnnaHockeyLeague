@@ -7,6 +7,7 @@ public class Player {
     private ObjectId id;
     private String name;
     private String position;
+    private String profile;
 
     public ObjectId getId() {
         return id;
@@ -30,5 +31,13 @@ public class Player {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }

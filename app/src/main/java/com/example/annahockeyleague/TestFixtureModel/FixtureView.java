@@ -2,11 +2,11 @@ package com.example.annahockeyleague.TestFixtureModel;
 
 import com.example.annahockeyleague.Fragments.HomeFragment.HomeViewInterface;
 
-public class FixturePresenter implements FixturePresenterInterface {
+public class FixtureView implements FixtureViewInterface {
 
     private HomeViewInterface viewInterface;
 
-    FixturePresenter() {
+    FixtureView() {
         FixtureModel model = new FixtureModel();
         model.getData();
     }

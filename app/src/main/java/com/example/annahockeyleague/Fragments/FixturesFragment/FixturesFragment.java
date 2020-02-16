@@ -13,15 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Fixtures;
+import com.example.annahockeyleague.Entity.PointsTable;
+import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixtureRecycleView.FixturesRecyclerView;
+import com.example.annahockeyleague.Fragments.HomeFragment.HomePresenter;
+import com.example.annahockeyleague.Fragments.HomeFragment.HomeViewInterface;
 import com.example.annahockeyleague.R;
+import com.example.annahockeyleague.TestFixtureModel.FixtureViewInterface;
 
 import java.util.ArrayList;
 
-public class FixturesFragment extends Fragment {
+public class FixturesFragment extends Fragment implements HomeViewInterface {
 
     private FragmentConfig config;
-    private ArrayList<Fixtures> fixturesList;
+//    private ArrayList<Fixtures> fixturesList;
 
     public FixturesFragment()
     {
@@ -46,18 +51,8 @@ public class FixturesFragment extends Fragment {
 
         initRecyclerView();
 
-        fixturesList.add(new Fixtures("mom", "budding", "1", "12:40", 1, "done"
-                ,4L, "team1", "team2", "3", "4"));
-
-        fixturesList.add(new Fixtures("mom", "budding", "1", "12:40", 1, "done"
-                ,4L, "team1", "team2", "3", "4"));
-
-        fixturesList.add(new Fixtures("mom", "budding", "1", "12:40", 1, "done"
-                ,4L, "team1", "team2", "3", "4"));
-
-
-        FixturesRecyclerView adapter = new FixturesRecyclerView(fixturesList, config);
-        ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
+        HomePresenter presenter = new HomePresenter(FixturesFragment.this);
+        presenter.fetchData(config);
 
     }
 
@@ -65,7 +60,45 @@ public class FixturesFragment extends Fragment {
     {
         ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setLayoutManager(new LinearLayoutManager(getContext()));
         ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setHasFixedSize(true);
-        fixturesList = new ArrayList<>();
+//        fixturesList = new ArrayList<>();
+    }
+
+    @Override
+    public void setNextMatchFixture(Fixtures data, String date, String time) {
+
+    }
+
+    @Override
+    public void setPrevoiusMatchFixture(Fixtures data, String date, String time) {
+
+    }
+
+    @Override
+    public void setPointsTable(ArrayList<PointsTable> pointsData) {
+
+    }
+
+    @Override
+    public void setTopScorers(ArrayList<TopScorers> topScorersData) {
+
+    }
+
+    @Override
+    public void setFailureToast(Exception e) {
+
+    }
+
+    @Override
+    public void setFixtures(final ArrayList<Fixtures> fixdata) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FixturesRecyclerView adapter = new FixturesRecyclerView(fixdata, config);
+                ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
+            }
+        });
+
     }
 
 }

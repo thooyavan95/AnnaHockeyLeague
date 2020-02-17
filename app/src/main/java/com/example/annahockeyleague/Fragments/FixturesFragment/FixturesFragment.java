@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class FixturesFragment extends Fragment implements HomeViewInterface {
 
     private FragmentConfig config;
-//    private ArrayList<Fixtures> fixturesList;
+    private ProgressBar progressBar;
 
     public FixturesFragment()
     {
@@ -51,6 +52,10 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
 
         initRecyclerView();
 
+        progressBar = view.findViewById(R.id.fixtures_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
+
         HomePresenter presenter = new HomePresenter(FixturesFragment.this);
         presenter.fetchData(config);
 
@@ -60,7 +65,6 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
     {
         ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setLayoutManager(new LinearLayoutManager(getContext()));
         ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setHasFixedSize(true);
-//        fixturesList = new ArrayList<>();
     }
 
     @Override
@@ -96,6 +100,12 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
             public void run() {
                 FixturesRecyclerView adapter = new FixturesRecyclerView(fixdata, config);
                 ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
+
+                if(progressBar != null)
+                {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
             }
         });
 

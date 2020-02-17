@@ -21,8 +21,7 @@
             app:layout_constraintEnd_toStartOf="@+id/next_match_team1_score"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date"
-            app:srcCompat="@drawable/griffinz" />
+            app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date"/>
 
         <ImageView
             android:id="@+id/next_match_team2_image"
@@ -31,8 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/next_match_team2_score"
-            app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time"
-            app:srcCompat="@drawable/bluz" />
+            app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time"/>
 
         <TextView
             android:id="@+id/next_match_fixture_date"

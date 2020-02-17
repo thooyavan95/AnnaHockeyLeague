@@ -1,12 +1,10 @@
 package com.example.annahockeyleague.Fragments.HomeFragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.annahockeyleague.Adapters.FragmentAdapter;
 import com.example.annahockeyleague.Adapters.PointsTableAdapter;
 import com.example.annahockeyleague.Adapters.TopScorersAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
@@ -27,29 +25,14 @@ import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.R;
-import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
-
-
 import java.util.ArrayList;
-
-import static com.example.annahockeyleague.AhlConfig.TeamTag.M_BLUE;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.M_GREEN;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.M_RED;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.M_VIOLET;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.M_WHITE;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.M_YELLOW;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.W_BLUE;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.W_GREEN;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.W_RED;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.W_VIOLET;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.W_WHITE;
-import static com.example.annahockeyleague.AhlConfig.TeamTag.W_YELLOW;
 
 public class HomePageFragment extends Fragment implements HomeViewInterface {
 
     private FragmentConfig config;
     private static final String TAG = "HomePageFragment";
+    private ProgressBar progressBar;
 
     public HomePageFragment() {
         Log.d(TAG,"empty constructor called");
@@ -79,15 +62,20 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
         }
 
-
         HomePresenter presenter = new HomePresenter(HomePageFragment.this);
-
         getHomePageDataFromServer(presenter);
+
+
     }
 
 
     private void getHomePageDataFromServer(HomePresenter presenter) {
         Log.d(TAG,"method get home page data from server");
+
+
+        progressBar = getView().findViewById(R.id.home_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         presenter.fetchData(config);
     }
 
@@ -123,6 +111,8 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
 //                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Scorers().get());
 //                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Scorers().get());
+                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
                     } else {
 
                         Log.d(TAG,"updating ui with next match details women");
@@ -133,6 +123,8 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
 //                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Scorers().get());
 //                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Scorers().get());
+                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
 
                     }
 
@@ -174,8 +166,10 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2().getName());
 //                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(data.getTeam1Scorers().get());
 //                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(data.getTeam2Scorers().get());
-                        Picasso.get().load(R.drawable.men_image).fit().placeholder(R.drawable.men_image).into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
-                        Picasso.get().load(R.drawable.men_image).fit().placeholder(R.drawable.men_image).into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                        Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                        Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
+                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
 
 
                     } else {
@@ -192,6 +186,12 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
                         Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
                         Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
+                    }
+
+                    if(progressBar != null)
+                    {
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
 
                 }
@@ -343,6 +343,11 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
             case W_YELLOW:
 
                 image =  R.drawable.yyy;
+                break;
+
+            case M_BLACK:
+
+                image = R.drawable.android_image;
                 break;
 
             default:

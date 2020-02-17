@@ -1,5 +1,6 @@
 package com.example.annahockeyleague.Fragments.TeamFragment;
 
+import com.example.annahockeyleague.Entity.Player;
 import com.example.annahockeyleague.Entity.Team;
 
 import java.util.ArrayList;
@@ -7,5 +8,7 @@ import java.util.ArrayList;
 public interface TeamModelInterface {
 
     void foundTeamList(ArrayList<Team> arrayList);
+
+
 
 }

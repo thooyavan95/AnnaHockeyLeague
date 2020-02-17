@@ -14,10 +14,21 @@
             android:background="@color/colorWhisper"
             android:layout_height="wrap_content">
 
-                <include layout="@layout/fixture_template"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/constraint_head"/>
+            <ProgressBar
+                android:id="@+id/home_progress_bar"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/constraint_head"
+                app:layout_constraintEnd_toEndOf="@id/constraint_head"
+                app:layout_constraintStart_toStartOf="@id/constraint_head"
+                app:layout_constraintTop_toTopOf="@id/constraint_head" />
+
+            <include
+                layout="@layout/fixture_template"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/constraint_head" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/previous_match_fixture_cardview"
@@ -42,8 +53,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/previous_match_team1_score"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date"
-                        app:srcCompat="@drawable/griffinz" />
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date"/>
 
                     <ImageView
                         android:id="@+id/previous_match_team2_image"
@@ -52,8 +62,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/previous_match_team2_score"
-                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time"
-                        app:srcCompat="@drawable/bluz" />
+                        app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time"/>
 
                     <ImageView
                         android:id="@+id/previous_match__budding_player_image"

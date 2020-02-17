@@ -9,18 +9,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.R;
 
-import org.w3c.dom.Text;
 
 public class TeamViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView teamLogo;
     public TextView teamName;
 
-    public TeamViewHolder(@NonNull View itemView) {
+    public TeamViewHolder(@NonNull View itemView, final OnTeamSelected onTeamSelected) {
         super(itemView);
 
         teamLogo = itemView.findViewById(R.id.team_logo);
         teamName = itemView.findViewById(R.id.team_name);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(onTeamSelected != null) {
+
+                    if(getAdapterPosition() != RecyclerView.NO_POSITION)
+                    {
+                        onTeamSelected.onTeamSelect(getAdapterPosition());
+                    }
+                }
+            }
+        });
 
     }
 

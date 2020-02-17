@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Team;
+import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
+import com.example.annahockeyleague.Fragments.TeamFragment.TeamRecyclerView.OnTeamSelected;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamRecyclerView.TeamRecycleAdapter;
 import com.example.annahockeyleague.R;
 
@@ -21,6 +25,8 @@ import java.util.ArrayList;
 public class TeamFragment extends Fragment implements TeamViewInterface {
 
     private FragmentConfig config;
+    private ProgressBar progressBar;
+    private TeamPresenter fetch;
 
     public TeamFragment()
     {
@@ -42,7 +48,11 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        TeamPresenter fetch = new TeamPresenter(TeamFragment.this);
+        progressBar = view.findViewById(R.id.team_progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
+
+        fetch = new TeamPresenter(TeamFragment.this);
         fetch.getTeamList(config);
 
     }
@@ -60,8 +70,24 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
                     recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
                     recyclerView.setHasFixedSize(true);
 
-                    TeamRecycleAdapter adapter = new TeamRecycleAdapter(teamsList);
+                    TeamRecycleAdapter adapter = new TeamRecycleAdapter(teamsList, new OnTeamSelected() {
+                        @Override
+                        public void onTeamSelect(int position) {
+
+                            getChildFragmentManager().beginTransaction()
+                                    .replace(R.id.test_container, new PlayerFragment())
+                                    .commit();
+
+                        }
+                    });
+
                     recyclerView.setAdapter(adapter);
+
+                    if(progressBar != null)
+                    {
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
 

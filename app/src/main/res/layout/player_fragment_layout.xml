@@ -8,8 +8,8 @@
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/team_progress_bar"
-        app:layout_constraintBottom_toBottomOf="@+id/team_recycle_view"
+        android:id="@+id/player_progress_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/player_recycle_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -17,7 +17,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/team_recycle_view"
+        android:id="@+id/player_recycle_view"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

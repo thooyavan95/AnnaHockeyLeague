@@ -16,9 +16,11 @@ import java.util.ArrayList;
 public class TeamRecycleAdapter extends RecyclerView.Adapter<TeamViewHolder> {
 
     private ArrayList<Team> arrayList;
+    private OnTeamSelected onTeamSelected;
 
-    public TeamRecycleAdapter(ArrayList<Team> arrayList) {
+    public TeamRecycleAdapter(ArrayList<Team> arrayList, OnTeamSelected onTeamSelected) {
         this.arrayList = arrayList;
+        this.onTeamSelected = onTeamSelected;
     }
 
     @NonNull
@@ -26,7 +28,7 @@ public class TeamRecycleAdapter extends RecyclerView.Adapter<TeamViewHolder> {
     public TeamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_template, parent, false);
-        return new TeamViewHolder(view);
+        return new TeamViewHolder(view, onTeamSelected);
     }
 
     @Override

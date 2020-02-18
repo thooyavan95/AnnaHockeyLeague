@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
+import com.example.annahockeyleague.Fragments.TeamFragment.TeamFragment;
 import com.example.annahockeyleague.R;
 
 

@@ -13,6 +13,7 @@ import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesFragment;
 import com.example.annahockeyleague.Fragments.HomeFragment.HomePageFragment;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamFragment;
+import com.example.annahockeyleague.TestInterface;
 
 
 public class FragmentAdapter extends FragmentPagerAdapter {
@@ -21,10 +22,17 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     private static final String TAG = "Behaviour";
 
     private FragmentType type;
+    private TestInterface testInterface;
 
     public FragmentAdapter(@NonNull FragmentManager fm, FragmentType type) {
         super(fm);
         this.type = type;
+    }
+
+    public FragmentAdapter(@NonNull FragmentManager fm, FragmentType type, TestInterface testInterface) {
+        super(fm);
+        this.type = type;
+        this.testInterface = testInterface;
     }
 
     @Nullable
@@ -58,10 +66,10 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
                 if (position == 0) {
                     Log.d(TAG, "getItemCalled position 0");
-                    fragment = new TeamFragment(FragmentConfig.MEN);
+                    fragment = new TeamFragment(FragmentConfig.MEN, testInterface);
                 } else {
                     Log.d(TAG, "getItemCalled position 1");
-                    fragment = new TeamFragment(FragmentConfig.WOMEN);
+                    fragment = new TeamFragment(FragmentConfig.WOMEN, testInterface);
                 }
 
                 break;

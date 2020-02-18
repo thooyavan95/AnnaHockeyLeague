@@ -2,6 +2,7 @@ package com.example.annahockeyleague.Fragments.PlayerFragment;
 
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Player;
+import com.example.annahockeyleague.Entity.PlayerDetails;
 
 import org.bson.types.ObjectId;
 
@@ -17,14 +18,14 @@ public class PlayerPresenter implements PlayerModelInterface {
         playerModel = new PlayerModel(PlayerPresenter.this);
     }
 
-    public void playerList(ObjectId teamId, FragmentConfig config)
+    public void playerList(ObjectId teamId)
     {
-        playerModel.getPlayerList(teamId,config);
+        playerModel.getPlayerList(teamId);
     }
 
 
     @Override
-    public void foundPlayerList(ArrayList<Player> arrayList) {
+    public void foundPlayerList(ArrayList<PlayerDetails> arrayList) {
 
         playerViewInterface.showPlayers(arrayList);
 

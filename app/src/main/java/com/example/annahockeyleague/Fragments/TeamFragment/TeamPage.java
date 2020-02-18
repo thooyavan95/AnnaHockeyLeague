@@ -13,13 +13,22 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.R;
+import com.example.annahockeyleague.TestInterface;
 import com.google.android.material.tabs.TabLayout;
 
 public class TeamPage extends Fragment {
 
+
+    private TestInterface testInterface;
+
     public TeamPage()
     {
 
+    }
+
+    public TeamPage(TestInterface testInterface)
+    {
+        this.testInterface = testInterface;
     }
 
     @Nullable
@@ -38,7 +47,7 @@ public class TeamPage extends Fragment {
         tabs = getView().findViewById(R.id.tabLayout);
         viewPager = getView().findViewById(R.id.viewpager);
 
-        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM);
+        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM, testInterface);
 
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);

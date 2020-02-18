@@ -6,16 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesFragment;
+import com.example.annahockeyleague.AhlConfig.FragmentConfig;
+import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesPage;
 import com.example.annahockeyleague.Fragments.HomeFragment.HomePage;
-import com.example.annahockeyleague.Fragments.HomeFragment.HomePageFragment;
-import com.example.annahockeyleague.Fragments.TeamFragment.TeamFragment;
+import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, TestInterface {
 
     private static final String TAG = "Main Activity";
 
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 .commit();
 
 
-
     }
 
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             case R.id.bottom_nav_team:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamPage()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamPage(MainActivity.this)).commit();
                 return true;
 
             case R.id.bottom_nav_fixtures:
@@ -67,5 +67,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
         }
+    }
+
+
+    @Override
+    public void showPlayerFragment(Team team) {
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_activity_container, new PlayerFragment(team.getId()))
+                .commit();
+
     }
 }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Player;
+import com.example.annahockeyleague.Entity.PlayerDetails;
 import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerRecyclerView.PlayerRecycleAdapter;
 import com.example.annahockeyleague.R;
 
@@ -26,16 +27,15 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private ObjectId teamId;
-    private FragmentConfig config;
 
     public PlayerFragment() {
     }
 
-    public PlayerFragment(ObjectId teamId, FragmentConfig config)
+    public PlayerFragment(ObjectId teamId)
     {
         this.teamId = teamId;
-        this.config = config;
     }
+
 
 
     @Nullable
@@ -56,7 +56,7 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
         progressBar.setIndeterminate(true);
 
         PlayerPresenter getPlayers = new PlayerPresenter(PlayerFragment.this);
-        getPlayers.playerList(teamId, config);
+        getPlayers.playerList(teamId);
 
     }
 
@@ -69,16 +69,23 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
 
 
     @Override
-    public void showPlayers(ArrayList<Player> playersList) {
+    public void showPlayers(final ArrayList<PlayerDetails> playersList) {
 
-        PlayerRecycleAdapter adapter = new PlayerRecycleAdapter(playersList);
-        recyclerView.setAdapter(adapter);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-        if(progressBar != null)
-        {
-            progressBar.setIndeterminate(false);
-            progressBar.setVisibility(View.INVISIBLE);
-        }
+                PlayerRecycleAdapter adapter = new PlayerRecycleAdapter(playersList);
+                recyclerView.setAdapter(adapter);
+
+                if(progressBar != null)
+                {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
 
     }
 }

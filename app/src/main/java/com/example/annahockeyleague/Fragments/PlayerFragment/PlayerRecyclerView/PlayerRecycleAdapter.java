@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.Entity.Player;
+import com.example.annahockeyleague.Entity.PlayerDetails;
 import com.example.annahockeyleague.R;
 import com.squareup.picasso.Picasso;
 
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 
 public class PlayerRecycleAdapter extends RecyclerView.Adapter<PlayerRecycleViewHolder> {
 
-    private ArrayList<Player> playerArrayList;
+    private ArrayList<PlayerDetails> playerArrayList;
 
-    public PlayerRecycleAdapter(ArrayList<Player> playerArrayList) {
+    public PlayerRecycleAdapter(ArrayList<PlayerDetails> playerArrayList) {
         this.playerArrayList = playerArrayList;
     }
 
@@ -33,7 +34,7 @@ public class PlayerRecycleAdapter extends RecyclerView.Adapter<PlayerRecycleView
     @Override
     public void onBindViewHolder(@NonNull PlayerRecycleViewHolder holder, int position) {
 
-        holder.playerName.setText(playerArrayList.get(position).getName());
+        holder.playerName.setText(playerArrayList.get(position).getPlayer().getName());
         Picasso.get().load(R.drawable.men_image).into(holder.playerImage);
 
     }

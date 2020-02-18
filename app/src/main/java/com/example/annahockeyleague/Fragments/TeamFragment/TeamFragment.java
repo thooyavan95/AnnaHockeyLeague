@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
+import com.example.annahockeyleague.Entity.Player;
 import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamRecyclerView.OnTeamSelected;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamRecyclerView.TeamRecycleAdapter;
 import com.example.annahockeyleague.R;
+import com.example.annahockeyleague.TestInterface;
 
 import java.util.ArrayList;
 
@@ -27,15 +29,17 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
     private FragmentConfig config;
     private ProgressBar progressBar;
     private TeamPresenter fetch;
+    private TestInterface testInterface;
 
     public TeamFragment()
     {
 
     }
 
-    public TeamFragment(FragmentConfig config)
+    public TeamFragment(FragmentConfig config, TestInterface testInterface)
     {
         this.config = config;
+        this.testInterface = testInterface;
     }
 
     @Nullable
@@ -69,14 +73,13 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
                     RecyclerView recyclerView = getView().findViewById(R.id.team_recycle_view);
                     recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
                     recyclerView.setHasFixedSize(true);
+                    recyclerView.setBackgroundColor(getResources().getColor(R.color.colorWhisper));
 
                     TeamRecycleAdapter adapter = new TeamRecycleAdapter(teamsList, new OnTeamSelected() {
                         @Override
                         public void onTeamSelect(int position) {
 
-                            getChildFragmentManager().beginTransaction()
-                                    .replace(R.id.test_container, new PlayerFragment())
-                                    .commit();
+                            testInterface.showPlayerFragment(teamsList.get(position));
 
                         }
                     });
@@ -90,7 +93,6 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
                     }
                 }
             });
-
 
         }
 

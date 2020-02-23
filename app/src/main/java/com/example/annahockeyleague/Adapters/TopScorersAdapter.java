@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class TopScorersAdapter extends ArrayAdapter<TopScorers> {
 
-    private static final String TAG = "TopScorerAdapter";
+    private static final String TAG = TopScorersAdapter.class.getSimpleName();
 
     public TopScorersAdapter(@NonNull Context context, @NonNull ArrayList<TopScorers> objects) {
         super(context, 0, objects);
@@ -47,7 +47,7 @@ public class TopScorersAdapter extends ArrayAdapter<TopScorers> {
 //        ((TextView) convertView.findViewById(R.id.top_scorer_team)).setText(scorersData.getTeamName());
         ((TextView) convertView.findViewById(R.id.top_scorer_goals)).setText(String.valueOf(scorersData.getGoals()));
 
-        Picasso.get().load(R.drawable.sample_kumble).into((ImageView) convertView.findViewById(R.id.top_scorer_avatar));
+        Picasso.get().load(R.drawable.men_image).into((ImageView) convertView.findViewById(R.id.top_scorer_avatar));
 
         return convertView;
 

@@ -6,13 +6,8 @@ import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
-import com.example.annahockeyleague.TestFixtureModel.FixtureViewInterface;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 public class HomePresenter implements HomeModelInterface {
 
@@ -87,13 +82,15 @@ public class HomePresenter implements HomeModelInterface {
             {
                 if(nextMatchTime > currentValue)
                 {
-                    nextMatchTime = currentValue;
-                    nextMatchData = fixturesData.get(i);
+                    if(fixturesData.get(i).getStatus().equals("LIVE") || fixturesData.get(i).getStatus().equals("UPCOMING")) {
+                        nextMatchTime = currentValue;
+                        nextMatchData = fixturesData.get(i);
+                    }
                 }
             }
         }
 
-        homeViewInterface.setNextMatchFixture(nextMatchData, milliSecToDate(nextMatchData), milliSecToTime(nextMatchData));
+        homeViewInterface.setNextMatchFixture(nextMatchData);
 
     }
 
@@ -112,7 +109,7 @@ public class HomePresenter implements HomeModelInterface {
             Long currentValue = fixturesData.get(i).getMatchDateTime();
             if(currentValue.compareTo(currentMilliseconds) < 0)
             {
-                if(previousMatchTime < currentValue)
+                if(previousMatchTime < currentValue && fixturesData.get(i).getStatus().equals("COMPLETED"))
                 {
                     previousMatchTime = currentValue;
                     previousMatchData = fixturesData.get(i);
@@ -120,31 +117,8 @@ public class HomePresenter implements HomeModelInterface {
             }
         }
 
-        homeViewInterface.setPrevoiusMatchFixture(previousMatchData, milliSecToDate(previousMatchData), milliSecToTime(previousMatchData));
+        homeViewInterface.setPrevoiusMatchFixture(previousMatchData);
 
-    }
-
-
-    private String milliSecToDate(Fixtures data)
-    {
-        Log.d(TAG, "method milli sec to date");
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d-MMM-yyyy");
-        Date date = new Date(data.getMatchDateTime());
-
-        return dateFormat.format(date);
-    }
-
-
-    private String milliSecToTime(Fixtures data)
-    {
-        Log.d(TAG, "method milli sec to time");
-
-        Calendar cal = new GregorianCalendar();
-        cal.setTimeInMillis(data.getMatchDateTime());
-        cal.setTimeZone(cal.getTimeZone());
-
-        return new SimpleDateFormat("hh : mm aa").format(cal.getTime());
     }
 
 }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public interface HomeViewInterface {
 
-    void setNextMatchFixture(Fixtures data, String date, String time);
+    void setNextMatchFixture(Fixtures data);
 
-    void setPrevoiusMatchFixture(Fixtures data, String date, String time);
+    void setPrevoiusMatchFixture(Fixtures data);
 
     void setPointsTable(ArrayList<PointsTable> pointsData);
 

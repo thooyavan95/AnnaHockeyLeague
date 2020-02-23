@@ -14,16 +14,6 @@
             android:background="@color/colorWhisper"
             android:layout_height="wrap_content">
 
-            <ProgressBar
-                android:id="@+id/home_progress_bar"
-                android:visibility="invisible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/constraint_head"
-                app:layout_constraintEnd_toEndOf="@id/constraint_head"
-                app:layout_constraintStart_toStartOf="@id/constraint_head"
-                app:layout_constraintTop_toTopOf="@id/constraint_head" />
-
             <include
                 layout="@layout/fixture_template"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +59,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginTop="4dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_team1_name"
                         app:layout_constraintStart_toStartOf="@+id/previous_match_team1_name"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name"
@@ -79,6 +70,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginTop="4dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_team2_name"
                         app:layout_constraintStart_toStartOf="@+id/previous_match_team2_name"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_name"
@@ -165,6 +157,7 @@
                         android:id="@+id/previous_match_budding_player_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match__budding_player_image"
                         app:layout_constraintStart_toStartOf="@+id/previous_match__budding_player_image"
@@ -174,6 +167,7 @@
                         android:id="@+id/previous_match_man_of_the_match_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match__man_of_the_match_image"
                         app:layout_constraintStart_toStartOf="@+id/previous_match__man_of_the_match_image"
@@ -184,6 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:visibility="gone"
                         android:text="Budding Player"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_budding_player_name"
@@ -205,6 +200,7 @@
                     <TextView
                         android:id="@+id/man_of_the_match"
                         android:layout_width="wrap_content"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:text="Man Of the Match"

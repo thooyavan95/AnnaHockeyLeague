@@ -16,9 +16,10 @@ public class Fixtures {
     private int result;
     private String status;
     private long matchDateTime;
-    private Map<Player,Integer> team1Scorers;
-    private Map<Player, Integer> team2Scorers;
+    private Map<String,Integer> team1Scorers;
+    private Map<String, Integer> team2Scorers;
     private Team team1;
+
     private Team team2;
 
 
@@ -94,19 +95,19 @@ public class Fixtures {
         this.matchDateTime = matchDateTime;
     }
 
-    public Map<Player, Integer> getTeam1Scorers() {
+    public Map<String, Integer> getTeam1Scorers() {
         return team1Scorers;
     }
 
-    public void setTeam1Scorers(Map<Player, Integer> team1Scorers) {
+    public void setTeam1Scorers(Map<String, Integer> team1Scorers) {
         this.team1Scorers = team1Scorers;
     }
 
-    public Map<Player, Integer> getTeam2Scorers() {
+    public Map<String, Integer> getTeam2Scorers() {
         return team2Scorers;
     }
 
-    public void setTeam2Scorers(Map<Player, Integer> team2Scorers) {
+    public void setTeam2Scorers(Map<String, Integer> team2Scorers) {
         this.team2Scorers = team2Scorers;
     }
 

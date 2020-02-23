@@ -9,4 +9,6 @@ public interface PlayerViewInterface {
 
       void showPlayers(ArrayList<PlayerDetails> playersList);
 
+      void displayErrorMessage(Exception e);
+
 }

@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,34 +27,41 @@ import okhttp3.Response;
 public class TeamModel {
 
     private TeamModelInterface modelInterface;
-    private OkHttpClient okHttpClient;
-    private Gson gson;
+    private Request.Builder request;
+    private static final String TAG = TeamModel.class.getSimpleName();
 
 
     public TeamModel(TeamModelInterface teamModelInterface) {
 
+          Log.d(TAG, "team model constructor");
         this.modelInterface = teamModelInterface;
-        okHttpClient = new OkHttpClient();
-        gson = new Gson();
+        request = new Request.Builder();
     }
 
     public void getTeam(FragmentConfig config)
     {
-
+          Log.d(TAG, "get team called");
         Request requestTeam;
 
         if(config == FragmentConfig.MEN)
         {
-             requestTeam = new Request.Builder().url(AhlConstants.DNS + "teams?tournament=" + AnnaHockeyLeague.getTournamentId() + "&category=men").build();
+            Log.d(TAG, "men team request called");
+              requestTeam = request.url(AhlConstants.DNS + "teams?tournament=" + AnnaHockeyLeague.getTournamentId() + "&category=men").build();
         }
         else
         {
-             requestTeam = new Request.Builder().url(AhlConstants.DNS + "teams?tournament=" + AnnaHockeyLeague.getTournamentId() + "&category=women").build();
+            Log.d(TAG, "women team request called");
+             requestTeam = request.url(AhlConstants.DNS + "teams?tournament=" + AnnaHockeyLeague.getTournamentId() + "&category=women").build();
         }
 
-        okHttpClient.newCall(requestTeam).enqueue(new Callback() {
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+        okHttpClient.connectTimeout(30, TimeUnit.SECONDS).writeTimeout(30,TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).build()
+                .newCall(requestTeam).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                Log.d(TAG, "api call failed" + e);
+                modelInterface.errorMsg(e);
 
             }
 
@@ -63,6 +71,7 @@ public class TeamModel {
                     Log.d("Team data", ""+responseList);
 
                 Type founderListType = new TypeToken<ArrayList<Team>>(){}.getType();
+                Gson gson = new Gson();
                 ArrayList<Team> foundList = gson.fromJson(responseList, founderListType);
                 modelInterface.foundTeamList(foundList);
             }

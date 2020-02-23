@@ -21,13 +21,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Map;
 
 public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolder> {
 
     private ArrayList<Fixtures> fixturesList;
     private FragmentConfig config;
+    private static final String TAG = FixturesRecyclerView.class.getSimpleName();
 
     public FixturesRecyclerView(ArrayList<Fixtures> fixturesList, FragmentConfig config) {
+        Log.d(TAG, "fixture recycle view constructor");
         this.fixturesList = fixturesList;
         this.config = config;
     }
@@ -36,6 +39,7 @@ public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolde
     @Override
     public FixturesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        Log.d(TAG, "fixture view holder");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fixture_layout, parent, false);
         return new FixturesViewHolder(view);
     }
@@ -43,41 +47,22 @@ public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolde
     @Override
     public void onBindViewHolder(@NonNull FixturesViewHolder holder, int position) {
 
-
-//        if (config == FragmentConfig.MEN) {
-//
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_fixture_date)).setText(date);
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_fixture_time)).setText(time);
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team1_name)).setText(data.getTeam1Name());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team2_name)).setText(data.getTeam2Name());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Goal());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Goal());
-//        } else {
-//
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_fixture_date)).setText(date);
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_fixture_time)).setText(time);
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team1_name)).setText(data.getTeam1Name());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team2_name)).setText(data.getTeam2Name());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team1_score)).setText(data.getTeam1Goal());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team2_score)).setText(data.getTeam2Goal());
-//
-//        }
-
-
+        Log.d(TAG, "on bind view holder");
             ((TextView) holder.itemView.findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(fixturesList.get(position)));
             ((TextView) holder.itemView.findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(fixturesList.get(position)));
             ((TextView) holder.itemView.findViewById(R.id.next_match_team1_name)).setText(fixturesList.get(position).getTeam1().getName());
             ((TextView) holder.itemView.findViewById(R.id.next_match_team2_name)).setText(fixturesList.get(position).getTeam2().getName());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team1_score)).setText(fixturesList.get(position).getTeam1Scorers().get());
-//            ((TextView) holder.itemView.findViewById(R.id.next_match_team2_score)).setText(fixturesList.get(position).getTeam2Scorers().get());
-        Picasso.get().load(setTeamLogo(fixturesList.get(position).getTeam1())).fit().into((ImageView) holder.itemView.findViewById(R.id.next_match_team1_image));
-        Picasso.get().load(setTeamLogo(fixturesList.get(position).getTeam2())).fit().into((ImageView) holder.itemView.findViewById(R.id.next_match_team2_image));
+            ((TextView) holder.itemView.findViewById(R.id.next_match_team1_score)).setText(getGoals(fixturesList.get(position).getTeam1Scorers()));
+            ((TextView) holder.itemView.findViewById(R.id.next_match_team2_score)).setText(getGoals(fixturesList.get(position).getTeam2Scorers()));
+            Picasso.get().load(setTeamLogo(fixturesList.get(position).getTeam1())).fit().into((ImageView) holder.itemView.findViewById(R.id.next_match_team1_image));
+            Picasso.get().load(setTeamLogo(fixturesList.get(position).getTeam2())).fit().into((ImageView) holder.itemView.findViewById(R.id.next_match_team2_image));
 
     }
 
     private String milliSecToDate(Fixtures data)
     {
 
+        Log.d(TAG, "millisec to date called");
         SimpleDateFormat dateFormat = new SimpleDateFormat("d-MMM-yyyy");
         Date date = new Date(data.getMatchDateTime());
 
@@ -88,6 +73,7 @@ public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolde
     private String milliSecToTime(Fixtures data)
     {
 
+        Log.d(TAG, "millisec to time called");
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(data.getMatchDateTime());
         cal.setTimeZone(cal.getTimeZone());
@@ -95,9 +81,25 @@ public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolde
         return new SimpleDateFormat("hh : mm aa").format(cal.getTime());
     }
 
+    private String getGoals(Map<String, Integer> allGoals)
+    {
+
+        Log.d(TAG, "get goals called");
+
+        Integer total = 0;
+        if(allGoals != null) {
+
+            for (String goal : allGoals.keySet()) {
+                total = total + allGoals.get(goal);
+            }
+        }
+            return total.toString();
+    }
 
     private int setTeamLogo(Team data)
     {
+
+        Log.d(TAG, "set team logo called");
 
         int image = 0;
 
@@ -163,6 +165,7 @@ public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolde
 
     @Override
     public int getItemCount() {
+        Log.d(TAG, "get item count" + fixturesList.size());
         return fixturesList.size();
     }
 }

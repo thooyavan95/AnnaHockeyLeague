@@ -9,4 +9,6 @@ public interface PlayerModelInterface {
 
     void foundPlayerList(ArrayList<PlayerDetails> arrayList);
 
+    void errorMsg(Exception e);
+
 }

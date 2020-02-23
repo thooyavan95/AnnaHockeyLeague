@@ -10,6 +10,7 @@ public class AhlConstants {
     public static final String TOP_SCORER_API = "topscorers/";
     public static final String CATEGORY_MEN = "&category=men";
     public static final String CATEGORY_WOMEN = "&category=women";
+    public static final String COUNT = "&count=3";
 
 
 

@@ -9,7 +9,6 @@ import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.Entity.Tournament;
-import com.example.annahockeyleague.Fragments.HomeFragment.HomeModelInterface;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,18 +31,19 @@ public class HomeModel {
 
     private HomeModelInterface homeModelInterface;
     private static final String TAG = "HomeModel";
-    public static final String DNS = "https://young-coast-02878.herokuapp.com/api/";
     private Gson gson;
+    private Request.Builder request;
 
 
-    private OkHttpClient beginDataCollection;
+    private OkHttpClient.Builder httpClient;
 
 
     public HomeModel(HomeModelInterface homeModelInterface)
     {
         Log.d(TAG,"HomeModel constructor");
         this.homeModelInterface = homeModelInterface;
-        beginDataCollection = new OkHttpClient();
+        httpClient = new OkHttpClient.Builder();
+        request = new Request.Builder();
         gson = new Gson();
     }
 
@@ -52,11 +53,11 @@ public class HomeModel {
 
         Log.d(TAG,"begin data collection");
 
-//        OkHttpClient beginDataCollection = new OkHttpClient();
+        httpClient = httpClient.connectTimeout(30, TimeUnit.SECONDS).writeTimeout(30,TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS);
 
-//        Request requestTournamentId = new Request.Builder().url(AhlConstants.DNS + AhlConstants.TOURNAMENTS_API).build();
-        Request requestTournamentId = new Request.Builder().url(AhlConstants.DNS + "tournament?season=2020&type=AHL").build();
-        beginDataCollection.newCall(requestTournamentId).enqueue(new Callback() {
+
+        Request requestTournamentId = request.url(AhlConstants.DNS + "tournament?season=2020&type=AHL").build();
+        httpClient.build().newCall(requestTournamentId).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG,"tournament api call failed");
@@ -67,7 +68,6 @@ public class HomeModel {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 String tournamentResponse = new String(response.body().bytes());
 
-//                Gson gson = new Gson();
                 Tournament tournament = gson.fromJson(tournamentResponse, Tournament.class);
 
                 Log.d("response", tournament.getId().toString());
@@ -75,8 +75,8 @@ public class HomeModel {
                 AnnaHockeyLeague.setTournamentId(tournament.getId());
 
                     getFixturesData(config);
-////                getPointsTableData(config);
-////                getTopScorersData(config);
+                getPointsTableData(config);
+                getTopScorersData(config);
 
             }
         });
@@ -88,23 +88,21 @@ public class HomeModel {
 
         Log.d(TAG,"method fixtures call");
 
-//        OkHttpClient beginDataCollection = new OkHttpClient();
-
         Request requestFixturesList;
 
         if(FragmentConfig.MEN == config) {
             Log.d(TAG,"men fixture api called");
-            requestFixturesList = new Request.Builder().url(AhlConstants.DNS + AhlConstants.FIXTURES_API + tournamentId + AhlConstants.CATEGORY_MEN).build();
+            requestFixturesList = request.url(AhlConstants.DNS + AhlConstants.FIXTURES_API + tournamentId + AhlConstants.CATEGORY_MEN).build();
         }
         else
         {
             Log.d(TAG,"women fixture api called");
-            requestFixturesList = new Request.Builder().url(AhlConstants.DNS + AhlConstants.FIXTURES_API + tournamentId + AhlConstants.CATEGORY_WOMEN).build();
+            requestFixturesList = request.url(AhlConstants.DNS + AhlConstants.FIXTURES_API + tournamentId + AhlConstants.CATEGORY_WOMEN).build();
         }
 
         Log.d(TAG, String.valueOf(requestFixturesList));
 
-        beginDataCollection.newCall(requestFixturesList).enqueue(new Callback() {
+        httpClient.build().newCall(requestFixturesList).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG,"fixture api called failed");
@@ -116,12 +114,10 @@ public class HomeModel {
 
                 String responseFromServer = new String(response.body().bytes());
                 Log.e("data "," "+responseFromServer);
-//                Gson gson = new Gson();
 
                 Type founderListType = new TypeToken<ArrayList<Fixtures>>(){}.getType();
                 ArrayList<Fixtures> foundList = gson.fromJson(responseFromServer, founderListType);
 
-                Log.d("obj",foundList.get(0).toString());
 
                 homeModelInterface.fixtureDataCollected(foundList);
 
@@ -138,15 +134,15 @@ public class HomeModel {
 
             if(FragmentConfig.MEN == config) {
                 Log.d(TAG,"men points table api called");
-                requestPointsTableData = new Request.Builder().url(AhlConstants.DNS + AhlConstants.POINTS_TABLE_API + tournamentId + AhlConstants.CATEGORY_MEN ).build();
+                requestPointsTableData = request.url(AhlConstants.DNS + AhlConstants.POINTS_TABLE_API + tournamentId + AhlConstants.CATEGORY_MEN ).build();
             }
             else
             {
                 Log.d(TAG,"women points table api called");
-                requestPointsTableData = new Request.Builder().url(AhlConstants.DNS + AhlConstants.POINTS_TABLE_API + tournamentId + AhlConstants.CATEGORY_WOMEN).build();
+                requestPointsTableData = request.url(AhlConstants.DNS + AhlConstants.POINTS_TABLE_API + tournamentId + AhlConstants.CATEGORY_WOMEN).build();
             }
 
-            beginDataCollection.newCall(requestPointsTableData).enqueue(new Callback() {
+            httpClient.build().newCall(requestPointsTableData).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
                     Log.d(TAG,"points table api called failed");
@@ -155,16 +151,15 @@ public class HomeModel {
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    Log.d(TAG,"points table api call success");
+
 
                     String responseFromServer = new String(response.body().bytes());
 
-//                    Gson gson = new Gson();
+                    Log.d(TAG,"points table api call success" + responseFromServer);
 
                     Type founderListType = new TypeToken<ArrayList<PointsTable>>(){}.getType();
                     ArrayList<PointsTable> foundList = gson.fromJson(responseFromServer, founderListType);
 
-                    Log.d("obj",foundList.get(0).toString());
 
                     homeModelInterface.pointsTableDataCollected(foundList);
 
@@ -183,15 +178,15 @@ public class HomeModel {
         if(FragmentConfig.MEN == config)
         {
             Log.d(TAG,"men Top scorer api called");
-            topScorersRequest = new Request.Builder().url(AhlConstants.DNS + AhlConstants.TOP_SCORER_API + tournamentId + "?category=men&count=3").build();
+            topScorersRequest = request.url(AhlConstants.DNS + AhlConstants.TOP_SCORER_API + tournamentId + "?category=men&count=3").build();
         }
         else
         {
             Log.d(TAG,"women Top scorer api called");
-            topScorersRequest = new Request.Builder().url(AhlConstants.DNS + AhlConstants.TOP_SCORER_API + tournamentId + "?category=women&count=2").build();
+            topScorersRequest = request.url(AhlConstants.DNS + AhlConstants.TOP_SCORER_API + tournamentId + "?category=women&count=3").build();
         }
 
-        beginDataCollection.newCall(topScorersRequest).enqueue(new Callback() {
+        httpClient.build().newCall(topScorersRequest).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 Log.d(TAG,"top scorer api failed");
@@ -199,18 +194,13 @@ public class HomeModel {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                Log.d(TAG,"top scorer api call success");
 
                 String responseFromServer = new String(response.body().bytes());
 
-                Log.d(TAG, responseFromServer);
-
-//                Gson gson = new Gson();
+                Log.d(TAG,"top scorer api call success" + responseFromServer);
 
                 Type founderListType = new TypeToken<ArrayList<TopScorers>>(){}.getType();
                 ArrayList<TopScorers> foundList = gson.fromJson(responseFromServer, founderListType);
-
-//                Log.d("obj",foundList.get(0).toString());
 
                 homeModelInterface.topScorersDataCollected(foundList);
 

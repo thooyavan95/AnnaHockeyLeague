@@ -8,4 +8,6 @@ public interface TeamViewInterface {
 
     void showTeams(ArrayList<Team> teamList);
 
+    void displayErrorMessage(Exception e);
+
 }

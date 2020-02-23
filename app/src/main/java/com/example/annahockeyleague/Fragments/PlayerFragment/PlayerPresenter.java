@@ -1,5 +1,7 @@
 package com.example.annahockeyleague.Fragments.PlayerFragment;
 
+import android.util.Log;
+
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Player;
 import com.example.annahockeyleague.Entity.PlayerDetails;
@@ -12,14 +14,17 @@ public class PlayerPresenter implements PlayerModelInterface {
 
     private PlayerViewInterface playerViewInterface;
     private PlayerModel playerModel;
+    private static final String TAG = PlayerPresenter.class.getSimpleName();
 
     public PlayerPresenter(PlayerViewInterface playerViewInterface) {
+        Log.d(TAG, "player presenter constructor called");
         this.playerViewInterface = playerViewInterface;
         playerModel = new PlayerModel(PlayerPresenter.this);
     }
 
     public void playerList(ObjectId teamId)
     {
+        Log.d(TAG, "player list called");
         playerModel.getPlayerList(teamId);
     }
 
@@ -27,7 +32,14 @@ public class PlayerPresenter implements PlayerModelInterface {
     @Override
     public void foundPlayerList(ArrayList<PlayerDetails> arrayList) {
 
+        Log.d(TAG, "found player list callback");
         playerViewInterface.showPlayers(arrayList);
 
+    }
+
+    @Override
+    public void errorMsg(Exception e) {
+        Log.d(TAG, "error msg callback");
+        playerViewInterface.displayErrorMessage(e);
     }
 }

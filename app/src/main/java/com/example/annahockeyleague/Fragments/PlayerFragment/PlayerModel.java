@@ -3,8 +3,6 @@ package com.example.annahockeyleague.Fragments.PlayerFragment;
 import android.util.Log;
 
 import com.example.annahockeyleague.AhlConfig.AhlConstants;
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
-import com.example.annahockeyleague.Entity.Player;
 import com.example.annahockeyleague.Entity.PlayerDetails;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,21 +24,22 @@ import okhttp3.Response;
 public class PlayerModel {
 
     private OkHttpClient.Builder okHttpClient;
-    private Gson gson;
     private PlayerModelInterface playerModelInterface;
+    private static final String TAG = PlayerModel.class.getSimpleName();
 
 
     public PlayerModel(PlayerModelInterface playerModelInterface) {
 
+        Log.d(TAG, "player model constructor called");
         this.playerModelInterface = playerModelInterface;
-        gson = new Gson();
         okHttpClient = new OkHttpClient.Builder();
     }
 
     public void getPlayerList(ObjectId teamId)
     {
-        Request players;
+        Log.d(TAG, "get player list called");
 
+        Request players;
 
             players = new Request.Builder().url(AhlConstants.DNS + "players/" + teamId ).build();
 
@@ -54,6 +53,7 @@ public class PlayerModel {
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 
                 Log.d("players", e.toString());
+                playerModelInterface.errorMsg(e);
 
             }
 
@@ -64,6 +64,7 @@ public class PlayerModel {
 
                 String players = new String(response.body().bytes());
                 Type founderListType = new TypeToken<ArrayList<PlayerDetails>>(){}.getType();
+                Gson gson = new Gson();
                 ArrayList<PlayerDetails> playerList = gson.fromJson(players,founderListType);
                 playerModelInterface.foundPlayerList(playerList);
 

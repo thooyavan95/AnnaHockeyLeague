@@ -18,7 +18,7 @@
                 layout="@layout/fixture_template"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/constraint_head" />
+                app:layout_constraintTop_toTopOf="@id/constraint_head"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/previous_match_fixture_cardview"

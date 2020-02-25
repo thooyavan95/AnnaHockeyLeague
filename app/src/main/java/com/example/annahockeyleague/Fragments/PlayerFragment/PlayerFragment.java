@@ -78,29 +78,33 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
     public void showPlayers(final ArrayList<PlayerDetails> playersList) {
 
         Log.d(TAG, "show players callback");
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
 
-                PlayerRecycleAdapter adapter = new PlayerRecycleAdapter(playersList);
-                recyclerView.setAdapter(adapter);
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
-                if(progressBar != null)
-                {
-                    Log.d(TAG, "progress bar is not null");
-                    progressBar.setIndeterminate(false);
-                    progressBar.setVisibility(View.INVISIBLE);
+                    PlayerRecycleAdapter adapter = new PlayerRecycleAdapter(playersList);
+                    recyclerView.setAdapter(adapter);
+
+                    if (progressBar != null) {
+                        Log.d(TAG, "progress bar is not null");
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+
                 }
-
-            }
-        });
+            });
+        }
 
     }
 
     @Override
     public void displayErrorMessage(Exception e) {
         Log.d(TAG, "display error message" + e.toString());
-        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        if(getActivity() != null) {
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 

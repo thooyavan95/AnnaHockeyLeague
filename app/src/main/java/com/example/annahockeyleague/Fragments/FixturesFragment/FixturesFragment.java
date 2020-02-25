@@ -19,7 +19,6 @@ import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixtureRecycleView.FixturesRecyclerView;
-import com.example.annahockeyleague.Fragments.FixturesFragment.FixtureRecycleView.FixturesViewHolder;
 import com.example.annahockeyleague.Fragments.HomeFragment.HomePresenter;
 import com.example.annahockeyleague.Fragments.HomeFragment.HomeViewInterface;
 import com.example.annahockeyleague.R;
@@ -101,19 +100,20 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
     @Override
     public void setFixtures(final ArrayList<Fixtures> fixdata) {
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                FixturesRecyclerView adapter = new FixturesRecyclerView(fixdata, config);
-                ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    FixturesRecyclerView adapter = new FixturesRecyclerView(fixdata, config);
+                    ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
 
-                if(progressBar != null)
-                {
-                    progressBar.setIndeterminate(false);
-                    progressBar.setVisibility(View.INVISIBLE);
+                    if (progressBar != null) {
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 

@@ -69,7 +69,7 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
 
         Log.d(TAG, "show teams callback");
 
-        if(getView() != null && teamsList != null) {
+        if(getActivity() != null && teamsList != null) {
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -107,7 +107,9 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
     @Override
     public void displayErrorMessage(Exception e) {
         Log.d(TAG, "display error message");
-        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        if(getActivity() != null) {
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 

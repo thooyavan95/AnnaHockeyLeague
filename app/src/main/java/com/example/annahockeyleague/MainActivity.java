@@ -118,4 +118,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Log.d(TAG,"on destroy activity");
         super.onDestroy();
     }
+
 }

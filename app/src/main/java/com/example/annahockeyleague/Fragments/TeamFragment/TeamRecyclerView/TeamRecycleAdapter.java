@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.annahockeyleague.AhlConfig.LogoSetter;
 import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.R;
 import com.squareup.picasso.Picasso;
@@ -42,7 +43,7 @@ public class TeamRecycleAdapter extends RecyclerView.Adapter<TeamViewHolder> {
         Log.d(TAG, "on bind view holder");
 
         holder.teamName.setText(arrayList.get(position).getName());
-        Picasso.get().load(setTeamLogo(arrayList.get(position))).fit().into(holder.teamLogo);
+        Picasso.get().load(LogoSetter.setTeamLogo(arrayList.get(position))).fit().into(holder.teamLogo);
 
     }
 
@@ -51,67 +52,5 @@ public class TeamRecycleAdapter extends RecyclerView.Adapter<TeamViewHolder> {
         Log.d(TAG, "get item count" + arrayList.size());
         return arrayList.size();
     }
-
-    private int setTeamLogo(Team data)
-    {
-        Log.d(TAG, "set team logo called");
-
-        int image = 0;
-
-        switch (data.getTeamTag())
-        {
-
-            case M_RED:
-
-            case W_RED:
-
-                image =  R.drawable.red;
-                break;
-
-            case M_BLUE:
-
-            case W_BLUE:
-
-                image = R.drawable.bluz;
-                break;
-
-            case M_GREEN:
-
-            case W_GREEN:
-
-                image =  R.drawable.griffinz;
-                break;
-
-            case M_WHITE:
-
-            case W_WHITE:
-
-                image =  R.drawable.white;
-                break;
-
-            case M_VIOLET:
-
-            case W_VIOLET:
-
-                image =  R.drawable.driblerz;
-                break;
-
-            case M_YELLOW:
-
-            case W_YELLOW:
-
-                image =  R.drawable.yyy;
-                break;
-
-            case M_BLACK:
-
-                image = R.drawable.android_image;
-                break;
-
-        }
-
-        return image;
-    }
-
 
 }

@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.annahockeyleague.Adapters.PointsTableAdapter;
 import com.example.annahockeyleague.Adapters.TopScorersAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
+import com.example.annahockeyleague.AhlConfig.LogoSetter;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Entity.TopScorers;
@@ -34,6 +34,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
+
+import static com.example.annahockeyleague.AhlConfig.LogoSetter.setTeamLogo;
 
 public class HomePageFragment extends Fragment implements HomeViewInterface {
 
@@ -52,8 +54,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         Log.d(TAG,"onCreateView");
         return inflater.inflate(R.layout.fragment_home_page, container, false);
@@ -63,11 +64,6 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         Log.d(TAG,"onViewCreated");
-
-        if(savedInstanceState != null)
-        {
-
-        }
 
         HomePresenter presenter = new HomePresenter(HomePageFragment.this);
         getHomePageDataFromServer(presenter);
@@ -87,7 +83,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     public void setNextMatchFixture(final Fixtures data) {
 
         Log.d(TAG,"method set next match Fixtues data");
-        if(getView() != null) {
+        if(getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -120,8 +116,8 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
                         ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(data.getTeam1Scorers()));
                         ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(data.getTeam2Scorers()));
-                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
-                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+                        Picasso.get().load(LogoSetter.setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                        Picasso.get().load(LogoSetter.setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
                     }
 
                 }
@@ -133,7 +129,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     @Override
     public void setPrevoiusMatchFixture(final Fixtures data) {
 
-        if(getView() != null) {
+        if(getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -220,7 +216,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
         Log.d(TAG,"method set points table");
 
-        if(getView() != null) {
+        if(getActivity() != null) {
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -240,7 +236,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     public void setTopScorers(final ArrayList<TopScorers> topScorersData) {
         Log.d(TAG,"method set top scorers data");
 
-        if(getView() != null) {
+        if(getActivity() != null) {
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -261,16 +257,22 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
         Log.d(TAG,"method setfailure toast");
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
-                Log.d(TAG,"run on ui thread inside set failure toast");
-                Toast.makeText(getContext(), String.valueOf(e), Toast.LENGTH_SHORT).show();
-                Log.d("error msg",String.valueOf(e));
-            }
-        });
+                    Log.d(TAG, "run on ui thread inside set failure toast");
+                    Toast.makeText(getContext(), String.valueOf(e), Toast.LENGTH_SHORT).show();
+                    Log.d("error msg", String.valueOf(e));
+                }
+            });
+        }
 
+    }
+
+    @Override
+    public void setFixtures(ArrayList<Fixtures> fixdata) {
 
     }
 
@@ -302,73 +304,6 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
         listView.setLayoutParams(params);
         listView.requestLayout();
-
-    }
-
-    @Override
-    public void setFixtures(ArrayList<Fixtures> fixdata) {
-
-    }
-
-    private int setTeamLogo(Team teamTag)
-    {
-
-        int image = 0;
-
-        switch (teamTag.getTeamTag())
-        {
-
-            case W_RED:
-
-            case M_RED:
-                image =  R.drawable.red;
-                break;
-
-            case M_BLUE:
-
-            case W_BLUE:
-
-                image = R.drawable.bluz;
-                break;
-
-            case M_GREEN:
-
-            case W_GREEN:
-
-                image =  R.drawable.griffinz;
-                break;
-
-            case M_WHITE:
-
-            case W_WHITE:
-
-                image =  R.drawable.white;
-                break;
-
-            case M_VIOLET:
-
-            case W_VIOLET:
-
-                image =  R.drawable.driblerz;
-                break;
-
-            case M_YELLOW:
-
-            case W_YELLOW:
-
-                image =  R.drawable.yyy;
-                break;
-
-            case M_BLACK:
-
-                image = R.drawable.android_image;
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + teamTag);
-        }
-
-        return image;
     }
 
     private String getAllGoals(Map<String,Integer> allGoals)

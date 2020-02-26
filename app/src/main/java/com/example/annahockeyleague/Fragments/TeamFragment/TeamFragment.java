@@ -15,32 +15,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamRecyclerView.OnTeamSelected;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamRecyclerView.TeamRecycleAdapter;
+import com.example.annahockeyleague.MainActivity;
 import com.example.annahockeyleague.R;
-import com.example.annahockeyleague.TestInterface;
 
 import java.util.ArrayList;
 
 public class TeamFragment extends Fragment implements TeamViewInterface {
 
-    private FragmentConfig config;
-    private TestInterface testInterface;
+    private String config;
     private ArrayList<Team> teamListData;
     private static final String TAG = TeamFragment.class.getSimpleName();
 
     public TeamFragment()
     {
         Log.d(TAG, "team fragment constructor called");
-    }
-
-    public TeamFragment(FragmentConfig config, TestInterface testInterface)
-    {
-        Log.d(TAG, "team fragment constructor with params called");
-        this.config = config;
-        this.testInterface = testInterface;
     }
 
     @Nullable
@@ -104,8 +95,9 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
             TeamRecycleAdapter adapter = new TeamRecycleAdapter(teamArrayList, new OnTeamSelected() {
                 @Override
                 public void onTeamSelect(int position) {
-
-                    testInterface.showPlayerFragment(teamArrayList.get(position));
+                    if(getContext() != null) {
+                        ((MainActivity) getContext()).showPlayerFragment(teamArrayList.get(position));
+                    }
 
                 }
             });
@@ -195,5 +187,10 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
         super.onDetach();
     }
 
+    public void setConfig(String config)
+    {
+        Log.d(TAG, "set config called" + config);
+        this.config = config;
+    }
 
 }

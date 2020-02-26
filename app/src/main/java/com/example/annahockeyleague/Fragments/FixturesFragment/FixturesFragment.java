@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 
 public class FixturesFragment extends Fragment implements HomeViewInterface {
 
-    private FragmentConfig config;
+    private String config;
     private static final String TAG = FixturesFragment.class.getSimpleName();
     private ArrayList<Fixtures> fixturesData;
 
@@ -36,7 +35,7 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
         Log.d(TAG, "fixture fragment constructor");
     }
 
-    public FixturesFragment(FragmentConfig config)
+    public FixturesFragment(String config)
     {
         Log.d(TAG, "fixture fragment constructor params");
         this.config = config;
@@ -122,7 +121,7 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
     private void setAllFixturesData(ArrayList<Fixtures> fixturesDataList)
     {
         if(getView() != null) {
-            FixturesRecyclerView adapter = new FixturesRecyclerView(fixturesDataList, config);
+            FixturesRecyclerView adapter = new FixturesRecyclerView(fixturesDataList);
             ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
 
             if (getView().findViewById(R.id.fixtures_progress_bar) != null) {
@@ -204,6 +203,12 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
     public void onDetach() {
         Log.d(TAG, "on detach fragment");
         super.onDetach();
+    }
+
+    public void setConfig(String config)
+    {
+        Log.d(TAG, "set config called" + config);
+        this.config = config;
     }
 
 }

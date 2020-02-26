@@ -13,12 +13,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.annahockeyleague.AdapterInterface;
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
+import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class FixturesPage extends Fragment {
+public class FixturesPage extends Fragment implements AdapterInterface {
 
     private static final String TAG = FixturesPage.class.getSimpleName();
     private FragmentPagerAdapter adapter;
@@ -40,19 +42,21 @@ public class FixturesPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         Log.d(TAG, "on view created");
-        TabLayout tabs;
-        ViewPager viewPager;
 
-        tabs = getView().findViewById(R.id.tabLayout);
-        viewPager = getView().findViewById(R.id.viewpager);
+        if(getView() != null) {
+            TabLayout tabs;
+            ViewPager viewPager;
 
-        if(adapter == null) {
-            adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.FIXTURES);
+            tabs = getView().findViewById(R.id.tabLayout);
+            viewPager = getView().findViewById(R.id.viewpager);
+
+            if (adapter == null) {
+                adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.FIXTURES, FixturesPage.this);
+            }
+
+            viewPager.setAdapter(adapter);
+            tabs.setupWithViewPager(viewPager);
         }
-
-        viewPager.setAdapter(adapter);
-        tabs.setupWithViewPager(viewPager);
-
     }
 
 
@@ -127,4 +131,20 @@ public class FixturesPage extends Fragment {
     }
 
 
+    @Override
+    public void getItemPosition(int position, long itemId, Fragment fragment) {
+        Log.d(TAG, "get item position called");
+        if(fragment != null)
+        {
+            if(position == 0) {
+                Log.d(TAG, "get item position 0");
+                ((FixturesFragment) fragment).setConfig(AhlConstants.men);
+            }
+            else
+            {
+                Log.d(TAG, "get item position 1");
+                ((FixturesFragment) fragment).setConfig(AhlConstants.women);
+            }
+        }
+    }
 }

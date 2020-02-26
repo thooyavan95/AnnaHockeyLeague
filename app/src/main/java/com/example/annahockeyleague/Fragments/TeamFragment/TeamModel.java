@@ -3,14 +3,11 @@ package com.example.annahockeyleague.Fragments.TeamFragment;
 import android.util.Log;
 
 import com.example.annahockeyleague.AhlConfig.AhlConstants;
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.AnnaHockeyLeague;
-import com.example.annahockeyleague.Entity.Player;
 import com.example.annahockeyleague.Entity.Team;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -38,12 +35,12 @@ public class TeamModel {
         request = new Request.Builder();
     }
 
-    public void getTeam(FragmentConfig config)
+    public void getTeam(String config)
     {
           Log.d(TAG, "get team called");
         Request requestTeam;
 
-        if(config == FragmentConfig.MEN)
+        if(AhlConstants.men.equals(config))
         {
             Log.d(TAG, "men team request called");
               requestTeam = request.url(AhlConstants.DNS + "teams?tournament=" + AnnaHockeyLeague.getTournamentId() + "&category=men").build();

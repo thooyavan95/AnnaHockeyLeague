@@ -2,7 +2,6 @@ package com.example.annahockeyleague.Fragments.TeamFragment;
 
 import android.util.Log;
 
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.Team;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class TeamPresenter implements TeamModelInterface {
         teamModel = new TeamModel(TeamPresenter.this);
     }
 
-    public void getTeamList(FragmentConfig config)
+    public void getTeamList(String config)
     {
         Log.d(TAG, "get team list called");
         teamModel.getTeam(config);

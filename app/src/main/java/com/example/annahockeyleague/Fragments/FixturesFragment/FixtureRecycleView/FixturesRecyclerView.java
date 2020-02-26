@@ -29,13 +29,11 @@ import static com.example.annahockeyleague.AhlConfig.LogoSetter.setTeamLogo;
 public class FixturesRecyclerView extends RecyclerView.Adapter<FixturesViewHolder> {
 
     private ArrayList<Fixtures> fixturesList;
-    private FragmentConfig config;
     private static final String TAG = FixturesRecyclerView.class.getSimpleName();
 
-    public FixturesRecyclerView(ArrayList<Fixtures> fixturesList, FragmentConfig config) {
+    public FixturesRecyclerView(ArrayList<Fixtures> fixturesList) {
         Log.d(TAG, "fixture recycle view constructor");
         this.fixturesList = fixturesList;
-        this.config = config;
     }
 
     @NonNull

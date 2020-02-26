@@ -23,7 +23,7 @@ public class HomePresenter implements HomeModelInterface {
         homeModel = new HomeModel(HomePresenter.this);
     }
 
-    public void fetchData(FragmentConfig config)
+    public void fetchData(String config)
     {
         Log.d(TAG,"method fetch data");
         homeModel.beginDataCollection(config);

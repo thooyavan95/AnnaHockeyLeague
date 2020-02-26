@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.annahockeyleague.Adapters.PointsTableAdapter;
 import com.example.annahockeyleague.Adapters.TopScorersAdapter;
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
+import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.LogoSetter;
 import com.example.annahockeyleague.Entity.PointsTable;
 import com.example.annahockeyleague.Entity.TopScorers;
@@ -38,23 +38,22 @@ import static com.example.annahockeyleague.AhlConfig.LogoSetter.setTeamLogo;
 
 public class HomePageFragment extends Fragment implements HomeViewInterface {
 
-    private FragmentConfig config;
+    private String config;
     private static final String TAG = "HomePageFragment";
     private Fixtures nextFixtureData;
     private Fixtures previousFixtureData;
     private ArrayList<PointsTable> pointsTableData;
     private ArrayList<TopScorers> topScorersData;
 
-
     public HomePageFragment() {
         Log.d(TAG,"empty constructor called");
         // Required empty public constructor
     }
 
-    public HomePageFragment(FragmentConfig config) {
-        Log.d(TAG,"Homefragment config constructor");
-        this.config = config;
-    }
+//    public HomePageFragment(FragmentConfig config) {
+//        Log.d(TAG,"Homefragment config constructor");
+//        this.config = config;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -206,7 +205,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     private void setNextMatchData(Fixtures matchData)
     {
         if(getView() != null) {
-            if (config == FragmentConfig.MEN) {
+            if (config.equals(AhlConstants.men)) {
 
                 Log.d(TAG, "updating ui with next match details men");
 
@@ -238,7 +237,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     {
 
         if(getView() != null) {
-            if (config == FragmentConfig.MEN) {
+            if (config.equals(AhlConstants.men)) {
 
                 Log.d(TAG, "updating ui with previous match details men");
 
@@ -399,9 +398,9 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "on create");
+        setRetainInstance(true);
         HomePresenter presenter = new HomePresenter(HomePageFragment.this);
         getHomePageDataFromServer(presenter);
-        setRetainInstance(true);
     }
 
     @Override
@@ -456,6 +455,12 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     public void onDetach() {
         Log.d(TAG, "on detach fragment");
         super.onDetach();
+    }
+
+    public void setConfig(String config)
+    {
+        Log.d(TAG, "set config called" + config);
+        this.config = config;
     }
 
 

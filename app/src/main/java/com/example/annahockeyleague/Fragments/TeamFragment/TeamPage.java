@@ -13,13 +13,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.annahockeyleague.AdapterInterface;
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
+import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
+import com.example.annahockeyleague.Fragments.HomeFragment.HomePageFragment;
 import com.example.annahockeyleague.R;
 import com.example.annahockeyleague.TestInterface;
 import com.google.android.material.tabs.TabLayout;
 
-public class TeamPage extends Fragment {
+public class TeamPage extends Fragment implements AdapterInterface {
 
     private TestInterface testInterface;
     private static final String TAG = TeamPage.class.getSimpleName();
@@ -28,12 +31,6 @@ public class TeamPage extends Fragment {
     public TeamPage()
     {
         Log.d(TAG, "team page constructor");
-    }
-
-    public TeamPage(TestInterface testInterface)
-    {
-        Log.d(TAG, "team page constructor with params");
-        this.testInterface = testInterface;
     }
 
     @Nullable
@@ -47,20 +44,21 @@ public class TeamPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
 
-        Log.d(TAG, "on view created");
-        TabLayout tabs;
-        ViewPager viewPager;
+        if(getView() != null) {
+            Log.d(TAG, "on view created");
+            TabLayout tabs;
+            ViewPager viewPager;
 
-        tabs = getView().findViewById(R.id.tabLayout);
-        viewPager = getView().findViewById(R.id.viewpager);
+            tabs = getView().findViewById(R.id.tabLayout);
+            viewPager = getView().findViewById(R.id.viewpager);
 
-        if(adapter == null) {
-            adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM, testInterface);
+            if (adapter == null) {
+                adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM, TeamPage.this);
+            }
+
+            viewPager.setAdapter(adapter);
+            tabs.setupWithViewPager(viewPager);
         }
-
-        viewPager.setAdapter(adapter);
-        tabs.setupWithViewPager(viewPager);
-
     }
 
 
@@ -135,4 +133,20 @@ public class TeamPage extends Fragment {
     }
 
 
+    @Override
+    public void getItemPosition(int position, long itemId, Fragment fragment) {
+        Log.d(TAG, "get item position called");
+        if(fragment != null)
+        {
+            if(position == 0) {
+                Log.d(TAG, "get item position 0");
+                ((TeamFragment) fragment).setConfig(AhlConstants.men);
+            }
+            else
+            {
+                Log.d(TAG, "get item position 1");
+                ((TeamFragment) fragment).setConfig(AhlConstants.women);
+            }
+        }
+    }
 }

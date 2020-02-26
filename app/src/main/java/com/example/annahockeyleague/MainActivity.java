@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
             else
             {
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamPage(MainActivity.this), "team")
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container,new TeamPage(), "team")
                         .addToBackStack(null).commit();
             }
                 return true;

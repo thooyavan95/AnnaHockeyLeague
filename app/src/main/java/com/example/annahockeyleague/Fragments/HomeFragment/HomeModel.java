@@ -3,7 +3,6 @@ package com.example.annahockeyleague.Fragments.HomeFragment;
 import android.util.Log;
 
 import com.example.annahockeyleague.AhlConfig.AhlConstants;
-import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.Entity.AnnaHockeyLeague;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.Entity.PointsTable;
@@ -48,7 +47,7 @@ public class HomeModel {
     }
 
 
-    public void beginDataCollection(final FragmentConfig config)
+    public void beginDataCollection(final String config)
     {
 
         Log.d(TAG,"begin data collection");
@@ -83,14 +82,14 @@ public class HomeModel {
 
     }
 
-    private void getFixturesData(FragmentConfig config)
+    private void getFixturesData(String config)
     {
 
         Log.d(TAG,"method fixtures call");
 
         Request requestFixturesList;
 
-        if(FragmentConfig.MEN == config) {
+        if(AhlConstants.men.equals(config)) {
             Log.d(TAG,"men fixture api called");
             requestFixturesList = request.url(AhlConstants.DNS + AhlConstants.FIXTURES_API + tournamentId + AhlConstants.CATEGORY_MEN).build();
         }
@@ -126,13 +125,13 @@ public class HomeModel {
     }
 
 
-    private void getPointsTableData(FragmentConfig config)
+    private void getPointsTableData(String config)
     {
         Log.d(TAG,"method begin points table data collection");
 
             Request requestPointsTableData;
 
-            if(FragmentConfig.MEN == config) {
+        if(AhlConstants.men.equals(config)) {
                 Log.d(TAG,"men points table api called");
                 requestPointsTableData = request.url(AhlConstants.DNS + AhlConstants.POINTS_TABLE_API + tournamentId + AhlConstants.CATEGORY_MEN ).build();
             }
@@ -169,14 +168,13 @@ public class HomeModel {
     }
 
 
-    private void getTopScorersData(FragmentConfig config)
+    private void getTopScorersData(String config)
     {
         Log.d(TAG,"method begin top scorer data collection");
 
 
         Request topScorersRequest;
-        if(FragmentConfig.MEN == config)
-        {
+        if(AhlConstants.men.equals(config)) {
             Log.d(TAG,"men Top scorer api called");
             topScorersRequest = request.url(AhlConstants.DNS + AhlConstants.TOP_SCORER_API + tournamentId + "?category=men&count=3").build();
         }

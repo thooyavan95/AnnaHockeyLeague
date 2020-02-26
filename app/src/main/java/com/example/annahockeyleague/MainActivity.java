@@ -2,6 +2,7 @@ package com.example.annahockeyleague;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNav.setOnNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_activity_container, new HomePage())
+                .add(R.id.main_activity_container, new HomePage(),"home")
+                .addToBackStack(null)
                 .commit();
-
 
     }
 
@@ -50,18 +51,43 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (menuItem.getItemId()){
 
             case R.id.bottom_nav_home:
-
                 Log.d(TAG,"nav_home selected");
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new HomePage()).commit();
+
+                if(getSupportFragmentManager().findFragmentByTag("home") != null)
+                {
+                    Fragment homePage = getSupportFragmentManager().findFragmentByTag("home");
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, homePage).commit();
+                }
+                else {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new HomePage(), "home").commit();
+                }
                 return true;
-            case R.id.bottom_nav_team:
+            case
+                    R.id.bottom_nav_team:
                 Log.d(TAG,"nav_team selected");
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamPage(MainActivity.this)).commit();
+
+            if(getSupportFragmentManager().findFragmentByTag("team") != null) {
+                Fragment teamPage = getSupportFragmentManager().findFragmentByTag("team");
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, teamPage).commit();
+            }
+            else
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new TeamPage(MainActivity.this), "team")
+                        .addToBackStack(null).commit();
+            }
                 return true;
 
             case R.id.bottom_nav_fixtures:
                 Log.d(TAG,"nav_fixtures selected");
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new FixturesPage()).commit();
+                if(getSupportFragmentManager().findFragmentByTag("fixtures") != null)
+                {
+                    Fragment fixturePage = getSupportFragmentManager().findFragmentByTag("fixtures");
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, fixturePage).commit();
+                }
+                else {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new FixturesPage(), "fixtures")
+                            .addToBackStack(null).commit();
+                }
                 return true;
 
             default:
@@ -79,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_activity_container, new PlayerFragment(team.getId()))
+                .addToBackStack(null)
                 .commit();
 
     }
@@ -118,5 +145,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Log.d(TAG,"on destroy activity");
         super.onDestroy();
     }
-
 }

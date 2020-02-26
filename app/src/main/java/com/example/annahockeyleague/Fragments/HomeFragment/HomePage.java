@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.R;
@@ -20,6 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 public class HomePage extends Fragment {
 
     private static final String TAG = HomePage.class.getSimpleName();
+    private FragmentPagerAdapter adapter;
 
     public HomePage()
     {
@@ -38,13 +39,17 @@ public class HomePage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         Log.d(TAG, "on view created");
+
         TabLayout tabs;
         ViewPager viewPager;
 
         tabs = getView().findViewById(R.id.tabLayout);
         viewPager = getView().findViewById(R.id.viewpager);
 
-        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.HOME);
+        if(adapter == null) {
+            adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.HOME);
+        }
+
 
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
@@ -54,71 +59,70 @@ public class HomePage extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-
-        Log.d(TAG, "on save instance state");
         super.onSaveInstanceState(outState);
+        Log.d(TAG, "on save instance state");
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        Log.d(TAG, "on create");
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "on create");
+        setRetainInstance(true);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "on activity created");
         super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "on activity created");
     }
 
     @Override
     public void onStart() {
-        Log.d(TAG, "on start fragment");
         super.onStart();
+        Log.d(TAG, "on start fragment");
     }
 
     @Override
     public void onResume() {
-        Log.d(TAG, "on resume fragment");
         super.onResume();
+        Log.d(TAG, "on resume fragment");
     }
 
     @Override
     public void onPause() {
-        Log.d(TAG, "on pause fragment");
         super.onPause();
+        Log.d(TAG, "on pause fragment");
     }
 
     @Override
     public void onStop() {
-        Log.d(TAG, "o stop fragment");
         super.onStop();
+        Log.d(TAG, "on stop fragment");
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
-        Log.d(TAG, "on attach fragment");
         super.onAttach(context);
+        Log.d(TAG, "on attach fragment");
     }
 
     @Override
     public void onDestroyView() {
-        Log.d(TAG, "on destroy view fragment");
         super.onDestroyView();
+        Log.d(TAG, "on destroy view fragment");
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "on destroy fragment");
         super.onDestroy();
+        Log.d(TAG, "on destroy fragment");
     }
 
     @Override
     public void onDetach() {
-        Log.d(TAG, "on detach fragment");
         super.onDetach();
+        Log.d(TAG, "on detach fragment");
     }
 
 

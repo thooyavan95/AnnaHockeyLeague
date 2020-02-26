@@ -27,9 +27,8 @@ import java.util.ArrayList;
 public class TeamFragment extends Fragment implements TeamViewInterface {
 
     private FragmentConfig config;
-    private ProgressBar progressBar;
-    private TeamPresenter fetch;
     private TestInterface testInterface;
+    private ArrayList<Team> teamListData;
     private static final String TAG = TeamFragment.class.getSimpleName();
 
     public TeamFragment()
@@ -55,13 +54,13 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         Log.d(TAG, "on view created");
-        progressBar = view.findViewById(R.id.team_progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setIndeterminate(true);
+        view.findViewById(R.id.team_progress_bar).setVisibility(View.VISIBLE);
+        ((ProgressBar)view.findViewById(R.id.team_progress_bar)).setIndeterminate(true);
 
-        fetch = new TeamPresenter(TeamFragment.this);
-        fetch.getTeamList(config);
-
+        if(teamListData != null)
+        {
+            setTeamListData(teamListData);
+        }
     }
 
     @Override
@@ -75,28 +74,10 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
                 @Override
                 public void run() {
 
-                    RecyclerView recyclerView = getView().findViewById(R.id.team_recycle_view);
-                    recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setBackgroundColor(getResources().getColor(R.color.colorWhisper));
+                    teamListData = teamsList;
 
-                    TeamRecycleAdapter adapter = new TeamRecycleAdapter(teamsList, new OnTeamSelected() {
-                        @Override
-                        public void onTeamSelect(int position) {
+                    setTeamListData(teamsList);
 
-                            testInterface.showPlayerFragment(teamsList.get(position));
-
-                        }
-                    });
-
-                    recyclerView.setAdapter(adapter);
-
-                    if(progressBar != null)
-                    {
-                        Log.d(TAG, "progress bar is not null");
-                        progressBar.setIndeterminate(false);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
                 }
             });
 
@@ -112,6 +93,33 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
         }
     }
 
+    private void setTeamListData(final ArrayList<Team> teamArrayList)
+    {
+        if(getView() != null) {
+            RecyclerView recyclerView = getView().findViewById(R.id.team_recycle_view);
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setBackgroundColor(getResources().getColor(R.color.colorWhisper));
+
+            TeamRecycleAdapter adapter = new TeamRecycleAdapter(teamArrayList, new OnTeamSelected() {
+                @Override
+                public void onTeamSelect(int position) {
+
+                    testInterface.showPlayerFragment(teamArrayList.get(position));
+
+                }
+            });
+
+            recyclerView.setAdapter(adapter);
+
+            if (getView().findViewById(R.id.team_progress_bar) != null) {
+                Log.d(TAG, "progress bar is not null");
+                ((ProgressBar) getView().findViewById(R.id.team_progress_bar)).setIndeterminate(false);
+                getView().findViewById(R.id.team_progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -123,9 +131,14 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        Log.d(TAG, "on create");
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "on create");
+
+        TeamPresenter fetch = new TeamPresenter(TeamFragment.this);
+        fetch.getTeamList(config);
+
+        setRetainInstance(true);
+
     }
 
     @Override

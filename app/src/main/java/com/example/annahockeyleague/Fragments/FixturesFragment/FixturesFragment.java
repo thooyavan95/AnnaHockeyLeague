@@ -28,8 +28,8 @@ import java.util.ArrayList;
 public class FixturesFragment extends Fragment implements HomeViewInterface {
 
     private FragmentConfig config;
-    private ProgressBar progressBar;
     private static final String TAG = FixturesFragment.class.getSimpleName();
+    private ArrayList<Fixtures> fixturesData;
 
     public FixturesFragment()
     {
@@ -56,20 +56,23 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
 
         initRecyclerView();
 
-        progressBar = view.findViewById(R.id.fixtures_progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setIndeterminate(true);
+        view.findViewById(R.id.fixtures_progress_bar).setVisibility(View.VISIBLE);
+        ((ProgressBar) view.findViewById(R.id.fixtures_progress_bar)).setIndeterminate(true);
 
-        HomePresenter presenter = new HomePresenter(FixturesFragment.this);
-        presenter.fetchData(config);
+        if(fixturesData != null)
+        {
+            setAllFixturesData(fixturesData);
+        }
 
     }
 
     private void initRecyclerView()
     {
-        Log.d(TAG, "init recycle view");
-        ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setLayoutManager(new LinearLayoutManager(getContext()));
-        ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setHasFixedSize(true);
+        if(getView() != null) {
+            Log.d(TAG, "init recycle view");
+            ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setLayoutManager(new LinearLayoutManager(getContext()));
+            ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setHasFixedSize(true);
+        }
     }
 
     @Override
@@ -98,23 +101,35 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
     }
 
     @Override
-    public void setFixtures(final ArrayList<Fixtures> fixdata) {
+    public void setFixtures(final ArrayList<Fixtures> allFixturesData) {
 
         if(getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    FixturesRecyclerView adapter = new FixturesRecyclerView(fixdata, config);
-                    ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
 
-                    if (progressBar != null) {
-                        progressBar.setIndeterminate(false);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
+                    fixturesData = allFixturesData;
+
+                    setAllFixturesData(allFixturesData);
+
                 }
             });
         }
 
+    }
+
+
+    private void setAllFixturesData(ArrayList<Fixtures> fixturesDataList)
+    {
+        if(getView() != null) {
+            FixturesRecyclerView adapter = new FixturesRecyclerView(fixturesDataList, config);
+            ((RecyclerView) getView().findViewById(R.id.fixtures_recycler_view)).setAdapter(adapter);
+
+            if (getView().findViewById(R.id.fixtures_progress_bar) != null) {
+                ((ProgressBar) getView().findViewById(R.id.fixtures_progress_bar)).setIndeterminate(false);
+                getView().findViewById(R.id.fixtures_progress_bar).setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
 
@@ -128,9 +143,13 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         Log.d(TAG, "on create");
-        super.onCreate(savedInstanceState);
+        HomePresenter presenter = new HomePresenter(FixturesFragment.this);
+        presenter.fetchData(config);
+
+        setRetainInstance(true);
     }
 
     @Override

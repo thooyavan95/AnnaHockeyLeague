@@ -22,7 +22,6 @@ import com.example.annahockeyleague.Adapters.TopScorersAdapter;
 import com.example.annahockeyleague.AhlConfig.FragmentConfig;
 import com.example.annahockeyleague.AhlConfig.LogoSetter;
 import com.example.annahockeyleague.Entity.PointsTable;
-import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Entity.TopScorers;
 import com.example.annahockeyleague.Entity.Fixtures;
 import com.example.annahockeyleague.R;
@@ -41,6 +40,10 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
     private FragmentConfig config;
     private static final String TAG = "HomePageFragment";
+    private Fixtures nextFixtureData;
+    private Fixtures previousFixtureData;
+    private ArrayList<PointsTable> pointsTableData;
+    private ArrayList<TopScorers> topScorersData;
 
 
     public HomePageFragment() {
@@ -65,9 +68,13 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
         Log.d(TAG,"onViewCreated");
 
-        HomePresenter presenter = new HomePresenter(HomePageFragment.this);
-        getHomePageDataFromServer(presenter);
-
+        if(nextFixtureData != null && previousFixtureData != null && pointsTableData != null && topScorersData != null)
+        {
+            setNextMatchData(nextFixtureData);
+            setPreviousMatchData(previousFixtureData);
+            setPointsTableData(pointsTableData);
+            setTopScorersData(topScorersData);
+        }
 
     }
 
@@ -93,33 +100,9 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                     Log.d(TAG, "updating ui with next match details");
                     Log.d(TAG, data.toString());
 
+                    nextFixtureData = data;
 
-                    if (config == FragmentConfig.MEN) {
-
-                        Log.d(TAG,"updating ui with next match details men");
-
-                        ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(data));
-                        ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(data));
-                        ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(data.getTeam1().getName());
-                        ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
-                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(data.getTeam1Scorers()));
-                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(data.getTeam2Scorers()));
-                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
-                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
-                    } else {
-
-                        Log.d(TAG,"updating ui with next match details women");
-
-                        ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(data));
-                        ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(data));
-                        ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(data.getTeam1().getName());
-                        ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(data.getTeam2().getName());
-                        ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(data.getTeam1Scorers()));
-                        ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(data.getTeam2Scorers()));
-                        Picasso.get().load(LogoSetter.setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
-                        Picasso.get().load(LogoSetter.setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
-                    }
-
+                    setNextMatchData(data);
                 }
             });
 
@@ -140,68 +123,9 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                     Log.d(TAG, "updating ui with previous match fixture data");
                     Log.d(TAG, data.toString());
 
-                    if (config == FragmentConfig.MEN) {
+                    previousFixtureData = data;
 
-                        Log.d(TAG,"updating ui with previous match details men");
-
-                        ((TextView) getView().findViewById(R.id.previous_match_fixture_date)).setText(milliSecToDate(data));
-                        ((TextView) getView().findViewById(R.id.previous_match_fixture_time)).setText(milliSecToTime(data));
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(data.getTeam1().getName());
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2().getName());
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(getAllGoals(data.getTeam1Scorers()));
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(getAllGoals(data.getTeam2Scorers()));
-                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
-                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
-
-                        if(data.getBuddingPlayer() != null && data.getMom() != null)
-                        {
-                            getView().findViewById(R.id.previous_match__man_of_the_match_image).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.previous_match__budding_player_image).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.previous_match_man_of_the_match_name).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.previous_match_budding_player_name).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.budding_player).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.man_of_the_match).setVisibility(View.VISIBLE);
-
-                            Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
-                            Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
-                            ((TextView) getView().findViewById(R.id.previous_match_budding_player_name)).setText(data.getBuddingPlayer().getName());
-                            ((TextView) getView().findViewById(R.id.previous_match_man_of_the_match_name)).setText(data.getMom().getName());
-                        }
-
-
-
-                    } else {
-
-                        Log.d(TAG,"updating ui with previous match details women");
-
-                        ((TextView) getView().findViewById(R.id.previous_match_fixture_date)).setText(milliSecToDate(data));
-                        ((TextView) getView().findViewById(R.id.previous_match_fixture_time)).setText(milliSecToTime(data));
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(data.getTeam1().getName());
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(data.getTeam2().getName());
-                        ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(getAllGoals(data.getTeam1Scorers()));
-                        ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(getAllGoals(data.getTeam2Scorers()));
-                        Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
-                        Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
-                        Picasso.get().load(setTeamLogo(data.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
-                        Picasso.get().load(setTeamLogo(data.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
-
-
-                        if(data.getBuddingPlayer() != null && data.getMom() != null)
-                        {
-                            getView().findViewById(R.id.previous_match__man_of_the_match_image).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.previous_match__budding_player_image).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.previous_match_man_of_the_match_name).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.previous_match_budding_player_name).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.budding_player).setVisibility(View.VISIBLE);
-                            getView().findViewById(R.id.man_of_the_match).setVisibility(View.VISIBLE);
-
-                            Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
-                            Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
-                            ((TextView) getView().findViewById(R.id.previous_match_budding_player_name)).setText(data.getBuddingPlayer().getName());
-                            ((TextView) getView().findViewById(R.id.previous_match_man_of_the_match_name)).setText(data.getMom().getName());
-                        }
-
-                    }
+                    setPreviousMatchData(data);
 
                 }
             });
@@ -221,10 +145,11 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    PointsTableAdapter adapter = new PointsTableAdapter(getContext(), pointsData);
-                    ((ListView) getView().findViewById(R.id.points_table_listview)).setAdapter(adapter);
 
-                    setListViewHeightBasedOnChildren((ListView) getView().findViewById(R.id.points_table_listview));
+                    pointsTableData = pointsData;
+
+                    setPointsTableData(pointsData);
+
                 }
             });
 
@@ -233,7 +158,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     }
 
     @Override
-    public void setTopScorers(final ArrayList<TopScorers> topScorersData) {
+    public void setTopScorers(final ArrayList<TopScorers> topScorers) {
         Log.d(TAG,"method set top scorers data");
 
         if(getActivity() != null) {
@@ -242,9 +167,10 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                 @Override
                 public void run() {
 
-                    TopScorersAdapter scorersAdapter = new TopScorersAdapter(getContext(),topScorersData);
-                    ((ListView) getView().findViewById(R.id.top_scorers_listview)).setAdapter(scorersAdapter);
-                    setListViewHeightBasedOnChildren((ListView) getView().findViewById(R.id.top_scorers_listview));
+                    topScorersData = topScorers;
+
+                    setTopScorersData(topScorers);
+
                 }
             });
         }
@@ -274,6 +200,124 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     @Override
     public void setFixtures(ArrayList<Fixtures> fixdata) {
 
+    }
+
+
+    private void setNextMatchData(Fixtures matchData)
+    {
+        if(getView() != null) {
+            if (config == FragmentConfig.MEN) {
+
+                Log.d(TAG, "updating ui with next match details men");
+
+                ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(matchData));
+                ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(matchData));
+                ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(matchData.getTeam1().getName());
+                ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(matchData.getTeam2().getName());
+                ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
+                ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
+                Picasso.get().load(setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                Picasso.get().load(setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+            } else {
+
+                Log.d(TAG, "updating ui with next match details women");
+
+                ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(matchData));
+                ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(matchData));
+                ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(matchData.getTeam1().getName());
+                ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(matchData.getTeam2().getName());
+                ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
+                ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
+                Picasso.get().load(LogoSetter.setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                Picasso.get().load(LogoSetter.setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+            }
+        }
+    }
+
+    private void setPreviousMatchData(Fixtures matchData)
+    {
+
+        if(getView() != null) {
+            if (config == FragmentConfig.MEN) {
+
+                Log.d(TAG, "updating ui with previous match details men");
+
+                ((TextView) getView().findViewById(R.id.previous_match_fixture_date)).setText(milliSecToDate(matchData));
+                ((TextView) getView().findViewById(R.id.previous_match_fixture_time)).setText(milliSecToTime(matchData));
+                ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(matchData.getTeam1().getName());
+                ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(matchData.getTeam2().getName());
+                ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
+                ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
+                Picasso.get().load(setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
+                Picasso.get().load(setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
+
+                if (matchData.getBuddingPlayer() != null && matchData.getMom() != null) {
+                    getView().findViewById(R.id.previous_match__man_of_the_match_image).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.previous_match__budding_player_image).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.previous_match_man_of_the_match_name).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.previous_match_budding_player_name).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.budding_player).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.man_of_the_match).setVisibility(View.VISIBLE);
+
+                    Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                    Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                    ((TextView) getView().findViewById(R.id.previous_match_budding_player_name)).setText(matchData.getBuddingPlayer().getName());
+                    ((TextView) getView().findViewById(R.id.previous_match_man_of_the_match_name)).setText(matchData.getMom().getName());
+                }
+
+
+            } else {
+
+                Log.d(TAG, "updating ui with previous match details women");
+
+                ((TextView) getView().findViewById(R.id.previous_match_fixture_date)).setText(milliSecToDate(matchData));
+                ((TextView) getView().findViewById(R.id.previous_match_fixture_time)).setText(milliSecToTime(matchData));
+                ((TextView) getView().findViewById(R.id.previous_match_team1_name)).setText(matchData.getTeam1().getName());
+                ((TextView) getView().findViewById(R.id.previous_match_team2_name)).setText(matchData.getTeam2().getName());
+                ((TextView) getView().findViewById(R.id.previous_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
+                ((TextView) getView().findViewById(R.id.previous_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
+                Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                Picasso.get().load(setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team1_image));
+                Picasso.get().load(setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.previous_match_team2_image));
+
+
+                if (matchData.getBuddingPlayer() != null && matchData.getMom() != null) {
+                    getView().findViewById(R.id.previous_match__man_of_the_match_image).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.previous_match__budding_player_image).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.previous_match_man_of_the_match_name).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.previous_match_budding_player_name).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.budding_player).setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.man_of_the_match).setVisibility(View.VISIBLE);
+
+                    Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__budding_player_image));
+                    Picasso.get().load(R.drawable.men_image).fit().into((ImageView) getView().findViewById(R.id.previous_match__man_of_the_match_image));
+                    ((TextView) getView().findViewById(R.id.previous_match_budding_player_name)).setText(matchData.getBuddingPlayer().getName());
+                    ((TextView) getView().findViewById(R.id.previous_match_man_of_the_match_name)).setText(matchData.getMom().getName());
+                }
+
+            }
+        }
+    }
+
+    private void setPointsTableData(ArrayList<PointsTable> pointsTableData)
+    {
+        if(getContext() != null && getView() != null) {
+            PointsTableAdapter adapter = new PointsTableAdapter(getContext(), pointsTableData);
+            ((ListView) getView().findViewById(R.id.points_table_listview)).setAdapter(adapter);
+
+            setListViewHeightBasedOnChildren((ListView) getView().findViewById(R.id.points_table_listview));
+        }
+    }
+
+
+    private void setTopScorersData(ArrayList<TopScorers> topScorersData)
+    {
+        if(getContext() != null && getView() != null) {
+            TopScorersAdapter scorersAdapter = new TopScorersAdapter(getContext(), topScorersData);
+            ((ListView) getView().findViewById(R.id.top_scorers_listview)).setAdapter(scorersAdapter);
+            setListViewHeightBasedOnChildren((ListView) getView().findViewById(R.id.top_scorers_listview));
+        }
     }
 
     private void setListViewHeightBasedOnChildren(ListView listView) {
@@ -311,7 +355,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         Integer total = 0;
         if(allGoals != null) {
             for (String goal : allGoals.keySet()) {
-                total = total + allGoals.get(goal);
+                total += allGoals.get(goal);
             }
         }
 
@@ -352,9 +396,12 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         Log.d(TAG, "on create");
-        super.onCreate(savedInstanceState);
+        HomePresenter presenter = new HomePresenter(HomePageFragment.this);
+        getHomePageDataFromServer(presenter);
+        setRetainInstance(true);
     }
 
     @Override

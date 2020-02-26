@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
@@ -22,6 +23,7 @@ public class TeamPage extends Fragment {
 
     private TestInterface testInterface;
     private static final String TAG = TeamPage.class.getSimpleName();
+    private FragmentPagerAdapter adapter;
 
     public TeamPage()
     {
@@ -52,7 +54,9 @@ public class TeamPage extends Fragment {
         tabs = getView().findViewById(R.id.tabLayout);
         viewPager = getView().findViewById(R.id.viewpager);
 
-        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM, testInterface);
+        if(adapter == null) {
+            adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM, testInterface);
+        }
 
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
@@ -70,9 +74,10 @@ public class TeamPage extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        Log.d(TAG, "on create");
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "on create");
+
+        setRetainInstance(true);
     }
 
     @Override

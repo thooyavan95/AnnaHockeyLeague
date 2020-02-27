@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,10 +51,6 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         // Required empty public constructor
     }
 
-//    public HomePageFragment(FragmentConfig config) {
-//        Log.d(TAG,"Homefragment config constructor");
-//        this.config = config;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -74,7 +71,23 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
             setPointsTableData(pointsTableData);
             setTopScorersData(topScorersData);
         }
+        else {
+            ProgressBar nextProgress = view.findViewById(R.id.next_progress_bar);
+            nextProgress.setVisibility(View.VISIBLE);
+            nextProgress.setIndeterminate(true);
 
+            ProgressBar previousProgress = view.findViewById(R.id.previous_progress_bar);
+            previousProgress.setVisibility(View.VISIBLE);
+            previousProgress.setIndeterminate(true);
+
+            ProgressBar tableProgress = view.findViewById(R.id.table_progress_bar);
+            tableProgress.setVisibility(View.VISIBLE);
+            tableProgress.setIndeterminate(true);
+
+            ProgressBar topScorerProgress = view.findViewById(R.id.top_scorer_progress_bar);
+            topScorerProgress.setVisibility(View.VISIBLE);
+            topScorerProgress.setIndeterminate(true);
+        }
     }
 
 
@@ -101,7 +114,21 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
                     nextFixtureData = data;
 
-                    setNextMatchData(data);
+                    if(!data.getStatus().equals("COMPLETED")) {
+                        setNextMatchData(data);
+                    }
+                    else
+                    {
+                        if(getView() != null)
+                        getView().findViewById(R.id.next_match_fixtures_cardview).setVisibility(View.GONE);
+                    }
+
+                    if(getView() != null) {
+                        ProgressBar progressBar = getView().findViewById(R.id.next_progress_bar);
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.GONE);
+                    }
+
                 }
             });
 
@@ -126,6 +153,12 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
                     setPreviousMatchData(data);
 
+                    if(getView() != null) {
+                        ProgressBar progressBar = getView().findViewById(R.id.previous_progress_bar);
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.GONE);
+                    }
+
                 }
             });
 
@@ -149,6 +182,13 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
                     setPointsTableData(pointsData);
 
+                    if(getView() != null) {
+                        ProgressBar progressBar = getView().findViewById(R.id.table_progress_bar);
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+
                 }
             });
 
@@ -169,6 +209,13 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                     topScorersData = topScorers;
 
                     setTopScorersData(topScorers);
+
+                    if(getView() != null) {
+                        ProgressBar progressBar = getView().findViewById(R.id.top_scorer_progress_bar);
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.GONE);
+                    }
+
 
                 }
             });
@@ -462,6 +509,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         Log.d(TAG, "set config called" + config);
         this.config = config;
     }
+
 
 
 }

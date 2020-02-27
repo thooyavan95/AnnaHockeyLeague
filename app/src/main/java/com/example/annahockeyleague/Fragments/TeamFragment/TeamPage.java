@@ -17,7 +17,6 @@ import com.example.annahockeyleague.AdapterInterface;
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
 import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
-import com.example.annahockeyleague.Fragments.HomeFragment.HomePageFragment;
 import com.example.annahockeyleague.R;
 import com.example.annahockeyleague.TestInterface;
 import com.google.android.material.tabs.TabLayout;

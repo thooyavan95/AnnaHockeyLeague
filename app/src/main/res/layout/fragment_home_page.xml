@@ -36,6 +36,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ProgressBar
+                        android:id="@+id/previous_progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/previous_match_team1_image"
                         android:layout_width="80dp"
@@ -362,7 +372,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            app:layout_constraintGuide_percent="0.0" />
+                            app:layout_constraintGuide_begin="0dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -370,6 +380,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="?android:attr/listDivider"/>
+
+                    <ProgressBar
+                        android:id="@+id/table_progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
 
                     <ListView
                         android:id="@+id/points_table_listview"
@@ -392,6 +409,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/points_table_cardview">
+
+                <ProgressBar
+                    android:id="@+id/top_scorer_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    />
 
                 <ListView
                     android:id="@+id/top_scorers_listview"

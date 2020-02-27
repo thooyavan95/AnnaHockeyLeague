@@ -3,10 +3,13 @@ package com.example.annahockeyleague;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesPage;
@@ -14,6 +17,8 @@ import com.example.annahockeyleague.Fragments.HomeFragment.HomePage;
 import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, TestInterface {
 
@@ -37,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.main_activity_container, new HomePage(),"home")
-                .addToBackStack(null)
+                .addToBackStack("home")
                 .commit();
 
     }
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             else
             {
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container,new TeamPage(), "team")
-                        .addToBackStack(null).commit();
+                        .addToBackStack("team").commit();
             }
                 return true;
 
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
                 else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new FixturesPage(), "fixtures")
-                            .addToBackStack(null).commit();
+                            .addToBackStack("fixtures").commit();
                 }
                 return true;
 
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_activity_container, new PlayerFragment(team.getId()))
-                .addToBackStack(null)
+                .addToBackStack("player")
                 .commit();
 
     }
@@ -145,4 +150,39 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Log.d(TAG,"on destroy activity");
         super.onDestroy();
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//
+//        int count = getSupportFragmentManager().getBackStackEntryCount();
+//
+//        if(count == 0)
+//        {
+//            Toast.makeText(this, "about to end", Toast.LENGTH_SHORT).show();
+//        }
+//        else
+//        {
+//            FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(count);
+//            switch(Objects.requireNonNull(entry.getName()))
+//            {
+//                case "home":
+//                    Toast.makeText(this, "home", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//                case "team":
+//                    Toast.makeText(this, "team", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//                case "fixtures":
+//                    Toast.makeText(this, "fixtures", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//                case "player":
+//                    Toast.makeText(this, "player", Toast.LENGTH_SHORT).show();
+//                    break;
+//            }
+//        }
+//
+//    }
 }

@@ -129,7 +129,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:text=":"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_score"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -244,6 +243,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:id="@+id/points_table_header_constraint"
+                        android:visibility="invisible"
                         android:layout_height="wrap_content">
 
                         <TextView

@@ -62,12 +62,12 @@ public class PlayerModel {
 
                 Log.d("players", response.toString());
 
-                String players = new String(response.body().bytes());
-                Type founderListType = new TypeToken<ArrayList<PlayerDetails>>(){}.getType();
-                Gson gson = new Gson();
-                ArrayList<PlayerDetails> playerList = gson.fromJson(players,founderListType);
-                playerModelInterface.foundPlayerList(playerList);
-
+                        String players = new String(response.body().bytes());
+                        Type founderListType = new TypeToken<ArrayList<PlayerDetails>>() {
+                        }.getType();
+                        Gson gson = new Gson();
+                        ArrayList<PlayerDetails> playerList = gson.fromJson(players, founderListType);
+                        playerModelInterface.foundPlayerList(playerList);
             }
         });
 

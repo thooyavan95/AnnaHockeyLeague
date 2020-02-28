@@ -60,17 +60,16 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setIndeterminate(true);
 
-        PlayerPresenter getPlayers = new PlayerPresenter(PlayerFragment.this);
-        getPlayers.playerList(teamId);
-
     }
 
     private void initRecycleView()
     {
-        Log.d(TAG, "init recycle view");
-        recyclerView = getView().findViewById(R.id.player_recycle_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+        if(getView() != null) {
+            Log.d(TAG, "init recycle view");
+            recyclerView = getView().findViewById(R.id.player_recycle_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setHasFixedSize(true);
+        }
     }
 
 
@@ -118,9 +117,12 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         Log.d(TAG, "on create");
-        super.onCreate(savedInstanceState);
+
+        PlayerPresenter getPlayers = new PlayerPresenter(PlayerFragment.this);
+        getPlayers.playerList(teamId);
     }
 
     @Override

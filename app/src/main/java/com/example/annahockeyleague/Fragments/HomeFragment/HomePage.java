@@ -13,14 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.annahockeyleague.AdapterInterface;
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
-import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class HomePage extends Fragment implements AdapterInterface {
+public class HomePage extends Fragment {
 
     private static final String TAG = HomePage.class.getSimpleName();
     private FragmentPagerAdapter adapter;
@@ -51,7 +49,7 @@ public class HomePage extends Fragment implements AdapterInterface {
             viewPager = getView().findViewById(R.id.viewpager);
 
             if (adapter == null) {
-                adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.HOME, HomePage.this);
+                adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.HOME);
             }
 
             viewPager.setAdapter(adapter);
@@ -127,25 +125,6 @@ public class HomePage extends Fragment implements AdapterInterface {
     public void onDetach() {
         super.onDetach();
         Log.d(TAG, "on detach fragment");
-    }
-
-
-    @Override
-    public void getItemPosition(int position, long itemId, Fragment fragment) {
-
-        Log.d(TAG, "get item position called");
-        if(fragment != null)
-        {
-            if(position == 0) {
-                Log.d(TAG, "get item position 0");
-                ((HomePageFragment) fragment).setConfig(AhlConstants.men);
-            }
-            else
-            {
-                Log.d(TAG, "get item position 1");
-                ((HomePageFragment) fragment).setConfig(AhlConstants.women);
-            }
-        }
     }
 
 }

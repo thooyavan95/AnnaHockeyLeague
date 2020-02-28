@@ -1,5 +1,6 @@
 package com.example.annahockeyleague.Adapters;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.annahockeyleague.AdapterInterface;
+import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesFragment;
 import com.example.annahockeyleague.Fragments.HomeFragment.HomePageFragment;
@@ -21,13 +22,11 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     private static final String TAG = "Behaviour";
 
     private FragmentType type;
-    private AdapterInterface adapterInterface;
 
 
-    public FragmentAdapter(@NonNull FragmentManager fm, FragmentType type, AdapterInterface adapterInterface) {
+    public FragmentAdapter(@NonNull FragmentManager fm, FragmentType type) {
         super(fm);
         this.type = type;
-        this.adapterInterface = adapterInterface;
     }
 
     @Nullable
@@ -42,17 +41,20 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Log.d(TAG, "getItemCalled");
 
+
         Fragment fragment = null;
         switch (type) {
 
             case HOME:
 
+                fragment = new HomePageFragment();
+
                 if (position == 0) {
                     Log.d(TAG, "getItemCalled position 0");
-                    adapterInterface.getItemPosition(position,getItemId(position),  fragment = new HomePageFragment());
+                    fragment.setArguments(setBundleArguments(position));
                 } else {
                     Log.d(TAG, "getItemCalled position 1");
-                    adapterInterface.getItemPosition(position,getItemId(position),  fragment = new HomePageFragment());
+                    fragment.setArguments(setBundleArguments(position));
                 }
 
 
@@ -81,26 +83,29 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
             case TEAM:
 
+                fragment = new TeamFragment();
+
                 if (position == 0) {
                     Log.d(TAG, "getItemCalled position 0");
-                    adapterInterface.getItemPosition(position,getItemId(position),  fragment = new TeamFragment());
+                    fragment.setArguments(setBundleArguments(position));
                 } else {
                     Log.d(TAG, "getItemCalled position 1");
-                    adapterInterface.getItemPosition(position,getItemId(position),  fragment = new TeamFragment());
+                    fragment.setArguments(setBundleArguments(position));
                 }
                 break;
 
             case FIXTURES:
 
+                fragment = new FixturesFragment();
+
                 if (position == 0) {
                     Log.d(TAG, "getItemCalled position 0");
-                    adapterInterface.getItemPosition(position,getItemId(position),  fragment = new FixturesFragment());
+                    fragment.setArguments(setBundleArguments(position));
                 } else {
                     Log.d(TAG, "getItemCalled position 1");
-                    adapterInterface.getItemPosition(position,getItemId(position),  fragment = new FixturesFragment());
+                    fragment.setArguments(setBundleArguments(position));
                 }
         }
-
         return fragment;
     }
 
@@ -109,4 +114,21 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         Log.d(TAG,"getCount called");
         return 2;
     }
+
+    private Bundle setBundleArguments(int position)
+    {
+        Log.d(TAG, "set bundle arguments");
+        Bundle bundle = new Bundle();
+
+        if(position == 0) {
+            bundle.putString("config", AhlConstants.men);
+            return bundle;
+        }
+        else
+        {
+            bundle.putString("config", AhlConstants.women);
+            return bundle;
+        }
+    }
+
 }

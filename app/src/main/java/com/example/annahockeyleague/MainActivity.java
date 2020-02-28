@@ -3,13 +3,10 @@ package com.example.annahockeyleague;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Fragments.FixturesFragment.FixturesPage;
@@ -17,8 +14,6 @@ import com.example.annahockeyleague.Fragments.HomeFragment.HomePage;
 import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
 import com.example.annahockeyleague.Fragments.TeamFragment.TeamPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, TestInterface {
 

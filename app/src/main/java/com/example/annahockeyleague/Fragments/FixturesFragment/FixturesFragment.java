@@ -35,12 +35,6 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
         Log.d(TAG, "fixture fragment constructor");
     }
 
-    public FixturesFragment(String config)
-    {
-        Log.d(TAG, "fixture fragment constructor params");
-        this.config = config;
-    }
-
 
     @Nullable
     @Override
@@ -145,10 +139,17 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "on create");
+
+        setRetainInstance(true);
+
+        if(getArguments() != null) {
+            config = getArguments().getString("config");
+            Log.d(TAG, "get arguments " + getArguments().get("config"));
+        }
+
         HomePresenter presenter = new HomePresenter(FixturesFragment.this);
         presenter.fetchData(config);
 
-        setRetainInstance(true);
     }
 
     @Override
@@ -204,11 +205,4 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
         Log.d(TAG, "on detach fragment");
         super.onDetach();
     }
-
-    public void setConfig(String config)
-    {
-        Log.d(TAG, "set config called" + config);
-        this.config = config;
-    }
-
 }

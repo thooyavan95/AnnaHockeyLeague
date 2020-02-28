@@ -126,10 +126,15 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "on create");
 
+        setRetainInstance(true);
+
+        if(getArguments() != null) {
+            config = getArguments().getString("config");
+            Log.d(TAG, "get arguments " + getArguments().get("config"));
+        }
+
         TeamPresenter fetch = new TeamPresenter(TeamFragment.this);
         fetch.getTeamList(config);
-
-        setRetainInstance(true);
 
     }
 
@@ -185,12 +190,6 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
     public void onDetach() {
         Log.d(TAG, "on detach fragment");
         super.onDetach();
-    }
-
-    public void setConfig(String config)
-    {
-        Log.d(TAG, "set config called" + config);
-        this.config = config;
     }
 
 }

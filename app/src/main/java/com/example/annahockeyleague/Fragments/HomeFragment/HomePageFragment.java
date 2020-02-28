@@ -114,14 +114,9 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
                     nextFixtureData = data;
 
-                    if(!data.getStatus().equals("COMPLETED")) {
-                        setNextMatchData(data);
-                    }
-                    else
-                    {
-                        if(getView() != null)
-                        getView().findViewById(R.id.next_match_fixtures_cardview).setVisibility(View.GONE);
-                    }
+
+                    setNextMatchData(data);
+
 
                     if(getView() != null) {
                         ProgressBar progressBar = getView().findViewById(R.id.next_progress_bar);
@@ -249,33 +244,39 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     }
 
 
-    private void setNextMatchData(Fixtures matchData)
-    {
-        if(getView() != null) {
-            if (config.equals(AhlConstants.men)) {
+    private void setNextMatchData(Fixtures matchData) {
+        if (getView() != null) {
+            if (!matchData.getStatus().equals("COMPLETED")) {
 
-                Log.d(TAG, "updating ui with next match details men");
+                ((TextView) getView().findViewById(R.id.next_match_fixture_colon)).setText(":");
 
-                ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(matchData));
-                ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(matchData));
-                ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(matchData.getTeam1().getName());
-                ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(matchData.getTeam2().getName());
-                ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
-                ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
-                Picasso.get().load(setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
-                Picasso.get().load(setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+                if (config.equals(AhlConstants.men)) {
+
+                    Log.d(TAG, "updating ui with next match details men");
+
+                    ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(matchData));
+                    ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(matchData));
+                    ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(matchData.getTeam1().getName());
+                    ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(matchData.getTeam2().getName());
+                    ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
+                    ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
+                    Picasso.get().load(setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                    Picasso.get().load(setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+                } else {
+
+                    Log.d(TAG, "updating ui with next match details women");
+
+                    ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(matchData));
+                    ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(matchData));
+                    ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(matchData.getTeam1().getName());
+                    ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(matchData.getTeam2().getName());
+                    ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
+                    ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
+                    Picasso.get().load(LogoSetter.setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
+                    Picasso.get().load(LogoSetter.setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+                }
             } else {
-
-                Log.d(TAG, "updating ui with next match details women");
-
-                ((TextView) getView().findViewById(R.id.next_match_fixture_date)).setText(milliSecToDate(matchData));
-                ((TextView) getView().findViewById(R.id.next_match_fixture_time)).setText(milliSecToTime(matchData));
-                ((TextView) getView().findViewById(R.id.next_match_team1_name)).setText(matchData.getTeam1().getName());
-                ((TextView) getView().findViewById(R.id.next_match_team2_name)).setText(matchData.getTeam2().getName());
-                ((TextView) getView().findViewById(R.id.next_match_team1_score)).setText(getAllGoals(matchData.getTeam1Scorers()));
-                ((TextView) getView().findViewById(R.id.next_match_team2_score)).setText(getAllGoals(matchData.getTeam2Scorers()));
-                Picasso.get().load(LogoSetter.setTeamLogo(matchData.getTeam1())).fit().into((ImageView) getView().findViewById(R.id.next_match_team1_image));
-                Picasso.get().load(LogoSetter.setTeamLogo(matchData.getTeam2())).fit().into((ImageView) getView().findViewById(R.id.next_match_team2_image));
+                    getView().findViewById(R.id.next_match_fixtures_cardview).setVisibility(View.GONE);
             }
         }
     }
@@ -284,6 +285,9 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     {
 
         if(getView() != null) {
+
+            ((TextView) getView().findViewById(R.id.previous_match_fixture_colon)).setText(":");
+
             if (config.equals(AhlConstants.men)) {
 
                 Log.d(TAG, "updating ui with previous match details men");
@@ -353,6 +357,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
             ((ListView) getView().findViewById(R.id.points_table_listview)).setAdapter(adapter);
 
             setListViewHeightBasedOnChildren((ListView) getView().findViewById(R.id.points_table_listview));
+            getView().findViewById(R.id.points_table_header_constraint).setVisibility(View.VISIBLE);
         }
     }
 
@@ -446,6 +451,12 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
         Log.d(TAG, "on create");
         setRetainInstance(true);
+
+        if(getArguments() != null) {
+            config = getArguments().getString("config");
+            Log.d(TAG, "get arguments " + getArguments().get("config"));
+        }
+
         HomePresenter presenter = new HomePresenter(HomePageFragment.this);
         getHomePageDataFromServer(presenter);
     }
@@ -503,13 +514,5 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         Log.d(TAG, "on detach fragment");
         super.onDetach();
     }
-
-    public void setConfig(String config)
-    {
-        Log.d(TAG, "set config called" + config);
-        this.config = config;
-    }
-
-
 
 }

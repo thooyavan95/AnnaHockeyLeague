@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.annahockeyleague.AdapterInterface;
 import com.example.annahockeyleague.Adapters.FragmentAdapter;
 import com.example.annahockeyleague.AhlConfig.AhlConstants;
 import com.example.annahockeyleague.AhlConfig.FragmentType;
@@ -21,7 +20,7 @@ import com.example.annahockeyleague.R;
 import com.example.annahockeyleague.TestInterface;
 import com.google.android.material.tabs.TabLayout;
 
-public class TeamPage extends Fragment implements AdapterInterface {
+public class TeamPage extends Fragment {
 
     private TestInterface testInterface;
     private static final String TAG = TeamPage.class.getSimpleName();
@@ -52,7 +51,7 @@ public class TeamPage extends Fragment implements AdapterInterface {
             viewPager = getView().findViewById(R.id.viewpager);
 
             if (adapter == null) {
-                adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM, TeamPage.this);
+                adapter = new FragmentAdapter(getChildFragmentManager(), FragmentType.TEAM);
             }
 
             viewPager.setAdapter(adapter);
@@ -129,23 +128,5 @@ public class TeamPage extends Fragment implements AdapterInterface {
     public void onDetach() {
         Log.d(TAG, "on detach fragment");
         super.onDetach();
-    }
-
-
-    @Override
-    public void getItemPosition(int position, long itemId, Fragment fragment) {
-        Log.d(TAG, "get item position called");
-        if(fragment != null)
-        {
-            if(position == 0) {
-                Log.d(TAG, "get item position 0");
-                ((TeamFragment) fragment).setConfig(AhlConstants.men);
-            }
-            else
-            {
-                Log.d(TAG, "get item position 1");
-                ((TeamFragment) fragment).setConfig(AhlConstants.women);
-            }
-        }
     }
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "492289923696",
+    "firebase_url": "https://dileepkosur3524.firebaseio.com",
+    "project_id": "dileepkosur3524",
+    "storage_bucket": "dileepkosur3524.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492289923696:android:e0e177170f2537a85132b5",
+        "android_client_info": {
+          "package_name": "com.ahl.annahockeyleague"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492289923696-9c77n7tf218ritpin99ae0kac9396dbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahl.annahockeyleague",
+            "certificate_hash": "4f6d8be1026003cff0eb0d2a2b914c1915e14633"
+          }
+        },
+        {
+          "client_id": "492289923696-mb5en4bbdnd1hhet36lp675tl43bitri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7eCDeBo2Xuvz9YroBgU_0l_2kF7nBDhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492289923696-mb5en4bbdnd1hhet36lp675tl43bitri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

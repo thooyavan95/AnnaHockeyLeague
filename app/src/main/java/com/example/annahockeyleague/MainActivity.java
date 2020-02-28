@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_container, new HomePage(), "home").commit();
                 }
                 return true;
+
             case
                     R.id.bottom_nav_team:
                 Log.d(TAG,"nav_team selected");
@@ -103,8 +104,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Log.d(TAG,"show player fragment");
 
+        Bundle bundle = new Bundle();
+        Fragment playerFragment = new PlayerFragment();
+        bundle.putParcelable("teamObj",team);
+        playerFragment.setArguments(bundle);
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_activity_container, new PlayerFragment(team.getId()))
+                .replace(R.id.main_activity_container, playerFragment)
                 .addToBackStack("player")
                 .commit();
 

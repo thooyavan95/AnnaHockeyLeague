@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.annahockeyleague.Entity.PlayerDetails;
+import com.example.annahockeyleague.Entity.Team;
 import com.example.annahockeyleague.Fragments.PlayerFragment.PlayerRecyclerView.PlayerRecycleAdapter;
 import com.example.annahockeyleague.R;
-
-import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 
@@ -27,19 +26,11 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
 
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private ObjectId teamId;
     private static final String TAG = PlayerFragment.class.getSimpleName();
 
     public PlayerFragment() {
         Log.d(TAG, "player fragment constructor called");
     }
-
-    public PlayerFragment(ObjectId teamId)
-    {
-        Log.d(TAG, "player fragment constructor with params");
-        this.teamId = teamId;
-    }
-
 
 
     @Nullable
@@ -121,8 +112,12 @@ public class PlayerFragment extends Fragment implements PlayerViewInterface {
 
         Log.d(TAG, "on create");
 
-        PlayerPresenter getPlayers = new PlayerPresenter(PlayerFragment.this);
-        getPlayers.playerList(teamId);
+         if(getArguments() != null) {
+             Team team = getArguments().getParcelable("teamObj");
+             PlayerPresenter getPlayers = new PlayerPresenter(PlayerFragment.this);
+             assert team != null;
+             getPlayers.playerList(team.getId());
+        }
     }
 
     @Override

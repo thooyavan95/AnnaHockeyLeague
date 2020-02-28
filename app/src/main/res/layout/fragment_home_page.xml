@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -7,18 +7,35 @@
         android:id="@+id/scroll_view"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:id="@+id/constraint_head"
             android:background="@color/colorWhisper"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/next_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Match"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
             <include
-                layout="@layout/fixture_template"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/constraint_head"/>
+                layout="@layout/fixture_template"/>
+
+            <TextView
+                android:id="@+id/previous_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous Match"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/previous_match_fixture_cardview"
@@ -27,10 +44,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
                 app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/next_match_fixtures_cardview">
+                app:cardUseCompatPadding="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -91,6 +105,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#FAFAFA"
+                        android:textColor="@color/colorBlack"
                         android:paddingStart="16dp"
                         android:paddingTop="8dp"
                         android:textAlignment="textStart"
@@ -107,6 +122,7 @@
                         android:background="#FAFAFA"
                         android:paddingTop="8dp"
                         android:paddingEnd="16dp"
+                        android:textColor="@color/colorBlack"
                         android:textAlignment="textEnd"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -116,6 +132,7 @@
                     <TextView
                         android:id="@+id/previous_match_team2_score"
                         android:layout_width="14dp"
+                        android:textColor="@color/colorBlack"
                         android:layout_height="38dp"
                         android:layout_marginTop="32dp"
                         android:textSize="24sp"
@@ -127,6 +144,7 @@
                     <TextView
                         android:id="@+id/previous_match_fixture_colon"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/colorBlack"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:textSize="24sp"
@@ -138,6 +156,7 @@
                     <TextView
                         android:id="@+id/previous_match_team1_score"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/colorBlack"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:textSize="24sp"
@@ -149,6 +168,8 @@
                     <TextView
                         android:id="@+id/previous_match_team1_name"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_team1_image"
                         app:layout_constraintStart_toStartOf="@+id/previous_match_team1_image"
@@ -157,6 +178,8 @@
                     <TextView
                         android:id="@+id/previous_match_team2_name"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_team2_image"
                         app:layout_constraintStart_toStartOf="@+id/previous_match_team2_image"
@@ -166,7 +189,10 @@
                         android:id="@+id/previous_match_budding_player_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
                         android:visibility="gone"
+                        android:textSize="16sp"
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match__budding_player_image"
                         app:layout_constraintStart_toStartOf="@+id/previous_match__budding_player_image"
@@ -177,6 +203,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack"
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match__man_of_the_match_image"
                         app:layout_constraintStart_toStartOf="@+id/previous_match__man_of_the_match_image"
@@ -188,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:visibility="gone"
+                        android:textStyle="italic"
                         android:text="Budding Player"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_budding_player_name"
@@ -212,6 +242,7 @@
                         android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:textStyle="italic"
                         android:text="Man Of the Match"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/previous_match_man_of_the_match_name"
@@ -222,18 +253,24 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/points_table"
+                android:text="Points Table"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/points_table_cardview"
                 style="@style/DefaultCardMargin"
-                app:layout_constraintTop_toBottomOf="@id/previous_match_fixture_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
                 app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="462dp">
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -265,6 +302,7 @@
                             android:layout_width="24dp"
                             android:layout_height="wrap_content"
                             android:text="W"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -278,6 +316,7 @@
                             android:layout_width="24dp"
                             android:layout_height="wrap_content"
                             android:text="L"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -291,6 +330,7 @@
                             android:layout_width="24dp"
                             android:layout_height="wrap_content"
                             android:text="D"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -304,6 +344,7 @@
                             android:layout_width="36dp"
                             android:layout_height="wrap_content"
                             android:text="GD"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -317,6 +358,7 @@
                             android:layout_width="24dp"
                             android:layout_height="wrap_content"
                             android:text="PT"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -331,6 +373,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="P"
+                            android:textColor="@color/colorBlack"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:visibility="invisible"
@@ -359,6 +402,7 @@
                             android:layout_width="24dp"
                             android:layout_height="wrap_content"
                             android:text="P"
+                            android:textColor="@color/colorBlack"
                             android:textAlignment="textEnd"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -379,6 +423,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:id="@+id/points_view"
+                        android:visibility="invisible"
                         android:background="?android:attr/listDivider"/>
 
                     <ProgressBar
@@ -398,6 +444,16 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/top_scorers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Scorers"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/top_scorers_cardview"
                 style="@style/DefaultCardMargin"
@@ -405,10 +461,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
                 app:cardCornerRadius="12dp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/points_table_cardview">
+                app:cardUseCompatPadding="true">
 
                 <ProgressBar
                     android:id="@+id/top_scorer_progress_bar"
@@ -425,6 +478,24 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/our_sponsors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Our Sponsors"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
 
-    </ScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sponsor_recycle_view"
+                style="@style/DefaultCardMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

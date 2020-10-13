@@ -77,10 +77,16 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
     }
 
     @Override
-    public void displayErrorMessage(Exception e) {
+    public void displayErrorMessage(final Exception e) {
         Log.d(TAG, "display error message");
         if(getActivity() != null) {
-            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     }
 

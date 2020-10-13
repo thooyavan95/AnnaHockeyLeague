@@ -131,10 +131,10 @@
 
                     <TextView
                         android:id="@+id/previous_match_team2_score"
-                        android:layout_width="14dp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_height="38dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
+                        android:textColor="@color/colorBlack"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_image"
                         app:layout_constraintHorizontal_bias="0.5"

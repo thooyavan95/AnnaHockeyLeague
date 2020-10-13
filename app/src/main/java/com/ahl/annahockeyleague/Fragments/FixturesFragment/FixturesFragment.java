@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -89,7 +90,17 @@ public class FixturesFragment extends Fragment implements HomeViewInterface {
     }
 
     @Override
-    public void setFailureToast(Exception e) {
+    public void setFailureToast(final Exception e) {
+
+        if(getActivity() != null)
+        {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getContext(), String.valueOf(e), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
     }
 

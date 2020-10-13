@@ -64,6 +64,8 @@ public class TeamModel {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+
                     String responseList = new String(response.body().bytes());
                     Log.d("Team data", ""+responseList);
 
@@ -71,6 +73,8 @@ public class TeamModel {
                 Gson gson = new Gson();
                 ArrayList<Team> foundList = gson.fromJson(responseList, founderListType);
                 modelInterface.foundTeamList(foundList);
+
+
             }
         });
 

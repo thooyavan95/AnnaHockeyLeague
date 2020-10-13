@@ -9,13 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
 
 import com.ahl.annahockeyleague.Entity.Team;
 import com.ahl.annahockeyleague.Fragments.FixturesFragment.FixturesPage;
 import com.ahl.annahockeyleague.Fragments.HomeFragment.HomePage;
 import com.ahl.annahockeyleague.Fragments.PlayerFragment.PlayerFragment;
 import com.ahl.annahockeyleague.Fragments.TeamFragment.TeamPage;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, TestInterface {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Log.d(TAG,"On create");
         initViews();
+
     }
 
     public void initViews()
@@ -38,10 +40,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView bottomNav = findViewById(R.id.home_bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_activity_container, new HomePage(),"home")
-                .addToBackStack("home")
-                .commit();
+        Fragment homeFragment = getSupportFragmentManager().findFragmentByTag("home");
+
+        if(homeFragment == null) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.main_activity_container, new HomePage(), "home")
+                    .addToBackStack("home")
+                    .commit();
+        }
 
     }
 
@@ -58,12 +65,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId())
         {
             case R.id.privacy:
-//                startActivity(new Intent(this,));
-                Toast.makeText(this, "privacy pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, OptionsActivity.class);
+                intent.putExtra("privacy","privacy");
+                startActivity(intent);
                 break;
 
             case R.id.licence:
-                startActivity(new Intent(this,PrivacyActivity.class));
+                startActivity(new Intent(this, OssLicensesMenuActivity.class));
                 break;
         }
 

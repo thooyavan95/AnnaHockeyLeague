@@ -55,6 +55,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -90,6 +91,14 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
             ProgressBar topScorerProgress = view.findViewById(R.id.top_scorer_progress_bar);
             topScorerProgress.setVisibility(View.VISIBLE);
             topScorerProgress.setIndeterminate(true);
+
+            if(getView() != null) {
+                getView().findViewById(R.id.next_match).setVisibility(View.INVISIBLE);
+                getView().findViewById(R.id.previous_match).setVisibility(View.INVISIBLE);
+                getView().findViewById(R.id.points_table).setVisibility(View.INVISIBLE);
+                getView().findViewById(R.id.top_scorers).setVisibility(View.INVISIBLE);
+                getView().findViewById(R.id.our_sponsors).setVisibility(View.INVISIBLE);
+            }
         }
 
         setSponsorsData();
@@ -158,6 +167,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ProgressBar progressBar = getView().findViewById(R.id.previous_progress_bar);
                         progressBar.setIndeterminate(false);
                         progressBar.setVisibility(View.GONE);
+                        getView().findViewById(R.id.previous_match).setVisibility(View.VISIBLE);
                     }
 
                 }
@@ -187,6 +197,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ProgressBar progressBar = getView().findViewById(R.id.table_progress_bar);
                         progressBar.setIndeterminate(false);
                         progressBar.setVisibility(View.GONE);
+                        getView().findViewById(R.id.points_table).setVisibility(View.VISIBLE);
                     }
 
 
@@ -215,6 +226,8 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
                         ProgressBar progressBar = getView().findViewById(R.id.top_scorer_progress_bar);
                         progressBar.setIndeterminate(false);
                         progressBar.setVisibility(View.GONE);
+                        getView().findViewById(R.id.top_scorers).setVisibility(View.VISIBLE);
+                        getView().findViewById(R.id.our_sponsors).setVisibility(View.VISIBLE);
                     }
 
 
@@ -255,6 +268,7 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
             if (!matchData.getStatus().equals("COMPLETED")) {
 
                 ((TextView) getView().findViewById(R.id.next_match_fixture_colon)).setText(":");
+                getView().findViewById(R.id.next_match).setVisibility(View.VISIBLE);
 
                 if (config.equals(AhlConstants.men)) {
 
@@ -455,12 +469,16 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
 
             ArrayList<Integer> sponsorList = new ArrayList<>();
             sponsorList.add(R.drawable.coolbiz);
-            sponsorList.add(R.drawable.gk);
-            sponsorList.add(R.drawable.guindy);
+            sponsorList.add(R.drawable.gksports);
+            sponsorList.add(R.drawable.theguindytimes);
             sponsorList.add(R.drawable.lic);
-            sponsorList.add(R.drawable.my_harvest);
-            sponsorList.add(R.drawable.printers_desk);
-            sponsorList.add(R.drawable.vemkateshwara);
+            sponsorList.add(R.drawable.myharvest);
+            sponsorList.add(R.drawable.printersdesk);
+            sponsorList.add(R.drawable.venkateshwara);
+            sponsorList.add(R.drawable.juju);
+            sponsorList.add(R.drawable.ahltravels);
+            sponsorList.add(R.drawable.bigfm);
+            sponsorList.add(R.drawable.rajams);
 
             SponsorAdapter adapter = new SponsorAdapter(sponsorList);
             sponsorRecycleView.setAdapter(adapter);

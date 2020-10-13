@@ -16,8 +16,7 @@
         <ImageView
             android:id="@+id/team_logo"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@drawable/griffinz"/>
+            android:layout_height="100dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

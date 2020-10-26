@@ -434,11 +434,12 @@
                         android:layout_gravity="center"
                         android:visibility="gone"/>
 
-                    <ListView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/points_table_listview"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                    </ListView>
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
 
@@ -471,8 +472,9 @@
                     android:visibility="gone"
                     />
 
-                <ListView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/top_scorers_listview"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

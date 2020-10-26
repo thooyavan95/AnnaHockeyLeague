@@ -57,28 +57,6 @@ public class FragmentAdapter extends FragmentPagerAdapter {
                     fragment.setArguments(setBundleArguments(position));
                 }
 
-
-//                if (position == 0) {
-//                Log.d(TAG, "getItemCalled position 0");
-//                if(fragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + getItemId(position)) == null) {
-//                    fragment = new HomePageFragment(FragmentConfig.MEN);
-//                }
-//                else
-//                {
-//                    fragment = fragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + getItemId(position));
-//                }
-//
-//            } else {
-//                Log.d(TAG, "getItemCalled position 1");
-//                    if(fragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + getItemId(position)) == null) {
-//                        fragment = new HomePageFragment(FragmentConfig.WOMEN);
-//                    }
-//                    else
-//                    {
-//                        fragment = fragmentManager.findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + getItemId(position));
-//                    }
-//            }
-
             break;
 
             case TEAM:

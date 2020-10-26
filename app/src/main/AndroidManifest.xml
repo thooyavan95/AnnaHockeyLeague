@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ahl.annahockeyleague">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ahl_home"
@@ -9,6 +12,7 @@
         android:roundIcon="@mipmap/ahl_home_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".AhlApplication"
         android:usesCleartextTraffic="true">
         <activity android:name=".OptionsActivity"></activity>
         <activity
@@ -21,7 +25,5 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
 
 </manifest>

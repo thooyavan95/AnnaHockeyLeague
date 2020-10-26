@@ -1,6 +1,5 @@
 package com.ahl.annahockeyleague.Fragments.HomeFragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -510,58 +509,6 @@ public class HomePageFragment extends Fragment implements HomeViewInterface {
         getHomePageDataFromServer(presenter);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "on activity created");
-        super.onActivityCreated(savedInstanceState);
-    }
 
-    @Override
-    public void onStart() {
-        Log.d(TAG, "on start fragment");
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Log.d(TAG, "on resume fragment");
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        Log.d(TAG, "on pause fragment");
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Log.d(TAG, "o stop fragment");
-        super.onStop();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        Log.d(TAG, "on attach fragment");
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.d(TAG, "on destroy view fragment");
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.d(TAG, "on destroy fragment");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        Log.d(TAG, "on detach fragment");
-        super.onDetach();
-    }
 
 }

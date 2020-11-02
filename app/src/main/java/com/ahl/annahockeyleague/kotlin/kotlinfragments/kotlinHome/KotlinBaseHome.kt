@@ -23,26 +23,19 @@ import java.util.*
 
 abstract class KotlinBaseHome : Fragment(){
 
-    private lateinit var viewModel: KotlinHomeViewModel
+    lateinit var viewModel: KotlinHomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = HomeViewModelFactory.getViewModel(activity as AppCompatActivity)
         return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    abstract override fun onViewCreated(view: View, savedInstanceState: Bundle?)
 
-        setLoadingStatus()
-
-        observePreviousMatchLiveData()
-        observeNextMatchLiveData()
-        observePointsLiveData()
-        observeTopScorersLiveData()
-
-    }
-
-    private fun setLoadingStatus() {
+     fun setLoadingStatus() {
         previous_progress_bar.visibility = View.VISIBLE
         next_progress_bar.visibility = View.VISIBLE
         table_progress_bar.visibility = View.VISIBLE
@@ -50,7 +43,7 @@ abstract class KotlinBaseHome : Fragment(){
     }
 
 
-    private fun observePreviousMatchLiveData() {
+    fun observePreviousMatchLiveData() {
 
         viewModel.previousMatchLiveData.observe(viewLifecycleOwner, Observer {
             when(it){
@@ -71,7 +64,7 @@ abstract class KotlinBaseHome : Fragment(){
         })
     }
 
-    private fun observeNextMatchLiveData() {
+    fun observeNextMatchLiveData() {
 
         viewModel.nextMatchLiveData.observe(viewLifecycleOwner, Observer {
                 when(it){
@@ -90,7 +83,7 @@ abstract class KotlinBaseHome : Fragment(){
     }
 
 
-    private fun observePointsLiveData() {
+    fun observePointsLiveData() {
 
         viewModel.pointsTableLiveData.observe(viewLifecycleOwner, Observer {
             when(it){
@@ -109,7 +102,7 @@ abstract class KotlinBaseHome : Fragment(){
     }
 
 
-    private fun observeTopScorersLiveData() {
+    fun observeTopScorersLiveData() {
 
         viewModel.topScoresLiveData.observe(viewLifecycleOwner, Observer {
             when(it){

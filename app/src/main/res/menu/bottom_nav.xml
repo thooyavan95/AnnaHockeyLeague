@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/homePage"
+    <item android:id="@+id/kotlinHome"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home"/>
 
-    <item android:id="@+id/fixturesPage"
+    <item android:id="@+id/kotlinFixtures"
         android:icon="@drawable/ic_golf_course_black_24dp"
         android:title="Fixtures"/>
 

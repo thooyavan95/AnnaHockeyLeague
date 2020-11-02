@@ -3,27 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/kotlinHomeMen">
+    app:startDestination="@id/kotlinHome">
 
-<!--    <fragment-->
-<!--        android:id="@+id/homePage"-->
-<!--        android:name="com.ahl.annahockeyleague.Fragments.HomeFragment.HomePage"-->
-<!--        android:label="HomePage"-->
-<!--        tools:layout="@layout/home_page"/>-->
 
     <fragment
-        android:id="@+id/kotlinHomeMen"
-        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome.KotlinHomeMen"
-        android:label="KotlinHomeMen" />
+        android:id="@+id/kotlinHome"
+        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome.KotlinHome"
+        android:label="KotlinHome" />
+
     <fragment
         android:id="@+id/teamPage"
         android:name="com.ahl.annahockeyleague.Fragments.TeamFragment.TeamPage"
         android:label="TeamPage"
         tools:layout="@layout/team_fragment_layout"/>
+
     <fragment
-        android:id="@+id/fixturesPage"
-        android:name="com.ahl.annahockeyleague.Fragments.FixturesFragment.FixturesPage"
-        android:label="FixturesPage"
-        tools:layout="@layout/fixtures_fragment_layout"/>
+        android:id="@+id/kotlinFixtures"
+        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinFixtures.KotlinFixtures"
+        android:label="KotlinFixtures" />
+
 
 </navigation>

@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahl.annahockeyleague.AhlApplication
-import com.ahl.annahockeyleague.AhlConfig.AhlConstants
 import com.ahl.annahockeyleague.kotlin.DataState
 import com.ahl.annahockeyleague.kotlin.UIState
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
@@ -15,42 +14,44 @@ import com.ahl.annahockeyleague.kotlin.data.PointsTable
 import com.ahl.annahockeyleague.kotlin.data.TopScorers
 import com.ahl.annahockeyleague.kotlin.network.RetrofitService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 class KotlinHomeViewModel(private val homeRepoImpl: HomeRepoImpl) : ViewModel(), HomeRepoImpl.HomeResponseListener {
-
-    init {
-
-        viewModelScope.launch(Dispatchers.IO) {
-            fetchTournamentId()
-            fetchData("men")
-        }
-        
-    }
-
-    private suspend fun fetchTournamentId() {
-
-            val tournament = RetrofitService.getInstance.getTournamentId()
-            AhlApplication.tournamentId = tournament.id.toString()
-
-    }
 
     private val _previousMatchMutableLiveData = MutableLiveData<UIState<Fixtures>>()
     private val _nextMatchMutableLiveData = MutableLiveData<UIState<Fixtures>>()
     private val _pointsTableMutableLiveData = MutableLiveData<UIState<List<PointsTable>>>()
     private val _topScoresMutableLiveData = MutableLiveData<UIState<List<TopScorers>>>()
 
+
+
     val previousMatchLiveData : LiveData<UIState<Fixtures>>
-    get() = _previousMatchMutableLiveData
+        get() = _previousMatchMutableLiveData
 
     val nextMatchLiveData : LiveData<UIState<Fixtures>>
-    get() = _nextMatchMutableLiveData
+        get() = _nextMatchMutableLiveData
 
     val pointsTableLiveData : LiveData<UIState<List<PointsTable>>>
-    get() = _pointsTableMutableLiveData
+        get() = _pointsTableMutableLiveData
 
     val topScoresLiveData : LiveData<UIState<List<TopScorers>>>
-    get() = _topScoresMutableLiveData
+        get() = _topScoresMutableLiveData
+
+
+    fun getAhlData(category: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchTournamentId()
+            fetchData(category)
+
+        }
+    }
+
+    private suspend fun fetchTournamentId() {
+
+            val tournament = RetrofitService.getInstance.getTournamentId()
+            AhlApplication.tournamentId = tournament.id.toString()
+    }
 
 
     override fun onFixturesDataResponse(fixtures: DataState<List<Fixtures>>) {
@@ -66,10 +67,13 @@ class KotlinHomeViewModel(private val homeRepoImpl: HomeRepoImpl) : ViewModel(),
                     val nextMatchDetails = getNextMatchDetails(fixtures.data)
                 _previousMatchMutableLiveData.postValue(UIState.DataAvailable(previousMatchDetails!!))
                 _nextMatchMutableLiveData.postValue(UIState.DataAvailable(nextMatchDetails!!))
+
             }
 
             is DataState.Failure ->{
                 _previousMatchMutableLiveData.postValue(UIState.Error(fixtures.errorMessage))
+                _nextMatchMutableLiveData.postValue(UIState.Error(fixtures.errorMessage))
+
             }
 
         }

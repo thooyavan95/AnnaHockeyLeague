@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_golf_course_black_24dp"
         android:title="Fixtures"/>
 
-    <item android:id="@+id/teamPage"
+    <item android:id="@+id/kotlinTeam"
         android:icon="@drawable/ic_people_black_24dp"
         android:title="Teams"/>
 

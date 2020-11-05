@@ -1,7 +1,6 @@
 package com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome
 
 import android.util.Log
-import com.ahl.annahockeyleague.AhlConfig.AhlConstants
 import com.ahl.annahockeyleague.kotlin.DataState
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
 import com.ahl.annahockeyleague.kotlin.data.PointsTable
@@ -16,6 +15,7 @@ class HomeRepoImpl() : HomeRepo {
 
     override suspend fun getHomePageData(tournamentId: String, category: String, responseListener: HomeResponseListener) {
 
+        Log.d("id", tournamentId)
                  withContext(Dispatchers.IO){
                      launch {
                          try{

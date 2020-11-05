@@ -11,9 +11,9 @@ object RetrofitService {
     private val retrofitInstance = Retrofit.Builder().apply {
         baseUrl(BASE_URL)
         addConverterFactory(GsonConverterFactory.create())
-        addCallAdapterFactory(CoroutineCallAdapterFactory())
+//        addCallAdapterFactory(CoroutineCallAdapterFactory())
     }.build()
 
-    val getInstance = retrofitInstance.create(ApiService::class.java)
+    val getInstance: ApiService = retrofitInstance.create(ApiService::class.java)
 
 }

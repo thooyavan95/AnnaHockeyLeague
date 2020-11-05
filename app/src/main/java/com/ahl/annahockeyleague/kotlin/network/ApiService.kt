@@ -3,6 +3,7 @@ package com.ahl.annahockeyleague.kotlin.network
 import com.ahl.annahockeyleague.Entity.Tournament
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
 import com.ahl.annahockeyleague.kotlin.data.PointsTable
+import com.ahl.annahockeyleague.kotlin.data.Team
 import com.ahl.annahockeyleague.kotlin.data.TopScorers
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,5 +24,8 @@ interface ApiService {
 
     @GET("api/points")
     suspend fun getPointsTableData(@Query("category") category : String, @Query ("tournament") tournamentId : String) : List<PointsTable>
+
+    @GET("api/teams")
+    suspend fun getTeamsListData(@Query("tournament") tournamentId : String, @Query("category") category : String) : List<Team>
 
 }

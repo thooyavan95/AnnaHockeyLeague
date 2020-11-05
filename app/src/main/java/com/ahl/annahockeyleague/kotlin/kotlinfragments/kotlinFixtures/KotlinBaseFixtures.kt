@@ -1,21 +1,18 @@
 package com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinFixtures
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ahl.annahockeyleague.AhlApplication
 import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.kotlin.UIState
 import com.ahl.annahockeyleague.kotlin.adapters.FixturesAdapter
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
-import com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome.HomeViewModelFactory
-import com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome.KotlinHomeViewModel
 import kotlinx.android.synthetic.main.fixtures_fragment_layout.*
 
 abstract class KotlinBaseFixtures : Fragment() {
@@ -33,7 +30,7 @@ abstract class KotlinBaseFixtures : Fragment() {
 
     abstract override fun onViewCreated(view: View, savedInstanceState: Bundle?)
 
-    fun fixtures(){
+    fun fixtures(category : String){
         viewModel.fixturesListLiveData.observe(viewLifecycleOwner, Observer {
             when(it){
                 is UIState.DataAvailable ->{
@@ -45,6 +42,7 @@ abstract class KotlinBaseFixtures : Fragment() {
             }
         })
 
+        viewModel.fetchFixturesList(category, AhlApplication.tournamentId)
     }
 
     private fun setFixtures(fixturesData : List<Fixtures>) {

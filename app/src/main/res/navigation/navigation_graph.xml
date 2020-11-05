@@ -11,16 +11,15 @@
         android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome.KotlinHome"
         android:label="KotlinHome" />
 
-    <fragment
-        android:id="@+id/teamPage"
-        android:name="com.ahl.annahockeyleague.Fragments.TeamFragment.TeamPage"
-        android:label="TeamPage"
-        tools:layout="@layout/team_fragment_layout"/>
 
     <fragment
         android:id="@+id/kotlinFixtures"
         android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinFixtures.KotlinFixtures"
         android:label="KotlinFixtures" />
+    <fragment
+        android:id="@+id/kotlinTeam"
+        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinTeam.KotlinTeam"
+        android:label="KotlinTeam" />
 
 
 </navigation>

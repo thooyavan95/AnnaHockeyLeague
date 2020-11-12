@@ -27,7 +27,13 @@ class FragmentAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm, BEHA
     }
 
     fun updateFragmentList(fragmentList : List<Fragment>){
-        listOfFragments = fragmentList
+        listOfFragments
+        notifyDataSetChanged()
+    }
+
+    fun clearAll(){
+        listOfFragments = null
+        notifyDataSetChanged()
     }
 
 }

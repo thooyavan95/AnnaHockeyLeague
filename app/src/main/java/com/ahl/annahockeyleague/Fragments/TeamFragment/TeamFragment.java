@@ -102,7 +102,7 @@ public class TeamFragment extends Fragment implements TeamViewInterface {
                 @Override
                 public void onTeamSelect(int position) {
                     if(getContext() != null) {
-                        ((MainActivity) getContext()).showPlayerFragment(teamArrayList.get(position));
+//                        ((MainActivity) getContext()).showPlayerFragment(teamArrayList.get(position));
                     }
 
                 }

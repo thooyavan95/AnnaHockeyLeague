@@ -1,7 +1,6 @@
 package com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome
 
-import android.provider.ContactsContract
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +13,6 @@ import com.ahl.annahockeyleague.kotlin.data.PointsTable
 import com.ahl.annahockeyleague.kotlin.data.TopScorers
 import com.ahl.annahockeyleague.kotlin.network.RetrofitService
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 class KotlinHomeViewModel(private val homeRepoImpl: HomeRepoImpl) : ViewModel(), HomeRepoImpl.HomeResponseListener {

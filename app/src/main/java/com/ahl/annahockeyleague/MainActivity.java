@@ -18,8 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.ahl_bottom_nav);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        NavigationUI.setupWithNavController(navView, navHostFragment.getNavController());
+//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+//        NavigationUI.setupWithNavController(navView, navHostFragment.getNavController());
+
+
+
     }
 
 }

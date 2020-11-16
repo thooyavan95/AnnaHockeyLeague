@@ -2,17 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/kotlinHome">
+    app:startDestination="@id/ahlFragment">
+
+
     <fragment
-        android:id="@+id/kotlinHome"
-        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinHome.KotlinHome"
-        android:label="KotlinHome" />
-    <fragment
-        android:id="@+id/kotlinFixtures"
-        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinFixtures.KotlinFixtures"
-        android:label="KotlinFixtures" />
-    <fragment
-        android:id="@+id/kotlinTeam"
-        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.kotlinTeam.KotlinTeam"
-        android:label="KotlinTeam" />
+        android:id="@+id/ahlFragment"
+        android:name="com.ahl.annahockeyleague.kotlin.kotlinfragments.AhlFragment"
+        android:label="AhlFragment" />
 </navigation>

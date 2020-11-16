@@ -7,14 +7,14 @@ class KotlinHomeMen : KotlinBaseHome() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel = HomeViewModelFactory.getViewModel(this)
-        viewModel.getAhlData("men")
-        setLoadingStatus()
+            viewModel = HomeViewModelFactory.getViewModel(this)
+            viewModel.getAhlData("men")
+            setLoadingStatus()
 
-        observePreviousMatchLiveData()
-        observeNextMatchLiveData()
-        observePointsLiveData()
-        observeTopScorersLiveData()
+            observePreviousMatchLiveData()
+            observeNextMatchLiveData()
+            observePointsLiveData()
+            observeTopScorersLiveData()
 
     }
 }

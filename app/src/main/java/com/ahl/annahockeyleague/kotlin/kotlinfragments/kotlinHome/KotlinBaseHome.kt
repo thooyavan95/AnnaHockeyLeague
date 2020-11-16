@@ -15,6 +15,7 @@ import com.ahl.annahockeyleague.kotlin.adapters.TopScorersAdapter
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
 import com.ahl.annahockeyleague.kotlin.data.PointsTable
 import com.ahl.annahockeyleague.kotlin.data.TopScorers
+import com.ahl.annahockeyleague.kotlin.kotlinfragments.AhlViewModel
 import kotlinx.android.synthetic.main.fixture_template.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import java.text.SimpleDateFormat
@@ -22,8 +23,8 @@ import java.util.*
 
 abstract class KotlinBaseHome : Fragment(){
 
-    lateinit var viewModel: KotlinHomeViewModel
-
+    lateinit var viewModel: AhlViewModel
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
@@ -40,7 +41,7 @@ abstract class KotlinBaseHome : Fragment(){
 
     fun observePreviousMatchLiveData() {
 
-        viewModel.previousMatchLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.previousMatchMenLiveData.observe(viewLifecycleOwner, Observer {
             when(it){
                 is UIState.Loading->{
                     Toast.makeText(context, "i am loading", Toast.LENGTH_SHORT).show()

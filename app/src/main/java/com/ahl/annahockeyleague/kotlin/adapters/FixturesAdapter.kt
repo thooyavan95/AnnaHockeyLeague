@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
-import com.ahl.annahockeyleague.kotlin.data.Fixtures
+import com.ahl.annahockeyleague.kotlin.data.FixturesData
 import kotlinx.android.synthetic.main.fixture_template.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FixturesAdapter : RecyclerView.Adapter<FixturesAdapter.FixturesViewHolder>() {
 
-    private var fixturesList : List<Fixtures>? = null
+    private var fixturesDataList : List<FixturesData>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FixturesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fixture_layout, parent ,false)
@@ -21,31 +21,31 @@ class FixturesAdapter : RecyclerView.Adapter<FixturesAdapter.FixturesViewHolder>
 
     override fun getItemCount(): Int {
 
-        if(fixturesList == null || fixturesList!!.isEmpty()){
+        if(fixturesDataList == null || fixturesDataList!!.isEmpty()){
             return 0
         }
 
-        return fixturesList!!.size
+        return fixturesDataList!!.size
     }
 
     override fun onBindViewHolder(holder: FixturesViewHolder, position: Int) {
-        holder.onBindViews(fixturesList!![position])
+        holder.onBindViews(fixturesDataList!![position])
     }
 
-    fun updateFixturesData(fixturesListData : List<Fixtures>){
-        fixturesList = fixturesListData
+    fun updateFixturesData(fixturesDataListData : List<FixturesData>){
+        fixturesDataList = fixturesDataListData
         notifyDataSetChanged()
     }
 
     class FixturesViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        fun onBindViews(fixturesData : Fixtures) {
+        fun onBindViews(fixturesDataData : FixturesData) {
 
-            itemView.next_match_fixture_date.text = formattedDate(fixturesData.matchDateTime)
-            itemView.next_match_team1_name.text = fixturesData.team1.name
-            itemView.next_match_team2_name.text = fixturesData.team2.name
-            itemView.next_match_team1_score.text = getScore(fixturesData.team1Scorers)
-            itemView.next_match_team2_score.text = getScore(fixturesData.team2Scorers)
+            itemView.next_match_fixture_date.text = formattedDate(fixturesDataData.matchDateTime)
+            itemView.next_match_team1_name.text = fixturesDataData.team1.name
+            itemView.next_match_team2_name.text = fixturesDataData.team2.name
+            itemView.next_match_team1_score.text = getScore(fixturesDataData.team1Scorers)
+            itemView.next_match_team2_score.text = getScore(fixturesDataData.team2Scorers)
         }
 
 

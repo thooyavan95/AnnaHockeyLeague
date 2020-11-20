@@ -4,53 +4,54 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ahl.annahockeyleague.AhlApplication
 import com.ahl.annahockeyleague.R
-import com.ahl.annahockeyleague.kotlin.UIState
 import com.ahl.annahockeyleague.kotlin.adapters.FixturesAdapter
-import com.ahl.annahockeyleague.kotlin.data.Fixtures
+import com.ahl.annahockeyleague.kotlin.data.AhlData
+import com.ahl.annahockeyleague.kotlin.data.FixturesData
+import com.ahl.annahockeyleague.kotlin.kotlinfragments.AhlViewModel
+import com.ahl.annahockeyleague.kotlin.kotlinfragments.UIThreadExecutor
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fixtures_fragment_layout.*
 
 abstract class KotlinBaseFixtures : Fragment() {
 
-    lateinit var viewModel : KotlinFixturesViewModel
+    private val viewModel by activityViewModels<AhlViewModel>()
+    private lateinit var disposable: Disposable
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = KotlinFixturesViewModelFactory.getViewModel(this)
-    }
+    var oldData : AhlData? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fixtures_fragment_layout, container, false)
     }
 
-    abstract override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
 
-    fun fixtures(category : String){
-        viewModel.fixturesListLiveData.observe(viewLifecycleOwner, Observer {
-            when(it){
-                is UIState.DataAvailable ->{
-                    fixtures_progress_bar.visibility = View.GONE
-                    setFixtures(it.data)
-                }
-
-                is UIState.Error -> Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.fetchFixturesList(category, AhlApplication.tournamentId)
+        disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::getData)
     }
 
-    private fun setFixtures(fixturesData : List<Fixtures>) {
+    abstract fun getData(newState : AhlData)
+
+    fun setLoader(){
+
+    }
+
+    fun setFixtures(fixturesDataData : List<FixturesData>) {
 
         val adapter = FixturesAdapter()
-        adapter.updateFixturesData(fixturesData)
+        adapter.updateFixturesData(fixturesDataData)
         fixtures_recycler_view.layoutManager = LinearLayoutManager(context)
         fixtures_recycler_view.adapter = adapter
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if(!disposable.isDisposed){
+            disposable.dispose()
+        }
     }
 
 }

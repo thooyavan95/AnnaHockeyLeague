@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
-import com.ahl.annahockeyleague.kotlin.data.TopScorers
+import com.ahl.annahockeyleague.kotlin.data.TopScorersData
 import kotlinx.android.synthetic.main.top_scorer_row_template.view.*
 
 class TopScorersAdapter : RecyclerView.Adapter<TopScorersAdapter.TopScorersViewHolder>() {
 
-    private var topScorersData : List<TopScorers>? = null
+    private var topScorersDataData : List<TopScorersData>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopScorersViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.top_scorer_row_template, parent, false)
@@ -19,27 +19,27 @@ class TopScorersAdapter : RecyclerView.Adapter<TopScorersAdapter.TopScorersViewH
 
     override fun getItemCount(): Int {
 
-        if(topScorersData == null){
+        if(topScorersDataData == null){
             return 0
         }
-        return topScorersData!!.size
+        return topScorersDataData!!.size
     }
 
     override fun onBindViewHolder(holder: TopScorersViewHolder, position: Int) {
-        holder.bindViews(topScorersData!![position])
+        holder.bindViews(topScorersDataData!![position])
     }
 
-    fun updateTOpScorersData(topScorersDataList : List<TopScorers>){
-        topScorersData = topScorersDataList
+    fun updateTOpScorersData(topScorersDataDataList : List<TopScorersData>){
+        topScorersDataData = topScorersDataDataList
         notifyDataSetChanged()
     }
 
     inner class TopScorersViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        fun bindViews(topScorersObject: TopScorers) {
+        fun bindViews(topScorersDataObject: TopScorersData) {
 
-            itemView.top_scorer_name.text = topScorersObject.player.name
-            itemView.top_scorer_team.text = topScorersObject.team.name
-            itemView.top_scorer_goals.text = topScorersObject.goals.toString()
+            itemView.top_scorer_name.text = topScorersDataObject.player.name
+            itemView.top_scorer_team.text = topScorersDataObject.team.name
+            itemView.top_scorer_goals.text = topScorersDataObject.goals.toString()
         }
 
     }

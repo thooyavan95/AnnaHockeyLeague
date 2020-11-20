@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
-import com.ahl.annahockeyleague.kotlin.data.Team
+import com.ahl.annahockeyleague.kotlin.data.TeamData
 import kotlinx.android.synthetic.main.team_template.view.*
 
 class TeamsAdapter(private val teamListener: TeamListener) : RecyclerView.Adapter<TeamsAdapter.TeamsViewHolder>() {
 
-    private var teamsList : List<Team>? = null
+    private var teamsList : List<TeamData>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.team_template, parent, false)
@@ -31,15 +31,15 @@ class TeamsAdapter(private val teamListener: TeamListener) : RecyclerView.Adapte
         holder.onBindViews(teamsList!![position])
     }
 
-    fun updateItems(teams : List<Team>){
-        teamsList = teams
+    fun updateItems(teamData : List<TeamData>){
+        teamsList = teamData
         notifyDataSetChanged()
     }
 
     inner class TeamsViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        fun onBindViews(team : Team){
-            itemView.team_name.text = team.name
+        fun onBindViews(teamData : TeamData){
+            itemView.team_name.text = teamData.name
             itemView.setOnClickListener {
                 if(adapterPosition != RecyclerView.NO_POSITION){
                     teamListener.onTeamSelected(adapterPosition)

@@ -2,143 +2,128 @@ package com.ahl.annahockeyleague.kotlin.kotlinfragments
 
 import android.util.Log
 import com.ahl.annahockeyleague.kotlin.DataState
-import com.ahl.annahockeyleague.kotlin.data.Fixtures
-import com.ahl.annahockeyleague.kotlin.data.PointsTable
-import com.ahl.annahockeyleague.kotlin.data.Team
-import com.ahl.annahockeyleague.kotlin.data.TopScorers
+import com.ahl.annahockeyleague.kotlin.data.Action
+import com.ahl.annahockeyleague.kotlin.data.LoaderData
 import com.ahl.annahockeyleague.kotlin.network.RetrofitService
+import com.jakewharton.rxrelay2.PublishRelay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AhlRepoImpl : AhlRepo {
+class AhlRepoImpl(private val networkStream : PublishRelay<DataState>) : AhlRepo {
 
-    override suspend fun getHomePageData(tournamentId: String, category: String, responseListener : AhlResponseListener) {
+
+    override suspend fun getHomePageData(tournamentId: String, category: String) {
 
         Log.d("id", tournamentId)
         withContext(Dispatchers.IO) {
+
             launch {
-                try {
-                    responseListener.onFixturesResponseMen(DataState.RequestSent)
-                    val response = RetrofitService.getInstance.getFixturesData(category, tournamentId)
-                    if(category == "men"){
-                        responseListener.onFixturesResponseMen(DataState.Success(response))
-                    }else{
-                        responseListener.onFixturesResponseWomen(DataState.Success(response))
-                    }
-
-
-                } catch (e: Exception) {
-                    if(category == "men"){
-                        responseListener.onFixturesResponseMen(DataState.Failure(e.message))
-                    }else{
-                        responseListener.onFixturesResponseWomen(DataState.Failure(e.message))
-                    }
-
-                }
+                getAsyncFixturesData(category, tournamentId)
             }
 
             launch {
-                try {
-                    val response = RetrofitService.getInstance.getPointsTableData(category, tournamentId)
-                    if(category == "men"){
-                        responseListener.onPointsMenResponse(DataState.Success(response))
-                    }else{
-                        responseListener.onPointsWomenResponse(DataState.Success(response))
-                    }
-
-                } catch (e: Exception) {
-                    if(category == "men"){
-                        responseListener.onPointsMenResponse(DataState.Failure(e.message))
-                    }else{
-                        responseListener.onPointsWomenResponse(DataState.Failure(e.message))
-                    }
-
-                }
+                getAsyncPointsData(category, tournamentId)
             }
 
             launch {
-
-                try {
-                    val response = RetrofitService.getInstance.getTopScorersData(tournamentId, category)
-                    if(category == "men"){
-                        responseListener.onTopScoresMenResponse(DataState.Success(response))
-                    }else{
-                        responseListener.onTopScoresWomenResponse(DataState.Success(response))
-                    }
-
-                } catch (e: Exception) {
-                    if(category == "men"){
-                        responseListener.onTopScoresMenResponse(DataState.Failure(e.message))
-                    }else{
-                        responseListener.onTopScoresWomenResponse(DataState.Failure(e.message))
-                    }
-
-                }
+                getAsyncTopScorersData(category, tournamentId)
             }
 
         }
-
 
     }
 
 
-    override suspend fun getFixturesDatList(category: String, tournamentId : String, fixturesListener : AhlResponseListener) {
-        withContext(Dispatchers.IO){
 
-            try {
-                val response = RetrofitService.getInstance.getFixturesData(category ,tournamentId)
-                if(category == "men"){
-                    fixturesListener.onFixturesResponseMen(DataState.Success(response))
-                }else{
-                    fixturesListener.onFixturesResponseWomen(DataState.Success(response))
-                }
+    override suspend fun fetchTeamList(tournamentId: String, category: String) {
 
-            }catch (e : java.lang.Exception){
-                if(category == "men"){
-                    fixturesListener.onFixturesResponseMen(DataState.Failure(e.message))
-                }else{
-                    fixturesListener.onFixturesResponseWomen(DataState.Failure(e.message))
-                }
-
-            }
+        withContext(Dispatchers.IO) {
+                getTeamData(category, tournamentId)
         }
 
     }
 
-    override suspend fun fetchTeamList(tournamentId: String, category: String, teamListListener: AhlResponseListener) {
+    private suspend fun getAsyncFixturesData(category: String, tournamentId: String) {
 
-        withContext(Dispatchers.IO){
-            try {
-                val response = RetrofitService.getInstance.getTeamsListData(tournamentId, category)
-                if(category == "men"){
-                    teamListListener.onTeamsMenResponse(DataState.Success(response))
-                }else{
-                    teamListListener.onTeamsWomenResponse(DataState.Success(response))
-                }
+        try {
+            val response = RetrofitService.getInstance.getFixturesData(category, tournamentId)
 
-            }catch (e : Exception){
-                if(category == "men"){
-                    teamListListener.onTeamsMenResponse(DataState.Failure(e.message))
-                }else{
-                    teamListListener.onTeamsWomenResponse(DataState.Failure(e.message))
-                }
+            response.map {
+                it.category = category
             }
+
+            networkStream.accept(DataState.Success(response))
+
+        } catch (e: Exception) {
+            if (category == "men") {
+                networkStream.accept(DataState.Failure(Action.FixturesForMen, e.message))
+            } else {
+                networkStream.accept(DataState.Failure(Action.FixturesForWomen, e.message))
+            }
+
+        }
+    }
+
+    private suspend fun getAsyncPointsData(category: String, tournamentId: String) {
+
+        try {
+            val response = RetrofitService.getInstance.getPointsTableData(category, tournamentId)
+
+            response.map {
+                it.category = category
+            }
+
+            networkStream.accept(DataState.Success(response))
+        } catch (e: Exception) {
+            if (category == "men") {
+                networkStream.accept(DataState.Failure(Action.PointsTableForMen, e.message))
+            } else {
+                networkStream.accept(DataState.Failure(Action.PointsTableForWomen, e.message))
+            }
+
+        }
+    }
+
+    private suspend fun getAsyncTopScorersData(category: String, tournamentId: String) {
+
+        try {
+            val response = RetrofitService.getInstance.getTopScorersData(tournamentId, category)
+
+            response.map {
+                it.category = category
+            }
+
+            networkStream.accept(DataState.Success(response))
+
+        } catch (e: Exception) {
+            if (category == "men") {
+                networkStream.accept(DataState.Failure(Action.TopScorersForMen, e.message))
+            } else {
+                networkStream.accept(DataState.Failure(Action.TopScorersForWomen, e.message))
+            }
+
         }
 
     }
 
-        interface AhlResponseListener {
+    private suspend fun getTeamData(category: String, tournamentId: String){
 
-            fun onFixturesResponseMen(fixturesResponse : DataState<List<Fixtures>>)
-            fun onFixturesResponseWomen(fixturesResponse : DataState<List<Fixtures>>)
-            fun onPointsMenResponse(pointsTableResponse : DataState<List<PointsTable>>)
-            fun onPointsWomenResponse(pointsTableResponse : DataState<List<PointsTable>>)
-            fun onTopScoresMenResponse(topScorersResponse : DataState<List<TopScorers>>)
-            fun onTopScoresWomenResponse(topScorersResponse : DataState<List<TopScorers>>)
-            fun onTeamsMenResponse(teamsResponse : DataState<List<Team>>)
-            fun onTeamsWomenResponse(teamsResponse : DataState<List<Team>>)
+        try {
+            val response = RetrofitService.getInstance.getTeamsListData(tournamentId, category)
 
+            response.map {
+                it.category = category
+            }
+
+            networkStream.accept(DataState.Success(response))
+
+        } catch (e: Exception) {
+            if (category == "men") {
+                networkStream.accept(DataState.Failure(Action.TeamsForMen, e.message))
+            } else {
+                networkStream.accept(DataState.Failure(Action.TeamsForWomen, e.message))
+            }
         }
-
+    }
 }

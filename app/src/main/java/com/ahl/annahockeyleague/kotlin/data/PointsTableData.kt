@@ -1,8 +1,9 @@
 package com.ahl.annahockeyleague.kotlin.data
 
-import com.ahl.annahockeyleague.Entity.Team
 
-data class PointsTable(
+class PointsTable : ArrayList<PointsTableData>()
+
+data class PointsTableData(
                 val position : Int,
                 val points : Int,
                 val goalScored : Int,
@@ -12,7 +13,8 @@ data class PointsTable(
                 val won : Int,
                 val draw : Int,
                 val lost : Int,
-                val team: Team
+                val team: TeamData,
+                var category : String
 )
 
 

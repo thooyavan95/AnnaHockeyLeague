@@ -6,16 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahl.annahockeyleague.R
-import com.ahl.annahockeyleague.kotlin.UIState
 import com.ahl.annahockeyleague.kotlin.adapters.PointsTableAdapter
 import com.ahl.annahockeyleague.kotlin.adapters.TopScorersAdapter
-import com.ahl.annahockeyleague.kotlin.data.Fixtures
-import com.ahl.annahockeyleague.kotlin.data.PointsTable
-import com.ahl.annahockeyleague.kotlin.data.TopScorers
+import com.ahl.annahockeyleague.kotlin.data.AhlData
+import com.ahl.annahockeyleague.kotlin.data.FixturesData
+import com.ahl.annahockeyleague.kotlin.data.PointsTableData
+import com.ahl.annahockeyleague.kotlin.data.TopScorersData
 import com.ahl.annahockeyleague.kotlin.kotlinfragments.AhlViewModel
+import com.ahl.annahockeyleague.kotlin.kotlinfragments.UIThreadExecutor
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fixture_template.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import java.text.SimpleDateFormat
@@ -23,106 +26,37 @@ import java.util.*
 
 abstract class KotlinBaseHome : Fragment(){
 
-    lateinit var viewModel: AhlViewModel
+    private val viewModel by activityViewModels<AhlViewModel>()
+    private lateinit var disposable: Disposable
     
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home_page, container, false)
     }
 
-    abstract override fun onViewCreated(view: View, savedInstanceState: Bundle?)
-
-     fun setLoadingStatus() {
-        previous_progress_bar.visibility = View.VISIBLE
-        next_progress_bar.visibility = View.VISIBLE
-        table_progress_bar.visibility = View.VISIBLE
-        top_scorer_progress_bar.visibility = View.VISIBLE
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+            disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::getData)
     }
 
-
-    fun observePreviousMatchLiveData() {
-
-        viewModel.previousMatchMenLiveData.observe(viewLifecycleOwner, Observer {
-            when(it){
-                is UIState.Loading->{
-                    Toast.makeText(context, "i am loading", Toast.LENGTH_SHORT).show()
-                }
-
-                is UIState.DataAvailable ->{
-                    setPreviousMatch(it.data)
-                    previous_progress_bar.visibility = View.GONE
-                }
-
-                is UIState.Error ->{
-                    showError(it.error)
-                }
-
-            }
-        })
-    }
-
-    fun observeNextMatchLiveData() {
-
-        viewModel.nextMatchLiveData.observe(viewLifecycleOwner, Observer {
-                when(it){
-
-                    is UIState.DataAvailable ->{
-                        setNextMatch(it.data)
-                        next_progress_bar.visibility = View.GONE
-                    }
-
-                    is UIState.Error ->{
-                        showError(it.error)
-                    }
-
-                }
-        })
-    }
-
-
-    fun observePointsLiveData() {
-
-        viewModel.pointsTableLiveData.observe(viewLifecycleOwner, Observer {
-            when(it){
-
-                is UIState.DataAvailable ->{
-                    setPointsData(it.data)
-                    table_progress_bar.visibility = View.GONE
-                }
-
-                is UIState.Error ->{
-                    showError(it.error)
-                }
-            }
-        })
-
-    }
-
-
-    fun observeTopScorersLiveData() {
-
-        viewModel.topScoresLiveData.observe(viewLifecycleOwner, Observer {
-            when(it){
-
-                is UIState.DataAvailable ->{
-                    setTopScorers(it.data)
-                    top_scorer_progress_bar.visibility = View.GONE
-                }
-
-                is UIState.Error ->{
-                    showError(it.error)
-                }
-
-            }
-        })
-
-    }
-
+    abstract fun getData(ahlData: AhlData)
 
     private fun showError(error: String?) {
         Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
     }
 
-    private fun setPreviousMatch(fixtureDetails : Fixtures) {
+    private fun getPreviousMatchDetails(fixturesDataList: List<FixturesData>) : FixturesData? {
+
+        return fixturesDataList.sortedByDescending { it.matchDateTime }
+                .find { it.status == "COMPLETED"}
+
+    }
+
+    private fun getNextMatchDetails(fixturesDataList: List<FixturesData>): FixturesData? {
+        return fixturesDataList.sortedBy { it.matchDateTime }
+                .find { it.status == "UPCOMING" }
+    }
+
+
+    private fun setPreviousMatch(fixtureDetails : FixturesData) {
 
         previous_match_fixture_date.text = formattedDate(fixtureDetails.matchDateTime)
         previous_match_team2_score.text = getScore(fixtureDetails.team2Scorers)
@@ -144,7 +78,7 @@ abstract class KotlinBaseHome : Fragment(){
 
     }
 
-    private fun setNextMatch(fixtureDetails: Fixtures){
+    private fun setNextMatch(fixtureDetails: FixturesData){
 
         next_match_fixture_date.text = formattedDate(fixtureDetails.matchDateTime)
         next_match_team2_score.text = getScore(fixtureDetails.team2Scorers)
@@ -153,14 +87,14 @@ abstract class KotlinBaseHome : Fragment(){
         next_match_team1_name.text = fixtureDetails.team1.name
     }
 
-    private fun setPointsData(pointsData: List<PointsTable>) {
+    private fun setPointsData(pointsDatumData: List<PointsTableData>) {
             val adapter = PointsTableAdapter()
-            adapter.updatePointsTableData(pointsData)
+            adapter.updatePointsTableData(pointsDatumData)
             points_table_listview.layoutManager = LinearLayoutManager(context)
             points_table_listview.adapter = adapter
     }
 
-    private fun setTopScorers(list: List<TopScorers>) {
+    private fun setTopScorers(list: List<TopScorersData>) {
             val adapter = TopScorersAdapter()
             adapter.updateTOpScorersData(list)
             top_scorers_listview.layoutManager = LinearLayoutManager(context)
@@ -182,6 +116,13 @@ abstract class KotlinBaseHome : Fragment(){
         val date = Date(timeInMillis)
         val sdf = SimpleDateFormat(pattern, Locale.getDefault())
         return sdf.format(date)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if(!disposable.isDisposed){
+            disposable.dispose()
+        }
     }
 
 

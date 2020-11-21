@@ -1,7 +1,7 @@
 package com.ahl.annahockeyleague.kotlin.kotlinfragments
 
 import android.util.Log
-import com.ahl.annahockeyleague.kotlin.DataState
+import com.ahl.annahockeyleague.DataState
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
 import com.ahl.annahockeyleague.kotlin.data.PointsTable
 import com.ahl.annahockeyleague.kotlin.data.Team

@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahl.annahockeyleague.AhlApplication
-import com.ahl.annahockeyleague.kotlin.DataState
-import com.ahl.annahockeyleague.kotlin.UIState
+import com.ahl.annahockeyleague.DataState
+import com.ahl.annahockeyleague.UIState
 import com.ahl.annahockeyleague.kotlin.data.Fixtures
 import com.ahl.annahockeyleague.kotlin.data.PointsTable
 import com.ahl.annahockeyleague.kotlin.data.Team

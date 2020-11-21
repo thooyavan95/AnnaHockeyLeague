@@ -7,7 +7,7 @@ class Fixtures : ArrayList<FixturesData>()
 data class FixturesData(
         val id: ObjectId = ObjectId(),
         val tournamentId: ObjectId = ObjectId(),
-        val mom: Player = Player(),
+        val mom: Player? = Player(),
         val buddingPlayer: Player? = Player(),
         val round: String = "",
         val timer: String ="",

@@ -1,7 +1,6 @@
 package com.ahl.annahockeyleague.network
 
 import com.ahl.annahockeyleague.data.*
-import com.ahl.annahockeyleague.kotlin.data.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

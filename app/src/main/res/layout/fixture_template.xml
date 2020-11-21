@@ -90,6 +90,7 @@
             android:layout_marginTop="32dp"
             android:textColor="@color/colorBlack"
             android:textSize="24sp"
+            android:text="@string/colon"
             app:layout_constraintEnd_toStartOf="@+id/next_match_team2_score"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/next_match_team1_score"

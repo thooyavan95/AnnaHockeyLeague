@@ -6,5 +6,5 @@ data class Player(
         var id: ObjectId = ObjectId(),
         val name: String = "",
         val position: Position = Position.DEFAULT,
-        val profile: String = ""
+        val profile: String? = null
 )

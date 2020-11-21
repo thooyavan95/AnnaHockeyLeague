@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
+import com.ahl.annahockeyleague.ahlUtils.LogoUtility
 import com.ahl.annahockeyleague.data.PointsTableData
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.points_table_row_template.view.*
 
 class PointsTableAdapter : RecyclerView.Adapter<PointsTableAdapter.PointsTableViewHolder>() {
@@ -48,6 +50,9 @@ class PointsTableAdapter : RecyclerView.Adapter<PointsTableAdapter.PointsTableVi
             itemView.PT_row_position.text = pointsTableDataData.position.toString()
             itemView.PT_row_matches_played.text = pointsTableDataData.matchesPlayed.toString()
             itemView.PT_row_points.text = pointsTableDataData.points.toString()
+
+            val teamLogo = LogoUtility.getTeamLogo(pointsTableDataData.team.teamTag)
+            Picasso.get().load(teamLogo).into(itemView.PT_row_team_logo)
         }
 
     }

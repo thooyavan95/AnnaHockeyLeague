@@ -147,6 +147,7 @@
                         android:textColor="@color/colorBlack"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
+                        android:text="@string/colon"
                         android:textSize="24sp"
                         app:layout_constraintEnd_toStartOf="@+id/previous_match_team2_score"
                         app:layout_constraintHorizontal_bias="0.5"

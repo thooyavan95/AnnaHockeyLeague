@@ -23,6 +23,8 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
     private val viewModel by activityViewModels<AhlViewModel>()
     private lateinit var disposable: Disposable
 
+    var oldData : AhlData? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.team_fragment_layout, container, false)
     }
@@ -38,8 +40,11 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
     }
 
+    fun teamLoader(){
 
-    private fun setTeams(data: List<TeamData>) {
+    }
+
+    fun setTeams(data: List<TeamData>) {
 
         team_progress_bar.visibility = View.GONE
 

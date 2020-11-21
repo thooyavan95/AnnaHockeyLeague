@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
+import com.ahl.annahockeyleague.ahlUtils.LogoUtility
 import com.ahl.annahockeyleague.data.FixturesData
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fixture_template.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,6 +48,11 @@ class FixturesAdapter : RecyclerView.Adapter<FixturesAdapter.FixturesViewHolder>
             itemView.next_match_team2_name.text = fixturesDataData.team2.name
             itemView.next_match_team1_score.text = getScore(fixturesDataData.team1Scorers)
             itemView.next_match_team2_score.text = getScore(fixturesDataData.team2Scorers)
+
+            val team1Logo = LogoUtility.getTeamLogo(fixturesDataData.team1.teamTag)
+            val team2Logo = LogoUtility.getTeamLogo(fixturesDataData.team2.teamTag)
+            Picasso.get().load(team1Logo).into(itemView.next_match_team1_image)
+            Picasso.get().load(team2Logo).into(itemView.next_match_team2_image)
         }
 
 

@@ -2,11 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/ahlFragment">
-
+    app:startDestination="@id/home3">
 
     <fragment
-        android:id="@+id/ahlFragment"
-        android:name="com.ahl.annahockeyleague.ui.AhlFragment"
-        android:label="AhlFragment" />
+        android:id="@+id/home3"
+        android:name="com.ahl.annahockeyleague.ui.home.Home"
+        android:label="Home" />
+    <fragment
+        android:id="@+id/fixtures2"
+        android:name="com.ahl.annahockeyleague.ui.fixtures.Fixtures"
+        android:label="Fixtures" />
+    <fragment
+        android:id="@+id/team2"
+        android:name="com.ahl.annahockeyleague.ui.team.Team"
+        android:label="Team" />
 </navigation>

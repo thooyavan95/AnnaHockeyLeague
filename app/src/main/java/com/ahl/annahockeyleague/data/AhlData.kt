@@ -28,6 +28,7 @@ data class LoaderData(
 
 enum class Action{
 
+    Tournament,
     FixturesForMen,
     FixturesForWomen,
     TopScorersForMen,

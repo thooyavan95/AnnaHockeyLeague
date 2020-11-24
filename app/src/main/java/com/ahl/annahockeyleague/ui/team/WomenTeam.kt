@@ -18,4 +18,6 @@ class WomenTeam : BaseTeam(){
             teamLoader()
         }
     }
+
+    override fun getGender(): String = "women"
 }

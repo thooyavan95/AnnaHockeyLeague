@@ -2,46 +2,52 @@
     <androidx.core.widget.NestedScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:id="@+id/scroll_view"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:id="@+id/constraint_head"
             android:background="@color/colorWhisper"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
 
-            <TextView
-                android:id="@+id/next_match"
-                android:layout_width="wrap_content"
+            <include layout="@layout/shimmer_fixtures"
+                android:id="@+id/previous_match_shimmer"
+                android:layout_marginVertical="12dp"
                 android:layout_height="wrap_content"
-                android:text="Next Match"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="17sp"
-                android:textStyle="bold"/>
+                android:layout_width="match_parent"/>
+
+            <include layout="@layout/shimmer_fixtures"
+                android:id="@+id/next_match_shimmer"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <include layout="@layout/shimmer_points"
+                android:id="@+id/points_shimmer"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
+
+            <include layout="@layout/shimmer_top_scorers"
+                android:id="@+id/top_scorers_shimmer"
+                android:layout_marginVertical="12dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"/>
 
             <include
-                layout="@layout/fixture_template"/>
-
-            <TextView
-                android:id="@+id/previous_match"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Previous Match"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                layout="@layout/fixture_template"
+                android:id="@+id/home_next_match"
+                android:visibility="gone"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/previous_match_fixture_cardview"
                 style="@style/DefaultCardMargin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:elevation="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardUseCompatPadding="true">
@@ -49,16 +55,6 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
-                    <ProgressBar
-                        android:id="@+id/previous_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/previous_match_team1_image"
@@ -254,19 +250,11 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/points_table"
-                android:text="Points Table"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold"
-                android:textSize="17sp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/points_table_cardview"
                 style="@style/DefaultCardMargin"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
@@ -428,16 +416,10 @@
                         android:visibility="invisible"
                         android:background="?android:attr/listDivider"/>
 
-                    <ProgressBar
-                        android:id="@+id/table_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:visibility="gone"/>
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/points_table_listview"
                         android:orientation="vertical"
+                        android:nestedScrollingEnabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </androidx.recyclerview.widget.RecyclerView>
@@ -446,58 +428,31 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/top_scorers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Top Scorers"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/top_scorers_cardview"
                 style="@style/DefaultCardMargin"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="8dp"
                 app:cardCornerRadius="12dp"
                 app:cardUseCompatPadding="true">
 
-                <ProgressBar
-                    android:id="@+id/top_scorer_progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/top_scorers_listview"
                     android:orientation="vertical"
+                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/our_sponsors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Our Sponsors"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="17sp"
-                android:textStyle="bold"/>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/sponsor_recycle_view"
-                style="@style/DefaultCardMargin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/sponsor_recycle_view"-->
+<!--                style="@style/DefaultCardMargin"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:nestedScrollingEnabled="false"/>-->
 
         </LinearLayout>
 

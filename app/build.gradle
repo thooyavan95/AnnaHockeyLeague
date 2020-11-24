@@ -107,4 +107,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.1"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.1"
+
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
 }

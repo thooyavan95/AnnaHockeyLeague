@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.adapters.TeamsAdapter
 import com.ahl.annahockeyleague.data.AhlData
@@ -36,6 +36,8 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
 
     abstract fun getData(ahlData: AhlData)
 
+    abstract fun getGender() : String
+
     override fun onTeamSelected(position: Int) {
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
     }
@@ -46,12 +48,10 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
 
     fun setTeams(data: List<TeamData>) {
 
-        team_progress_bar.visibility = View.GONE
-
-        val teamsAdapter = TeamsAdapter(this)
+        val teamsAdapter = TeamsAdapter(getGender(), this)
         teamsAdapter.updateItems(data)
         team_recycle_view.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(true)
             adapter = teamsAdapter
         }

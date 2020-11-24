@@ -15,15 +15,8 @@ class ViewPager2Adapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
     }
 
 
-    override fun createFragment(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment = fragmentList[position]
 
-       return when(position){
-            0 ->  fragmentList[position]
-            1 ->  fragmentList[position]
-            else -> null!!
-        }
-
-    }
 
     fun updateList(list : List<Fragment>){
         fragmentList.clear()

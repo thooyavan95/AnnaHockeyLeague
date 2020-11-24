@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
+import com.ahl.annahockeyleague.ahlUtils.LogoUtility
 import com.ahl.annahockeyleague.data.TeamData
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.team_template.view.*
 
-class TeamsAdapter(private val teamListener: TeamListener) : RecyclerView.Adapter<TeamsAdapter.TeamsViewHolder>() {
+class TeamsAdapter(private val gender : String, private val teamListener: TeamListener) : RecyclerView.Adapter<TeamsAdapter.TeamsViewHolder>() {
 
     private var teamsList : List<TeamData>? = null
 
@@ -39,6 +41,12 @@ class TeamsAdapter(private val teamListener: TeamListener) : RecyclerView.Adapte
     inner class TeamsViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         fun onBindViews(teamData : TeamData){
+
+            when(gender){
+                "men" -> Picasso.get().load(LogoUtility.getTeamLogo(teamData.teamTag)).into(itemView.team_logo)
+                "women" -> Picasso.get().load(LogoUtility.getTeamLogo(teamData.teamTag)).into(itemView.team_logo)
+            }
+
             itemView.team_name.text = teamData.name
             itemView.setOnClickListener {
                 if(adapterPosition != RecyclerView.NO_POSITION){

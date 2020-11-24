@@ -9,10 +9,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AhlRepoImpl(private val networkStream : PublishRelay<DataState>) : AhlRepo {
+class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private val tournamentListener: TournamentListener) : AhlRepo {
 
 
-    override suspend fun getHomePageData(tournamentId: String, category: String) {
+    override suspend fun fetchTournamentId() {
+
+        tournamentListener.onTournamentIdResponse(DataState.RequestSent)
+
+            try {
+                val tournament = RetrofitService.getInstance.getTournamentId()
+                tournamentListener.onTournamentIdResponse(DataState.Success(tournament.id))
+            }
+            catch(e : Exception){
+                tournamentListener.onTournamentIdResponse(DataState.Failure(Action.Tournament, e.message))
+            }
+
+    }
+
+    override suspend fun fetchHomePageData(tournamentId: String, category: String) {
 
         Log.d("id", tournamentId)
         withContext(Dispatchers.IO) {
@@ -125,4 +139,9 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>) : AhlRepo
             }
         }
     }
+
+    interface TournamentListener{
+        fun onTournamentIdResponse(tournamentId: Any)
+    }
+
 }

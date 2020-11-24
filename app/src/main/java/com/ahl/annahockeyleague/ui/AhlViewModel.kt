@@ -1,47 +1,61 @@
 package com.ahl.annahockeyleague.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ahl.annahockeyleague.AhlApplication
 import com.ahl.annahockeyleague.DataState
 import com.ahl.annahockeyleague.data.*
-import com.ahl.annahockeyleague.network.RetrofitService
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.bson.types.ObjectId
 
 
 const val TAG = "ahlData"
-class AhlViewModel : ViewModel() {
+class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
-
+    private val _tournamentStateMLD = MutableLiveData<UIState>()
     private val networkStream = PublishRelay.create<DataState>()
     private lateinit var disposable : Disposable
 
+    val tournamentLiveData : LiveData<UIState>
+        get() = _tournamentStateMLD
     val ahlDataStream = BehaviorRelay.createDefault(AhlData())
 
-    private val ahlRepoImpl = AhlRepoImpl(networkStream)
+    private val ahlRepoImpl = AhlRepoImpl(networkStream, this)
+
+
+    override fun onTournamentIdResponse(tournamentId: Any) {
+        when(tournamentId){
+
+            is DataState.RequestSent -> _tournamentStateMLD.postValue(UIState.SHOW_LOADER)
+
+                is DataState.Success -> {
+
+                    _tournamentStateMLD.postValue(UIState.SHOW_CONTENT)
+                    val tournamentString = tournamentId.data as ObjectId
+                    fetchHomePageData(tournamentString.toString())
+                    fetchTeamList(tournamentString.toString())
+                }
+
+                is DataState.Failure -> _tournamentStateMLD.postValue(UIState.SHOW_ERROR)
+        }
+    }
 
     fun getAhlData(){
 
         viewModelScope.launch(Dispatchers.IO) {
-            fetchTournamentId()
-            fetchHomePageData()
-            fetchTeamList()
+            ahlRepoImpl.fetchTournamentId()
         }
 
         getData()
 
     }
 
-    private suspend fun fetchTournamentId() {
-
-        val tournament = RetrofitService.getInstance.getTournamentId()
-        AhlApplication.tournamentId = tournament.id.toString()
-    }
 
     private fun getData(){
 
@@ -84,21 +98,21 @@ class AhlViewModel : ViewModel() {
 
                         is PointsTable -> {
                             if(datum[0].category == "men"){
-                                ahlDataStream.value!!.loaderData.copy(pointsTableForMen = UIState.SHOW_CONTENT)
-                                ahlDataStream.value!!.copy(pointsTableMen = datum)
+                                val pointsLoaderData = ahlDataStream.value!!.loaderData.copy(pointsTableForMen = UIState.SHOW_CONTENT)
+                                ahlDataStream.value!!.copy(loaderData = pointsLoaderData, pointsTableMen = datum)
                             }else{
-                                ahlDataStream.value!!.loaderData.copy(pointsTableForWomen = UIState.SHOW_CONTENT)
-                                ahlDataStream.value!!.copy(pointsTableWoMen = datum)
+                                val pointsLoaderData = ahlDataStream.value!!.loaderData.copy(pointsTableForWomen = UIState.SHOW_CONTENT)
+                                ahlDataStream.value!!.copy(loaderData = pointsLoaderData, pointsTableWoMen = datum)
                             }
                         }
 
                         is TopScorers -> {
                             if(datum[0].category == "men"){
-                                ahlDataStream.value!!.loaderData.copy(topScorersForMen = UIState.SHOW_CONTENT)
-                                ahlDataStream.value!!.copy(topScorersMen = datum)
+                                val topScorersLoaderData = ahlDataStream.value!!.loaderData.copy(topScorersForMen = UIState.SHOW_CONTENT)
+                                ahlDataStream.value!!.copy(loaderData = topScorersLoaderData, topScorersMen = datum)
                             }else{
-                                ahlDataStream.value!!.loaderData.copy(topScorersForWomen = UIState.SHOW_CONTENT)
-                                ahlDataStream.value!!.copy(topScorersWoMen = datum)
+                                val topScorersLoaderData = ahlDataStream.value!!.loaderData.copy(topScorersForWomen = UIState.SHOW_CONTENT)
+                                ahlDataStream.value!!.copy(loaderData = topScorersLoaderData, topScorersWoMen = datum)
                             }
                         }
 
@@ -137,26 +151,26 @@ class AhlViewModel : ViewModel() {
         }
     }
 
-    private fun fetchHomePageData(){
+    private fun fetchHomePageData(tournamentId: String){
 
         viewModelScope.launch {
-            ahlRepoImpl.getHomePageData( category = "men" ,tournamentId = AhlApplication.tournamentId)
+            ahlRepoImpl.fetchHomePageData( category = "men" ,tournamentId = tournamentId)
 
             launch {
-                ahlRepoImpl.getHomePageData(AhlApplication.tournamentId, "women")
+                ahlRepoImpl.fetchHomePageData(tournamentId, "women")
             }
         }
 
     }
 
 
-    private fun fetchTeamList(){
+    private fun fetchTeamList(tournamentId: String){
         viewModelScope.launch {
-            ahlRepoImpl.fetchTeamList(AhlApplication.tournamentId, "men")
+            ahlRepoImpl.fetchTeamList(tournamentId, "men")
         }
 
         viewModelScope.launch {
-            ahlRepoImpl.fetchTeamList(AhlApplication.tournamentId, "women")
+            ahlRepoImpl.fetchTeamList(tournamentId, "women")
         }
     }
 
@@ -166,5 +180,6 @@ class AhlViewModel : ViewModel() {
             disposable.dispose()
         }
     }
+
 
 }

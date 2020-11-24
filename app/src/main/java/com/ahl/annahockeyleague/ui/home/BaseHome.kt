@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.adapters.PointsTableAdapter
 import com.ahl.annahockeyleague.adapters.TopScorersAdapter
+import com.ahl.annahockeyleague.ahlUtils.DateUtility
 import com.ahl.annahockeyleague.ahlUtils.LogoUtility
 import com.ahl.annahockeyleague.data.*
 import com.ahl.annahockeyleague.ui.AhlViewModel
@@ -20,8 +21,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fixture_template.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 abstract class BaseHome : Fragment(){
 
@@ -54,8 +53,12 @@ abstract class BaseHome : Fragment(){
     fun showMatchData(uiState: UIState){
 
         if(uiState == UIState.SHOW_CONTENT){
-            previous_progress_bar.visibility = View.GONE
-            next_progress_bar.visibility = View.GONE
+
+            home_next_match.visibility = View.VISIBLE
+            previous_match_fixture_cardview.visibility = View.VISIBLE
+
+            next_match_shimmer.visibility = View.GONE
+            previous_match_shimmer.visibility = View.GONE
         }
 
     }
@@ -77,14 +80,19 @@ abstract class BaseHome : Fragment(){
 
     fun showTopScorers(uiState: UIState){
         if(uiState == UIState.SHOW_CONTENT){
-            top_scorer_progress_bar.visibility = View.GONE
+            top_scorers_shimmer.visibility = View.GONE
+            top_scorers_cardview.visibility = View.VISIBLE
+
         }
 
     }
 
     fun showPointsTable(uiState: UIState){
         if(uiState == UIState.SHOW_CONTENT){
-            table_progress_bar.visibility = View.GONE
+
+            points_table_cardview.visibility = View.VISIBLE
+            points_shimmer.visibility = View.GONE
+
         }
 
     }
@@ -105,38 +113,14 @@ abstract class BaseHome : Fragment(){
 
         if(data != null){
 
-            previous_match_fixture_date.text = formattedDate(data.matchDateTime)
+            previous_match_fixture_date.text = DateUtility.formattedDate(data.matchDateTime)
             previous_match_team2_score.text = getScore(data.team2Scorers)
             previous_match_team2_name.text = data.team2.name
             previous_match_team1_score.text = getScore(data.team1Scorers)
             previous_match_team1_name.text = data.team1.name
-            previous_match_budding_player_name.apply {
-                if(data.buddingPlayer != null){
-                    visibility = View.VISIBLE
-                    text = data.buddingPlayer.name
-                    previous_match__budding_player_image.apply {
-                        visibility = View.VISIBLE
-                        when(getGender()){
-                            "men" -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.men_image).into(this)
-                            "women" -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.women_image).into(this)
-                        }
-                    }
-                }
-            }
 
-            previous_match_man_of_the_match_name.apply {
-                if(data.mom != null){
-                    visibility = View.VISIBLE
-                    text = data.mom.name
-                    previous_match__man_of_the_match_image.apply {
-                        visibility = View.VISIBLE
-                        when(getGender()){
-                            "men" -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.men_image).into(this)
-                            "women" -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.women_image).into(this)
-                        }
-                    }
-                }
-            }
+            setBuddingPlayer(data)
+            setManOfTheMatch(data)
 
             val team1Image = LogoUtility.getTeamLogo(data.team1.teamTag)
             val team2Image = LogoUtility.getTeamLogo(data.team2.teamTag)
@@ -151,10 +135,10 @@ abstract class BaseHome : Fragment(){
 
 
         if(data != null){
-            next_match_fixture_date.text = formattedDate(data.matchDateTime)
-            next_match_team2_score.text = getScore(data.team2Scorers)
+            next_match_fixture_date.text = DateUtility.formattedDate(data.matchDateTime)
+            next_match_team2_score.text = null
             next_match_team2_name.text = data.team2.name
-            next_match_team1_score.text = getScore(data.team1Scorers)
+            next_match_team1_score.text = null
             next_match_team1_name.text = data.team1.name
 
             val team1Image = LogoUtility.getTeamLogo(data.team1.teamTag)
@@ -166,6 +150,48 @@ abstract class BaseHome : Fragment(){
 
     }
 
+    private fun setManOfTheMatch(data: FixturesData) {
+
+        if(data.mom != null){
+            previous_match_man_of_the_match_name.apply {
+                visibility = View.VISIBLE
+                text = data.mom.name
+                man_of_the_match.visibility = View.VISIBLE
+            }
+
+            previous_match__man_of_the_match_image.apply {
+                visibility = View.VISIBLE
+                when(getGender()){
+                    "men" -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.men_image).into(this)
+                    "women" -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.women_image).into(this)
+                }
+            }
+        }
+
+    }
+
+    private fun setBuddingPlayer(data : FixturesData) {
+
+        if(data.buddingPlayer != null){
+            previous_match_budding_player_name.apply {
+                visibility = View.VISIBLE
+                text = data.buddingPlayer.name
+                budding_player.visibility = View.VISIBLE
+            }
+
+            previous_match__budding_player_image.apply {
+                visibility = View.VISIBLE
+                when(getGender()){
+                    "men" -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.men_image).into(this)
+                    "women" -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.women_image).into(this)
+                }
+            }
+        }
+
+
+
+    }
+
 
     private fun getScore(scorers : Map<String, Int>?): String {
         if(scorers == null){
@@ -173,14 +199,6 @@ abstract class BaseHome : Fragment(){
         }
         return scorers.values.sum().toString()
 
-    }
-
-    private fun formattedDate(timeInMillis : Long): String {
-
-        val pattern = "dd/MMM/yyyy - hh:mm a"
-        val date = Date(timeInMillis)
-        val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-        return sdf.format(date)
     }
 
     override fun onDestroyView() {

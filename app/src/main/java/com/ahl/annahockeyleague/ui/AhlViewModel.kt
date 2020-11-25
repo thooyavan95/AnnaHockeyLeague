@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ahl.annahockeyleague.DataState
+import com.ahl.annahockeyleague.data.DataState
 import com.ahl.annahockeyleague.data.*
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
@@ -70,7 +70,7 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
                         is Fixtures ->{
 
-                            if (datum[0].category == "men"){
+                            if (datum[0].category == Category.MEN){
 
                                 val fixturesLoaderData = ahlDataStream.value!!.loaderData.copy(fixturesForMen = UIState.SHOW_CONTENT)
                                 ahlDataStream.value!!.copy(fixturesMen = datum, loaderData = fixturesLoaderData)
@@ -86,7 +86,7 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
                         is Teams ->{
 
-                            if(datum[0].category == "men"){
+                            if(datum[0].category == Category.MEN){
                                 val teamsLoaderData = ahlDataStream.value!!.loaderData.copy(teamsForMen = UIState.SHOW_CONTENT)
                                 ahlDataStream.value!!.copy(teamsMen = datum, loaderData = teamsLoaderData)
                             }else{
@@ -97,7 +97,7 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
                         }
 
                         is PointsTable -> {
-                            if(datum[0].category == "men"){
+                            if(datum[0].category == Category.MEN){
                                 val pointsLoaderData = ahlDataStream.value!!.loaderData.copy(pointsTableForMen = UIState.SHOW_CONTENT)
                                 ahlDataStream.value!!.copy(loaderData = pointsLoaderData, pointsTableMen = datum)
                             }else{
@@ -107,7 +107,7 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
                         }
 
                         is TopScorers -> {
-                            if(datum[0].category == "men"){
+                            if(datum[0].category == Category.MEN){
                                 val topScorersLoaderData = ahlDataStream.value!!.loaderData.copy(topScorersForMen = UIState.SHOW_CONTENT)
                                 ahlDataStream.value!!.copy(loaderData = topScorersLoaderData, topScorersMen = datum)
                             }else{
@@ -154,10 +154,10 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
     private fun fetchHomePageData(tournamentId: String){
 
         viewModelScope.launch {
-            ahlRepoImpl.fetchHomePageData( category = "men" ,tournamentId = tournamentId)
+            ahlRepoImpl.fetchHomePageData( category = Category.MEN ,tournamentId = tournamentId)
 
             launch {
-                ahlRepoImpl.fetchHomePageData(tournamentId, "women")
+                ahlRepoImpl.fetchHomePageData(tournamentId, Category.WOMEN)
             }
         }
 
@@ -166,11 +166,11 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
     private fun fetchTeamList(tournamentId: String){
         viewModelScope.launch {
-            ahlRepoImpl.fetchTeamList(tournamentId, "men")
+            ahlRepoImpl.fetchTeamList(tournamentId, Category.MEN)
         }
 
         viewModelScope.launch {
-            ahlRepoImpl.fetchTeamList(tournamentId, "women")
+            ahlRepoImpl.fetchTeamList(tournamentId, Category.WOMEN)
         }
     }
 

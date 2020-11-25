@@ -14,7 +14,7 @@ data class PointsTableData(
         val draw : Int,
         val lost : Int,
         val team: TeamData,
-        var category : String
+        var category : Category
 )
 
 

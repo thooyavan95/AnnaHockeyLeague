@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
+import com.ahl.annahockeyleague.data.Category
 import com.ahl.annahockeyleague.data.TopScorersData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.top_scorer_row_template.view.*
 
-class TopScorersAdapter(private val category : String) : RecyclerView.Adapter<TopScorersAdapter.TopScorersViewHolder>() {
+class TopScorersAdapter(private val category : Category) : RecyclerView.Adapter<TopScorersAdapter.TopScorersViewHolder>() {
 
     private var topScorersDataData : List<TopScorersData>? = null
 
@@ -44,9 +45,9 @@ class TopScorersAdapter(private val category : String) : RecyclerView.Adapter<To
 
             when(category){
 
-                "men" -> Picasso.get().load(topScorersDataObject.player.profile)
+                Category.MEN -> Picasso.get().load(topScorersDataObject.player.profile)
                         .placeholder(R.drawable.men_image).into(itemView.top_scorer_avatar)
-                "women" -> Picasso.get().load(topScorersDataObject.player.profile)
+                Category.WOMEN -> Picasso.get().load(topScorersDataObject.player.profile)
                         .placeholder(R.drawable.women_image).into(itemView.top_scorer_avatar)
             }
         }

@@ -1,8 +1,9 @@
 package com.ahl.annahockeyleague.ui
 
 import android.util.Log
-import com.ahl.annahockeyleague.DataState
+import com.ahl.annahockeyleague.data.DataState
 import com.ahl.annahockeyleague.data.Action
+import com.ahl.annahockeyleague.data.Category
 import com.ahl.annahockeyleague.network.RetrofitService
 import com.jakewharton.rxrelay2.PublishRelay
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
     }
 
-    override suspend fun fetchHomePageData(tournamentId: String, category: String) {
+    override suspend fun fetchHomePageData(tournamentId: String, category: Category) {
 
         Log.d("id", tournamentId)
         withContext(Dispatchers.IO) {
@@ -49,7 +50,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
 
 
-    override suspend fun fetchTeamList(tournamentId: String, category: String) {
+    override suspend fun fetchTeamList(tournamentId: String, category: Category) {
 
         withContext(Dispatchers.IO) {
                 getTeamData(category, tournamentId)
@@ -57,10 +58,10 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
     }
 
-    private suspend fun getAsyncFixturesData(category: String, tournamentId: String) {
+    private suspend fun getAsyncFixturesData(category : Category, tournamentId: String) {
 
         try {
-            val response = RetrofitService.getInstance.getFixturesData(category, tournamentId)
+            val response = RetrofitService.getInstance.getFixturesData(category.gender, tournamentId)
 
             response.map {
                 it.category = category
@@ -69,7 +70,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
             networkStream.accept(DataState.Success(response))
 
         } catch (e: Exception) {
-            if (category == "men") {
+            if (category == Category.MEN) {
                 networkStream.accept(DataState.Failure(Action.FixturesForMen, e.message))
             } else {
                 networkStream.accept(DataState.Failure(Action.FixturesForWomen, e.message))
@@ -78,10 +79,10 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
         }
     }
 
-    private suspend fun getAsyncPointsData(category: String, tournamentId: String) {
+    private suspend fun getAsyncPointsData(category: Category, tournamentId: String) {
 
         try {
-            val response = RetrofitService.getInstance.getPointsTableData(category, tournamentId)
+            val response = RetrofitService.getInstance.getPointsTableData(category.gender, tournamentId)
 
             response.map {
                 it.category = category
@@ -89,7 +90,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
             networkStream.accept(DataState.Success(response))
         } catch (e: Exception) {
-            if (category == "men") {
+            if (category == Category.MEN) {
                 networkStream.accept(DataState.Failure(Action.PointsTableForMen, e.message))
             } else {
                 networkStream.accept(DataState.Failure(Action.PointsTableForWomen, e.message))
@@ -98,10 +99,10 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
         }
     }
 
-    private suspend fun getAsyncTopScorersData(category: String, tournamentId: String) {
+    private suspend fun getAsyncTopScorersData(category: Category, tournamentId: String) {
 
         try {
-            val response = RetrofitService.getInstance.getTopScorersData(tournamentId, category)
+            val response = RetrofitService.getInstance.getTopScorersData(tournamentId, category.gender)
 
             response.map {
                 it.category = category
@@ -110,7 +111,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
             networkStream.accept(DataState.Success(response))
 
         } catch (e: Exception) {
-            if (category == "men") {
+            if (category == Category.MEN) {
                 networkStream.accept(DataState.Failure(Action.TopScorersForMen, e.message))
             } else {
                 networkStream.accept(DataState.Failure(Action.TopScorersForWomen, e.message))
@@ -120,10 +121,10 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
     }
 
-    private suspend fun getTeamData(category: String, tournamentId: String){
+    private suspend fun getTeamData(category: Category, tournamentId: String){
 
         try {
-            val response = RetrofitService.getInstance.getTeamsListData(tournamentId, category)
+            val response = RetrofitService.getInstance.getTeamsListData(tournamentId, category.gender)
 
             response.map {
                 it.category = category
@@ -132,7 +133,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
             networkStream.accept(DataState.Success(response))
 
         } catch (e: Exception) {
-            if (category == "men") {
+            if (category == Category.MEN) {
                 networkStream.accept(DataState.Failure(Action.TeamsForMen, e.message))
             } else {
                 networkStream.accept(DataState.Failure(Action.TeamsForWomen, e.message))

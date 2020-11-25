@@ -1,6 +1,7 @@
 package com.ahl.annahockeyleague.ui.home
 
 import com.ahl.annahockeyleague.data.AhlData
+import com.ahl.annahockeyleague.data.Category
 
 class HomeWomen : BaseHome() {
 
@@ -43,7 +44,7 @@ class HomeWomen : BaseHome() {
 
     }
 
-    override fun getGender(): String {
-        return "women"
+    override fun getGender(): Category {
+        return Category.WOMEN
     }
 }

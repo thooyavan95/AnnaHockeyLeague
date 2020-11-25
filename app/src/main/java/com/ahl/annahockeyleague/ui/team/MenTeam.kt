@@ -1,6 +1,7 @@
 package com.ahl.annahockeyleague.ui.team
 
 import com.ahl.annahockeyleague.data.AhlData
+import com.ahl.annahockeyleague.data.Category
 
 class MenTeam : BaseTeam() {
 
@@ -19,5 +20,5 @@ class MenTeam : BaseTeam() {
         }
     }
 
-    override fun getGender(): String = "men"
+    override fun getGender(): Category = Category.MEN
 }

@@ -11,5 +11,5 @@ data class TeamData(
         val teamLogo: String = "",
         val teamTag: TeamTag = TeamTag.DEFAULT,
         val tournamentId: ObjectId = ObjectId(),
-        var category : String = ""
+        var category : Category = Category.DEFAULT
 )

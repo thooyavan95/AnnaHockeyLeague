@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.adapters.TeamsAdapter
 import com.ahl.annahockeyleague.data.AhlData
+import com.ahl.annahockeyleague.data.Category
 import com.ahl.annahockeyleague.data.TeamData
 import com.ahl.annahockeyleague.ui.AhlViewModel
 import com.ahl.annahockeyleague.ui.UIThreadExecutor
@@ -36,7 +37,7 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
 
     abstract fun getData(ahlData: AhlData)
 
-    abstract fun getGender() : String
+    abstract fun getGender() : Category
 
     override fun onTeamSelected(position: Int) {
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()

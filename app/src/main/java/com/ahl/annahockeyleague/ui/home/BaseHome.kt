@@ -38,7 +38,7 @@ abstract class BaseHome : Fragment(){
 
     abstract fun getData(ahlData: AhlData)
 
-    abstract fun getGender() : String
+    abstract fun getGender() : Category
 
     private fun showError(error: String?) {
         Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
@@ -100,13 +100,13 @@ abstract class BaseHome : Fragment(){
     private fun getPreviousMatchDetails(fixturesDataList: List<FixturesData>) : FixturesData? {
 
         return fixturesDataList.sortedByDescending { it.matchDateTime }
-                .find { it.status == "COMPLETED"}
+                .find { it.status == Status.COMPLETED}
 
     }
 
     private fun getNextMatchDetails(fixturesDataList: List<FixturesData>): FixturesData? {
         return fixturesDataList.sortedBy { it.matchDateTime }
-                .find { it.status == "UPCOMING" }
+                .find { it.status == Status.UPCOMING }
     }
 
     private fun setPreviousMatch(data : FixturesData?) {
@@ -162,8 +162,8 @@ abstract class BaseHome : Fragment(){
             previous_match__man_of_the_match_image.apply {
                 visibility = View.VISIBLE
                 when(getGender()){
-                    "men" -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.men_image).into(this)
-                    "women" -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.women_image).into(this)
+                    Category.MEN -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.men_image).into(this)
+                    Category.WOMEN -> Picasso.get().load(data.mom.profile).placeholder(R.drawable.women_image).into(this)
                 }
             }
         }
@@ -182,8 +182,8 @@ abstract class BaseHome : Fragment(){
             previous_match__budding_player_image.apply {
                 visibility = View.VISIBLE
                 when(getGender()){
-                    "men" -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.men_image).into(this)
-                    "women" -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.women_image).into(this)
+                    Category.MEN -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.men_image).into(this)
+                    Category.WOMEN -> Picasso.get().load(data.buddingPlayer.profile).placeholder(R.drawable.women_image).into(this)
                 }
             }
         }

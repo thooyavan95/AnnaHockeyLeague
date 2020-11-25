@@ -12,11 +12,17 @@ data class FixturesData(
         val round: String = "",
         val timer: String ="",
         val result : Int = 0,
-        val status: String = "",
+        val status: Status,
         val matchDateTime: Long = 0L,
         val team1Scorers: Map<String, Int> = mapOf(),
         val team2Scorers: Map<String, Int> = mapOf(),
         val team1: TeamData = TeamData(),
         val team2: TeamData = TeamData(),
-        var category : String = ""
+        var category : Category
 )
+
+enum class Status(val status: String){
+
+    UPCOMING("UPCOMING"),
+    COMPLETED("COMPLETED")
+}

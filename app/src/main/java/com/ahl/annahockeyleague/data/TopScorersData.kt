@@ -8,5 +8,5 @@ class TopScorersData(val playerId: ObjectId,
                      val goals: Int,
                      val player: Player,
                      val team: TeamData,
-                     var category : String
+                     var category : Category
 )

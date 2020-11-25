@@ -2,7 +2,7 @@ package com.ahl.annahockeyleague.ui
 
 import android.util.Log
 import com.ahl.annahockeyleague.data.DataState
-import com.ahl.annahockeyleague.data.Action
+import com.ahl.annahockeyleague.data.DataFailedAction
 import com.ahl.annahockeyleague.data.Category
 import com.ahl.annahockeyleague.network.RetrofitService
 import com.jakewharton.rxrelay2.PublishRelay
@@ -22,7 +22,7 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
                 tournamentListener.onTournamentIdResponse(DataState.Success(tournament.id))
             }
             catch(e : Exception){
-                tournamentListener.onTournamentIdResponse(DataState.Failure(Action.Tournament, e.message))
+                tournamentListener.onTournamentIdResponse(DataState.Failure(DataFailedAction.TOURNAMENT, e.message))
             }
 
     }
@@ -71,9 +71,9 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
         } catch (e: Exception) {
             if (category == Category.MEN) {
-                networkStream.accept(DataState.Failure(Action.FixturesForMen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.FIXTURES_MEN, e.message))
             } else {
-                networkStream.accept(DataState.Failure(Action.FixturesForWomen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.FIXTURES_WOMEN, e.message))
             }
 
         }
@@ -91,9 +91,9 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
             networkStream.accept(DataState.Success(response))
         } catch (e: Exception) {
             if (category == Category.MEN) {
-                networkStream.accept(DataState.Failure(Action.PointsTableForMen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.POINTS_TABLE_MEN, e.message))
             } else {
-                networkStream.accept(DataState.Failure(Action.PointsTableForWomen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.POINTS_TABLE_WOMEN, e.message))
             }
 
         }
@@ -112,9 +112,9 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
         } catch (e: Exception) {
             if (category == Category.MEN) {
-                networkStream.accept(DataState.Failure(Action.TopScorersForMen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.TOP_SCORERS_MEN, e.message))
             } else {
-                networkStream.accept(DataState.Failure(Action.TopScorersForWomen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.TOP_SCORERS_WOMEN, e.message))
             }
 
         }
@@ -134,9 +134,9 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
         } catch (e: Exception) {
             if (category == Category.MEN) {
-                networkStream.accept(DataState.Failure(Action.TeamsForMen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.TEAMS_MEN, e.message))
             } else {
-                networkStream.accept(DataState.Failure(Action.TeamsForWomen, e.message))
+                networkStream.accept(DataState.Failure(DataFailedAction.TEAMS_WOMEN, e.message))
             }
         }
     }

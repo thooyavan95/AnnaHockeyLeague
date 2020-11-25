@@ -23,14 +23,19 @@ class PointsTableAdapter : RecyclerView.Adapter<PointsTableAdapter.PointsTableVi
     override fun getItemCount(): Int {
 
         if(pointsTableDataData != null){
-            return pointsTableDataData!!.size
+            return pointsTableDataData!!.size + 1
         }
 
         return 0
     }
 
     override fun onBindViewHolder(holder: PointsTableViewHolder, position: Int) {
-        holder.bindViews(pointsTableDataData!![position])
+        if(position == 0){
+            holder.bindHeader()
+        }else{
+            holder.bindViews(pointsTableDataData!![position - 1])
+        }
+
     }
 
     fun updatePointsTableData(pointsTableDataDataList : List<PointsTableData>){
@@ -53,6 +58,17 @@ class PointsTableAdapter : RecyclerView.Adapter<PointsTableAdapter.PointsTableVi
 
             val teamLogo = LogoUtility.getTeamLogo(pointsTableDataData.team.teamTag)
             Picasso.get().load(teamLogo).into(itemView.PT_row_team_logo)
+        }
+
+        fun bindHeader() {
+
+            itemView.PT_row_win.text = "W"
+            itemView.PT_row_loss.text = "L"
+            itemView.PT_row_draw.text = "D"
+            itemView.PT_row_goalDiff.text = "GD"
+            itemView.PT_row_matches_played.text = "P"
+            itemView.PT_row_points.text = "PT"
+
         }
 
     }

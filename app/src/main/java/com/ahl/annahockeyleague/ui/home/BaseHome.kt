@@ -33,10 +33,10 @@ abstract class BaseHome : Fragment(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
-            disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::getData)
+            disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::showData)
     }
 
-    abstract fun getData(ahlData: AhlData)
+    abstract fun showData(newData: AhlData)
 
     abstract fun getGender() : Category
 

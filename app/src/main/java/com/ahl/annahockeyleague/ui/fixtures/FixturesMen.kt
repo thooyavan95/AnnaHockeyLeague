@@ -4,7 +4,7 @@ import com.ahl.annahockeyleague.data.AhlData
 
 class FixturesMen : BaseFixtures() {
 
-    override fun getData(newData: AhlData) {
+    override fun showData(newData: AhlData) {
 
         val fixtures = newData.fixturesMen
 
@@ -15,8 +15,10 @@ class FixturesMen : BaseFixtures() {
         val dataLoader = newData.loaderData.fixturesForMen
 
         if(oldData == null || oldData?.loaderData?.fixturesForMen != dataLoader){
-            setLoader()
+            showLoader(dataLoader)
         }
+
+        oldData = newData
 
     }
 }

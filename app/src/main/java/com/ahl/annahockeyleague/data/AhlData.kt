@@ -26,17 +26,17 @@ data class LoaderData(
         val teamsForWomen : UIState = UIState.SHOW_LOADER
 )
 
-enum class Action{
+enum class DataFailedAction{
 
-    Tournament,
-    FixturesForMen,
-    FixturesForWomen,
-    TopScorersForMen,
-    TopScorersForWomen,
-    PointsTableForMen,
-    PointsTableForWomen,
-    TeamsForMen,
-    TeamsForWomen,
+    TOURNAMENT,
+    FIXTURES_MEN,
+    FIXTURES_WOMEN,
+    TOP_SCORERS_MEN,
+    TOP_SCORERS_WOMEN,
+    POINTS_TABLE_MEN,
+    POINTS_TABLE_WOMEN,
+    TEAMS_MEN,
+    TEAMS_WOMEN,
 
 }
 

@@ -13,6 +13,7 @@ import com.ahl.annahockeyleague.adapters.TeamsAdapter
 import com.ahl.annahockeyleague.data.AhlData
 import com.ahl.annahockeyleague.data.Category
 import com.ahl.annahockeyleague.data.TeamData
+import com.ahl.annahockeyleague.data.UIState
 import com.ahl.annahockeyleague.ui.AhlViewModel
 import com.ahl.annahockeyleague.ui.UIThreadExecutor
 import io.reactivex.disposables.Disposable
@@ -32,10 +33,10 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
 
-        disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::getData)
+        disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::showData)
     }
 
-    abstract fun getData(ahlData: AhlData)
+    abstract fun showData(newData: AhlData)
 
     abstract fun getGender() : Category
 
@@ -43,7 +44,19 @@ abstract class BaseTeam : Fragment(), TeamsAdapter.TeamListener {
             Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
     }
 
-    fun teamLoader(){
+    fun teamLoader(uiState: UIState){
+
+        when(uiState){
+
+            UIState.SHOW_LOADER -> shimmer_team.visibility = View.VISIBLE
+
+            UIState.SHOW_CONTENT -> {
+                shimmer_team.visibility = View.GONE
+                team_recycle_view.visibility = View.VISIBLE
+            }
+
+            UIState.SHOW_ERROR -> shimmer_team.visibility = View.GONE
+        }
 
     }
 

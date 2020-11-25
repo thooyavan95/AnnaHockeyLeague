@@ -124,23 +124,23 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
                 is DataState.Failure ->{
 
-                    when(it.action){
+                    when(it.dataFailedAction){
 
-                        Action.FixturesForMen -> ahlDataStream.value!!.loaderData.copy(fixturesForMen = UIState.SHOW_ERROR)
+                        DataFailedAction.FIXTURES_MEN -> ahlDataStream.value!!.loaderData.copy(fixturesForMen = UIState.SHOW_ERROR)
 
-                        Action.FixturesForWomen -> ahlDataStream.value!!.loaderData.copy(fixturesForWomen = UIState.SHOW_ERROR)
+                        DataFailedAction.FIXTURES_WOMEN -> ahlDataStream.value!!.loaderData.copy(fixturesForWomen = UIState.SHOW_ERROR)
 
-                        Action.TeamsForMen -> ahlDataStream.value!!.loaderData.copy(teamsForMen = UIState.SHOW_ERROR)
+                        DataFailedAction.TEAMS_MEN -> ahlDataStream.value!!.loaderData.copy(teamsForMen = UIState.SHOW_ERROR)
 
-                        Action.TeamsForWomen -> ahlDataStream.value!!.loaderData.copy(teamsForWomen = UIState.SHOW_ERROR)
+                        DataFailedAction.TEAMS_WOMEN -> ahlDataStream.value!!.loaderData.copy(teamsForWomen = UIState.SHOW_ERROR)
 
-                        Action.TopScorersForWomen -> ahlDataStream.value!!.loaderData.copy(topScorersForWomen = UIState.SHOW_ERROR)
+                        DataFailedAction.TOP_SCORERS_WOMEN -> ahlDataStream.value!!.loaderData.copy(topScorersForWomen = UIState.SHOW_ERROR)
 
-                        Action.TopScorersForMen -> ahlDataStream.value!!.loaderData.copy(topScorersForMen = UIState.SHOW_ERROR)
+                        DataFailedAction.TOP_SCORERS_MEN -> ahlDataStream.value!!.loaderData.copy(topScorersForMen = UIState.SHOW_ERROR)
 
-                        Action.PointsTableForMen -> ahlDataStream.value!!.loaderData.copy(pointsTableForMen = UIState.SHOW_ERROR)
+                        DataFailedAction.POINTS_TABLE_MEN -> ahlDataStream.value!!.loaderData.copy(pointsTableForMen = UIState.SHOW_ERROR)
 
-                        Action.PointsTableForWomen -> ahlDataStream.value!!.loaderData.copy(pointsTableForWomen = UIState.SHOW_ERROR)
+                        DataFailedAction.POINTS_TABLE_WOMEN -> ahlDataStream.value!!.loaderData.copy(pointsTableForWomen = UIState.SHOW_ERROR)
                     }
 
 

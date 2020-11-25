@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/previous_match_team1_image"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
@@ -65,7 +65,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date"/>
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/previous_match_team2_image"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
@@ -74,7 +74,7 @@
                         app:layout_constraintStart_toEndOf="@+id/previous_match_team2_score"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time"/>
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/previous_match__budding_player_image"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
@@ -85,7 +85,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name"
                         />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/previous_match__man_of_the_match_image"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
@@ -96,7 +96,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_name"
                         />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_fixture_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_fixture_time"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                         app:layout_constraintStart_toEndOf="@+id/previous_match_fixture_date"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_team2_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                         app:layout_constraintStart_toEndOf="@+id/previous_match_fixture_colon"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_time" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_fixture_colon"
                         android:layout_width="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -150,7 +150,7 @@
                         app:layout_constraintStart_toEndOf="@+id/previous_match_team1_score"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_team1_score"
                         android:layout_width="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -162,7 +162,7 @@
                         app:layout_constraintStart_toEndOf="@+id/previous_match_team1_image"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_fixture_date" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_team1_name"
                         android:layout_width="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -172,7 +172,7 @@
                         app:layout_constraintStart_toStartOf="@+id/previous_match_team1_image"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_image" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_team2_name"
                         android:layout_width="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -182,7 +182,7 @@
                         app:layout_constraintStart_toStartOf="@+id/previous_match_team2_image"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team2_image" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_budding_player_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                         app:layout_constraintStart_toStartOf="@+id/previous_match__budding_player_image"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match__budding_player_image" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/previous_match_man_of_the_match_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                         app:layout_constraintStart_toStartOf="@+id/previous_match__man_of_the_match_image"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match__man_of_the_match_image" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/budding_player"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/previous_match_team1_name" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/man_of_the_match"
                         android:layout_width="wrap_content"
                         android:visibility="gone"
@@ -261,161 +261,6 @@
                 app:cardCornerRadius="12dp"
                 app:cardUseCompatPadding="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:id="@+id/points_table_header_constraint"
-                        android:visibility="invisible"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-
-                            android:id="@+id/points_table_header_team_logo"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:text="LO"
-                            android:textSize="16sp"
-                            android:visibility="invisible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_team_name"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_position"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_win"
-                            android:layout_width="24dp"
-                            android:layout_height="wrap_content"
-                            android:text="W"
-                            android:textColor="@color/colorBlack"
-                            android:textAlignment="textEnd"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_loss"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_matches_played"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_loss"
-                            android:layout_width="24dp"
-                            android:layout_height="wrap_content"
-                            android:text="L"
-                            android:textColor="@color/colorBlack"
-                            android:textAlignment="textEnd"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_draw"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_win"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_draw"
-                            android:layout_width="24dp"
-                            android:layout_height="wrap_content"
-                            android:text="D"
-                            android:textColor="@color/colorBlack"
-                            android:textAlignment="textEnd"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_goalDiff"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_loss"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_goalDiff"
-                            android:layout_width="36dp"
-                            android:layout_height="wrap_content"
-                            android:text="GD"
-                            android:textColor="@color/colorBlack"
-                            android:textAlignment="textEnd"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_points"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_draw"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_points"
-                            android:layout_width="24dp"
-                            android:layout_height="wrap_content"
-                            android:text="PT"
-                            android:textColor="@color/colorBlack"
-                            android:textAlignment="textEnd"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_goalDiff"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_position"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="P"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:visibility="invisible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_team_logo"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_team_name"
-                            android:layout_width="36dp"
-                            android:layout_height="wrap_content"
-                            android:text="TT"
-                            android:textAlignment="center"
-                            android:textSize="16sp"
-                            android:visibility="invisible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_matches_played"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_team_logo"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <TextView
-                            android:id="@+id/points_table_header_matches_played"
-                            android:layout_width="24dp"
-                            android:layout_height="wrap_content"
-                            android:text="P"
-                            android:textColor="@color/colorBlack"
-                            android:textAlignment="textEnd"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/points_table_header_win"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/points_table_header_team_name"
-                            app:layout_constraintTop_toTopOf="@+id/points_table_header_guideline" />
-
-                        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/points_table_header_guideline"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_begin="0dp" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:id="@+id/points_view"
-                        android:visibility="invisible"
-                        android:background="?android:attr/listDivider"/>
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/points_table_listview"
                         android:orientation="vertical"
@@ -424,7 +269,6 @@
                         android:layout_height="wrap_content">
                     </androidx.recyclerview.widget.RecyclerView>
 
-                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 

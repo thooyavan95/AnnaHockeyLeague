@@ -11,6 +11,7 @@ import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.adapters.FixturesAdapter
 import com.ahl.annahockeyleague.data.AhlData
 import com.ahl.annahockeyleague.data.FixturesData
+import com.ahl.annahockeyleague.data.UIState
 import com.ahl.annahockeyleague.ui.AhlViewModel
 import com.ahl.annahockeyleague.ui.UIThreadExecutor
 import io.reactivex.disposables.Disposable
@@ -30,12 +31,25 @@ abstract class BaseFixtures : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
 
-        disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::getData)
+        disposable = viewModel.ahlDataStream.observeOn(Schedulers.from(UIThreadExecutor())).subscribe(this::showData)
     }
 
-    abstract fun getData(newState : AhlData)
+    abstract fun showData(newData : AhlData)
 
-    fun setLoader(){
+    fun showLoader(uiState : UIState){
+
+        when(uiState){
+
+            UIState.SHOW_LOADER -> shimmer_fixtures_layout.visibility = View.VISIBLE
+
+            UIState.SHOW_CONTENT -> {
+                shimmer_fixtures_layout.visibility = View.GONE
+                fixtures_recycler_view.visibility = View.VISIBLE
+            }
+
+            UIState.SHOW_ERROR -> shimmer_fixtures_layout.visibility = View.GONE
+
+        }
 
     }
 
@@ -45,6 +59,7 @@ abstract class BaseFixtures : Fragment() {
         adapter.updateFixturesData(fixturesDataData)
         fixtures_recycler_view.layoutManager = LinearLayoutManager(context)
         fixtures_recycler_view.adapter = adapter
+
     }
 
     override fun onDestroyView() {

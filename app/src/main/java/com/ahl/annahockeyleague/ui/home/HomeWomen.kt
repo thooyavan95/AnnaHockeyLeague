@@ -5,43 +5,44 @@ import com.ahl.annahockeyleague.data.Category
 
 class HomeWomen : BaseHome() {
 
-    override fun getData(ahlData: AhlData) {
-        val fixturesData = ahlData.fixturesWoMen
+    override fun showData(newData: AhlData) {
+        val fixturesData = newData.fixturesWoMen
 
         if(oldData == null || oldData?.fixturesWoMen != fixturesData){
             setMatchData(fixturesData)
         }
 
-        val fixturesDataLoader = ahlData.loaderData.fixturesForWomen
+        val fixturesDataLoader = newData.loaderData.fixturesForWomen
 
         if(oldData == null || oldData?.loaderData?.fixturesForWomen != fixturesDataLoader){
             showMatchData(fixturesDataLoader)
         }
 
-        val pointsTableData = ahlData.pointsTableWoMen
+        val pointsTableData = newData.pointsTableWoMen
 
         if(oldData == null || oldData?.pointsTableWoMen != pointsTableData){
             setPointsData(pointsTableData)
         }
 
-        val pointsDataLoader = ahlData.loaderData.pointsTableForWomen
+        val pointsDataLoader = newData.loaderData.pointsTableForWomen
 
         if(oldData == null || oldData?.loaderData?.pointsTableForWomen != pointsDataLoader){
             showPointsTable(pointsDataLoader)
         }
 
-        val topScorersData = ahlData.topScorersWoMen
+        val topScorersData = newData.topScorersWoMen
 
         if(oldData == null || oldData?.topScorersWoMen != topScorersData){
             setTopScorers(topScorersData)
         }
 
-        val topScorersLoader = ahlData.loaderData.topScorersForWomen
+        val topScorersLoader = newData.loaderData.topScorersForWomen
 
         if(oldData == null || oldData?.loaderData?.topScorersForWomen != topScorersLoader){
             showTopScorers(topScorersLoader)
         }
 
+        oldData = newData
     }
 
     override fun getGender(): Category {

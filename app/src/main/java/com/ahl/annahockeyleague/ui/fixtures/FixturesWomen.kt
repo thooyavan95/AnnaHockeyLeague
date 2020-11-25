@@ -4,19 +4,20 @@ import com.ahl.annahockeyleague.data.AhlData
 
 class FixturesWomen : BaseFixtures() {
 
-    override fun getData(newState: AhlData) {
+    override fun showData(newData: AhlData) {
 
-        val fixtures = newState.fixturesWoMen
+        val fixtures = newData.fixturesWoMen
 
         if(oldData == null || oldData?.fixturesWoMen != fixtures){
             setFixtures(fixtures)
         }
 
-        val fixturesLoader = newState.loaderData.fixturesForWomen
+        val fixturesLoader = newData.loaderData.fixturesForWomen
 
         if(oldData == null || oldData?.loaderData?.fixturesForWomen != fixturesLoader){
-            setLoader()
+            showLoader(fixturesLoader)
         }
 
+        oldData = newData
     }
 }

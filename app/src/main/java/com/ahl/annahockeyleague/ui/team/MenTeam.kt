@@ -5,19 +5,21 @@ import com.ahl.annahockeyleague.data.Category
 
 class MenTeam : BaseTeam() {
 
-    override fun getData(ahlData: AhlData) {
+    override fun showData(newData: AhlData) {
 
-        val teamData = ahlData.teamsMen
+        val teamData = newData.teamsMen
 
         if(oldData == null || oldData?.teamsMen != teamData){
             setTeams(teamData)
         }
 
-        val teamDataLoader = ahlData.loaderData.teamsForMen
+        val teamDataLoader = newData.loaderData.teamsForMen
 
         if(oldData == null || oldData?.loaderData?.teamsForMen != teamDataLoader){
-            teamLoader()
+            teamLoader(teamDataLoader)
         }
+
+        oldData = newData
     }
 
     override fun getGender(): Category = Category.MEN

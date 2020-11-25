@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/next_match_team1_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date"/>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/next_match_team2_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -32,7 +32,7 @@
             app:layout_constraintStart_toEndOf="@+id/next_match_team2_score"
             app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_fixture_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_fixture_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             app:layout_constraintStart_toEndOf="@+id/next_match_fixture_date"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_team2_score"
             android:layout_width="14dp"
             android:layout_height="33dp"
@@ -73,7 +73,7 @@
             app:layout_constraintStart_toEndOf="@+id/next_match_fixture_colon"
             app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_time" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_fixture_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             app:layout_constraintStart_toEndOf="@+id/next_match_team1_score"
             app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_team1_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             app:layout_constraintStart_toEndOf="@+id/next_match_team1_image"
             app:layout_constraintTop_toBottomOf="@+id/next_match_fixture_date" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_team1_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             app:layout_constraintStart_toStartOf="@+id/next_match_team1_image"
             app:layout_constraintTop_toBottomOf="@+id/next_match_team1_image" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/next_match_team2_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

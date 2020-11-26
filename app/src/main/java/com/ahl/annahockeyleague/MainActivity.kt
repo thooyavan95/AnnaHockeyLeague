@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        ahlViewModel.tournamentLiveData.observe(this, Observer { it ->
+        ahlViewModel.tournamentLiveData.observe(this, Observer {
             when(it){
 
                 UIState.SHOW_LOADER -> setErrorVisibility(errorVisibility = View.GONE)

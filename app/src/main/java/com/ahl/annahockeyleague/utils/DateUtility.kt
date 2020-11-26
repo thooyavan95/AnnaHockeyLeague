@@ -1,4 +1,4 @@
-package com.ahl.annahockeyleague.ahlUtils
+package com.ahl.annahockeyleague.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.adapters.PointsTableAdapter
 import com.ahl.annahockeyleague.adapters.TopScorersAdapter
-import com.ahl.annahockeyleague.ahlUtils.DateUtility
-import com.ahl.annahockeyleague.ahlUtils.LogoUtility
+import com.ahl.annahockeyleague.utils.DateUtility
+import com.ahl.annahockeyleague.utils.AhlUtils
 import com.ahl.annahockeyleague.data.*
 import com.ahl.annahockeyleague.ui.AhlViewModel
 import com.ahl.annahockeyleague.ui.UIThreadExecutor
@@ -114,16 +114,16 @@ abstract class BaseHome : Fragment(){
         if(data != null){
 
             previous_match_fixture_date.text = DateUtility.formattedDate(data.matchDateTime)
-            previous_match_team2_score.text = getScore(data.team2Scorers)
+            previous_match_team2_score.text = AhlUtils.getScore(data.team2Scorers)
             previous_match_team2_name.text = data.team2.name
-            previous_match_team1_score.text = getScore(data.team1Scorers)
+            previous_match_team1_score.text = AhlUtils.getScore(data.team1Scorers)
             previous_match_team1_name.text = data.team1.name
 
             setBuddingPlayer(data)
             setManOfTheMatch(data)
 
-            val team1Image = LogoUtility.getTeamLogo(data.team1.teamTag)
-            val team2Image = LogoUtility.getTeamLogo(data.team2.teamTag)
+            val team1Image = AhlUtils.getTeamLogo(data.team1.teamTag)
+            val team2Image = AhlUtils.getTeamLogo(data.team2.teamTag)
             Picasso.get().load(team1Image).into(previous_match_team1_image)
             Picasso.get().load(team2Image).into(previous_match_team2_image)
 
@@ -141,8 +141,8 @@ abstract class BaseHome : Fragment(){
             next_match_team1_score.text = null
             next_match_team1_name.text = data.team1.name
 
-            val team1Image = LogoUtility.getTeamLogo(data.team1.teamTag)
-            val team2Image = LogoUtility.getTeamLogo(data.team2.teamTag)
+            val team1Image = AhlUtils.getTeamLogo(data.team1.teamTag)
+            val team2Image = AhlUtils.getTeamLogo(data.team2.teamTag)
             Picasso.get().load(team1Image).into(next_match_team1_image)
             Picasso.get().load(team2Image).into(next_match_team2_image)
         }
@@ -192,14 +192,6 @@ abstract class BaseHome : Fragment(){
 
     }
 
-
-    private fun getScore(scorers : Map<String, Int>?): String {
-        if(scorers == null){
-            return "0"
-        }
-        return scorers.values.sum().toString()
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

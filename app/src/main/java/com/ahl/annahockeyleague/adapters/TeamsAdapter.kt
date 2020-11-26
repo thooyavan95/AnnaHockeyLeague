@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahl.annahockeyleague.R
-import com.ahl.annahockeyleague.ahlUtils.LogoUtility
+import com.ahl.annahockeyleague.utils.AhlUtils
 import com.ahl.annahockeyleague.data.Category
 import com.ahl.annahockeyleague.data.TeamData
 import com.squareup.picasso.Picasso
@@ -44,8 +44,8 @@ class TeamsAdapter(private val gender : Category, private val teamListener: Team
         fun onBindViews(teamData : TeamData){
 
             when(gender){
-                Category.MEN -> Picasso.get().load(LogoUtility.getTeamLogo(teamData.teamTag)).into(itemView.team_logo)
-                Category.WOMEN -> Picasso.get().load(LogoUtility.getTeamLogo(teamData.teamTag)).into(itemView.team_logo)
+                Category.MEN -> Picasso.get().load(AhlUtils.getTeamLogo(teamData.teamTag)).into(itemView.team_logo)
+                Category.WOMEN -> Picasso.get().load(AhlUtils.getTeamLogo(teamData.teamTag)).into(itemView.team_logo)
             }
 
             itemView.team_name.text = teamData.name

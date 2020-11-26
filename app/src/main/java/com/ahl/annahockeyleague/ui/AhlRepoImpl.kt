@@ -1,6 +1,5 @@
 package com.ahl.annahockeyleague.ui
 
-import android.util.Log
 import com.ahl.annahockeyleague.data.DataState
 import com.ahl.annahockeyleague.data.DataFailedAction
 import com.ahl.annahockeyleague.data.Category
@@ -29,7 +28,6 @@ class AhlRepoImpl(private val networkStream : PublishRelay<DataState>, private v
 
     override suspend fun fetchHomePageData(tournamentId: String, category: Category) {
 
-        Log.d("id", tournamentId)
         withContext(Dispatchers.IO) {
 
             launch {

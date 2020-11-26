@@ -1,9 +1,9 @@
-package com.ahl.annahockeyleague.ahlUtils
+package com.ahl.annahockeyleague.utils
 
 import com.ahl.annahockeyleague.R
 import com.ahl.annahockeyleague.data.TeamTag
 
-object LogoUtility {
+object AhlUtils {
 
     fun getTeamLogo(tag : TeamTag) : Int{
 
@@ -19,6 +19,14 @@ object LogoUtility {
 
             else -> 0
         }
+    }
+
+    fun getScore(scorers : Map<String, Int>?): String {
+        if(scorers == null){
+            return "0"
+        }
+        return scorers.values.sum().toString()
+
     }
 
 }

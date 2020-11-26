@@ -1,5 +1,6 @@
 package com.ahl.annahockeyleague.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,6 @@ import kotlinx.coroutines.launch
 import org.bson.types.ObjectId
 
 
-const val TAG = "ahlData"
 class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
     private val _tournamentStateMLD = MutableLiveData<UIState>()
@@ -65,8 +65,7 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
 
                 is DataState.Success ->{
 
-                    val datum = it.data
-                    val ahlUpdatedData : AhlData = when(datum){
+                    val ahlUpdatedData : AhlData = when(val datum = it.data){
 
                         is Fixtures ->{
 
@@ -154,7 +153,9 @@ class AhlViewModel : ViewModel(), AhlRepoImpl.TournamentListener {
     private fun fetchHomePageData(tournamentId: String){
 
         viewModelScope.launch {
-            ahlRepoImpl.fetchHomePageData( category = Category.MEN ,tournamentId = tournamentId)
+            launch {
+                ahlRepoImpl.fetchHomePageData( category = Category.MEN ,tournamentId = tournamentId)
+            }
 
             launch {
                 ahlRepoImpl.fetchHomePageData(tournamentId, Category.WOMEN)

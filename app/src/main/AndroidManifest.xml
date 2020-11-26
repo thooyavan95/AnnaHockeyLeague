@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ahl_home_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".AhlApplication"
         android:usesCleartextTraffic="true">
         <activity android:name=".OptionsActivity"/>
         <activity

@@ -17,12 +17,12 @@ abstract class AhlFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
 
-        adapterCode()
+        setUpViewPager()
     }
 
     abstract fun getFragmentList() : List<Fragment>
 
-    private fun adapterCode() {
+    private fun setUpViewPager() {
         val adapter = ViewPager2Adapter(this)
         adapter.updateList(getFragmentList())
         viewpager2.adapter = adapter
